@@ -17,8 +17,8 @@ $(OBJECTS):				$(OBJDIR)/%.o:	$(SRCDIR)/%.cc
 	mkdir	-p $(OBJDIR)
 	g++		-o $@ -c $< $(CFLAGS) -I$(INCLUDE_PATH)
 
-$(DOC) :
-	@doxygen $(DOCDIR)/$(DOC)
+# $(DOC) :
+# 	@doxygen $(DOCDIR)/$(DOC)
 
 all : $(DOC) $(TARGET)
 	@echo " ----- \e[32mLinking complete\e[39m ----- "
@@ -31,5 +31,5 @@ clean :
 	rm -f $(TARGET)
 	@echo " ----- \e[32mCleaning complete\e[39m ----- "
 
-open_doc :
-	@sensible-browser $(DOCDIR)/html/index.html
+# open_doc :
+# 	@sensible-browser $(DOCDIR)/html/index.html
