@@ -3,12 +3,12 @@
 Game:: Game( std::string title , int width , int height ) :
                  title( title ) , width ( width ) , height( height )
 {
-    ;
+    board = new Board() ;
 }
 
 Game:: ~Game()
 {
-    ;
+    delete( board ) ;
 }
 
 SDL_Window* Game:: get_window()
@@ -86,7 +86,7 @@ void Game:: run()
 {
     while( running )
     {
-        pressed_key = get_input( event ) ;
+        get_input() ;
         
         if( pressed_key == KEY_QUIT )
             running = false ;
@@ -94,12 +94,13 @@ void Game:: run()
         else
             use_key() ;
 
-        
+        //board->update
     }
 }
 
-void Game:: use_key() ;
+void Game:: use_key()
 {
+    ;
 }
 
 // bool Game:: load_menu()
@@ -133,4 +134,51 @@ SDL_Texture* Game:: load_texture( std::string path )
 	}
 
 	return newTexture;
+}
+
+void Game:: get_input()
+{
+    if( SDL_PollEvent( &event ) == 0 )
+        pressed_key = KEY_NULL ;
+
+    if( event.type == SDL_QUIT )
+        pressed_key = KEY_QUIT ;
+
+    switch( event.key.keysym.sym )
+    {
+        case SDLK_UP :
+            pressed_key = KEY_UP ;
+            break ;
+        
+        case SDLK_DOWN :
+            pressed_key = KEY_DOWN ;
+            break ;
+
+        case SDLK_LEFT :
+            pressed_key = KEY_LEFT ;
+            break ;
+        
+        case SDLK_RIGHT :
+            pressed_key = KEY_RIGHT ;
+            break ;
+
+        case SDLK_c :
+            pressed_key = KEY_STORE ;
+            break ;
+
+        case SDLK_RETURN :
+            pressed_key = KEY_ENTER ;
+            break ;
+
+        case SDLK_SPACE :
+            pressed_key = KEY_SPACE ;
+            break ;
+
+        case SDLK_ESCAPE :
+            pressed_key = KEY_PAUSE ;
+            break ;
+
+        default :
+            pressed_key = KEY_NULL ;
+    }
 }
