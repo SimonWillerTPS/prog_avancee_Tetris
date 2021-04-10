@@ -4,7 +4,8 @@ Game:: Game( std::string title , int width , int height ) :
                  title( title ) , width ( width ) , height( height )
 {
     board = new Board() ;
-    time = SDL_GetTicks() ;
+    timer = new LTimer() ;
+    timer->start() ;
 }
 
 Game:: ~Game()
@@ -12,6 +13,7 @@ Game:: ~Game()
     SDL_DestroyRenderer( renderer );
 	SDL_DestroyWindow( window );
     SDL_Quit() ;
+    delete( timer ) ;
     delete( board ) ;
 }
 
@@ -90,7 +92,6 @@ void Game:: run()
 {
     while( running )
     {
-        time = SDL_GetTicks() ;
         get_input() ;
         
         if( pressed_key == KEY_QUIT )
@@ -99,9 +100,14 @@ void Game:: run()
         else
             use_key() ;
 
+        if( timer->getTicks() % 2000 < 100 )
+            board->movePieceDown() ;
+
         update_board() ;
 
         render_board() ;
+
+        SDL_Delay( 200 ) ;
     }
 }
 

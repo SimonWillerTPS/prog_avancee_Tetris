@@ -10,6 +10,7 @@
 #include "board.hpp"
 #include "pieces.hpp"
 #include "shape.hpp"
+#include "timer.hpp"
 
 #define SQUARE_DIM 30
 #define FPS 24
@@ -45,7 +46,7 @@ class Game
         bool            running ;
         SDL_Event       event ;
         Keys            pressed_key = KEY_NULL ;
-        Uint32          time ;
+        LTimer*         timer ;
 
     public :
 
