@@ -2,6 +2,7 @@
 
 Board::Board()
 {
+    srand(time(NULL));
     for(int i = 0; i < BOARD_WIDTH; ++i)
         for(int j = 0; j < BOARD_HEIGHT; ++j)
             area[i][j] = EMPTY;
@@ -71,19 +72,20 @@ void Board::destroyPiece(Piece p)
 
 void Board::newPiece()
 {
-    Piece *p = new Piece((rand() % 7),0);
-    p->setOrient(0);
-    p->setX(SPAWN_X);
-    p->setY(SPAWN_Y);
+    Piece p((rand() % 7),0);
+    p.setOrient(0);
+    p.setX(SPAWN_X);
+    p.setY(SPAWN_Y);
  
-    drawPiece(*p);
+    drawPiece(p);
  
-    setCurPiece(*p);
+    setCurPiece(p);
 }
 
 
 bool Board::isPieceMovable(int x, int y)
 {
+    destroyPiece(currentPiece);
     bool movable = true;
  
     bool visited[SIZE][SIZE];
@@ -96,6 +98,8 @@ bool Board::isPieceMovable(int x, int y)
     int o = currentPiece.getOrient();
  
     Visited(x, y, Piv_X, Piv_Y, t, o, movable, visited);
+    
+    drawPiece(currentPiece);
  
     return movable;
 }

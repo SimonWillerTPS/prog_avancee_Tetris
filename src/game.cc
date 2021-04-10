@@ -4,6 +4,7 @@ Game:: Game( std::string title , int width , int height ) :
                  title( title ) , width ( width ) , height( height )
 {
     board = new Board() ;
+    time = SDL_GetTicks() ;
 }
 
 Game:: ~Game()
@@ -86,6 +87,7 @@ void Game:: run()
 {
     while( running )
     {
+        time = SDL_GetTicks() ;
         get_input() ;
         
         if( pressed_key == KEY_QUIT )
@@ -94,7 +96,9 @@ void Game:: run()
         else
             use_key() ;
 
-        //board->update
+        // board->update
+
+        // if( time % ( 1000 / 24 ) < 10 )
         render_board() ;
     }
 }
@@ -104,15 +108,19 @@ void Game:: use_key()
     switch(pressed_key)
     {
         case KEY_UP :
+            std::cout << "UP" << std::endl ;
             board->rotatePiece();
             break;
         case KEY_DOWN :
+            std::cout << "down" << std::endl ;
             board->movePieceDown();
             break;
         case KEY_LEFT :
+            std::cout << "left" << std::endl ;
             board->movePieceLeft();
             break;
         case KEY_RIGHT :
+            std::cout << "right" << std::endl ;
             board->movePieceRight();
             break;
         //case KEY_STORE :
@@ -120,6 +128,7 @@ void Game:: use_key()
         //case KEY_ENTER :
             //Board.rotatePiece();
         case KEY_SPACE :
+            std::cout << "drop" << std::endl ;
             board->dropPiece();
             break;
         case KEY_QUIT :
@@ -128,6 +137,8 @@ void Game:: use_key()
         default :
             break;
     }
+    pressed_key = KEY_NULL ;
+    // SDL_Delay( 1000 / 24 ) ;
 }
 
 // bool Game:: load_menu()
@@ -137,49 +148,51 @@ void Game:: use_key()
 
 void Game:: get_input()
 {
-    if( SDL_PollEvent( &event ) == 0 )
-        pressed_key = KEY_NULL ;
-
-    if( event.type == SDL_QUIT )
-        pressed_key = KEY_QUIT ;
-    else 
-        switch( event.key.keysym.sym )
+    while( SDL_PollEvent( &event ))
+    {
+        if( event.type == SDL_QUIT )
+            pressed_key = KEY_QUIT ;
+        else if( event.type == SDL_KEYDOWN )
         {
-            case SDLK_UP :
-                pressed_key = KEY_UP ;
-                break ;
-            
-            case SDLK_DOWN :
-                pressed_key = KEY_DOWN ;
-                break ;
+            switch( event.key.keysym.scancode )
+            {
+                case SDL_SCANCODE_UP :
+                    pressed_key = KEY_UP ;
+                    break ;
+                
+                case SDL_SCANCODE_DOWN :
+                    pressed_key = KEY_DOWN ;
+                    break ;
 
-            case SDLK_LEFT :
-                pressed_key = KEY_LEFT ;
-                break ;
-            
-            case SDLK_RIGHT :
-                pressed_key = KEY_RIGHT ;
-                break ;
+                case SDL_SCANCODE_LEFT :
+                    pressed_key = KEY_LEFT ;
+                    break ;
+                
+                case SDL_SCANCODE_RIGHT :
+                    pressed_key = KEY_RIGHT ;
+                    break ;
 
-            case SDLK_c :
-                pressed_key = KEY_STORE ;
-                break ;
+                case SDL_SCANCODE_C :
+                    pressed_key = KEY_STORE ;
+                    break ;
 
-            case SDLK_RETURN :
-                pressed_key = KEY_ENTER ;
-                break ;
+                case SDL_SCANCODE_RETURN :
+                    pressed_key = KEY_ENTER ;
+                    break ;
 
-            case SDLK_SPACE :
-                pressed_key = KEY_SPACE ;
-                break ;
+                case SDL_SCANCODE_SPACE :
+                    pressed_key = KEY_SPACE ;
+                    break ;
 
-            case SDLK_ESCAPE :
-                pressed_key = KEY_PAUSE ;
-                break ;
+                case SDL_SCANCODE_ESCAPE :
+                    pressed_key = KEY_PAUSE ;
+                    break ;
 
-            default :
-                pressed_key = KEY_NULL ;
+                default :
+                    pressed_key = KEY_NULL ;
+            }
         }
+    }
 }
 
 void Game:: render_board()

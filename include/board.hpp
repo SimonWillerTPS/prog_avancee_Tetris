@@ -4,6 +4,7 @@
 #include "game.hpp"
 #include "pieces.hpp"
 #include "usefull_functions.hpp"
+#include <time.h>
 
 const int BOARD_HEIGHT = 20;
 const int BOARD_WIDTH = 10;

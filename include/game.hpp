@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <iostream>
 
 // #include "input.hpp"
@@ -11,6 +12,7 @@
 #include "shape.hpp"
 
 #define SQUARE_DIM 30
+#define FPS 24
 
 class Board ;
 
@@ -42,7 +44,8 @@ class Game
         int             height ;
         bool            running ;
         SDL_Event       event ;
-        Keys            pressed_key ;
+        Keys            pressed_key = KEY_NULL ;
+        Uint32          time ;
 
     public :
 
