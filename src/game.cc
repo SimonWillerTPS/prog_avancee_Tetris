@@ -22,7 +22,7 @@ SDL_Renderer* Game:: get_renderer()
 }
 
 SDL_Surface* Game:: get_surface()
-{
+{   
     return surface ;
 }
 
@@ -70,12 +70,16 @@ bool Game:: init()
         return false ;
     }
 
+    SDL_FillRect( surface , NULL , SDL_MapRGB( surface->format, 0xFF, 0xFF, 0xFF)) ;
+
     renderer = SDL_CreateRenderer( window , -1 , SDL_RENDERER_ACCELERATED ) ;
     if( renderer == NULL )
     {
         std::cout << "SDL_Error: %s" << std::endl ;
         return false ;
     }
+
+    running = true ;
 
     return true ;
 }

@@ -2,6 +2,7 @@
 #define GAME_HPP
 
 #include "input.hpp"
+#include "board.hpp"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -11,6 +12,7 @@ class Game
 {
     private :
 
+        // Board*          board ;
         SDL_Renderer*   renderer ;
         SDL_Window*     window ;
         SDL_Surface*    surface ;
@@ -18,7 +20,7 @@ class Game
         std::string     title ;
         int             width ;
         int             height ;
-        bool            running = true ;
+        bool            running ;
 
 
     public :
