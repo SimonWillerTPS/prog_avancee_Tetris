@@ -70,8 +70,6 @@ bool Game:: init()
         return false ;
     }
 
-    SDL_FillRect( surface , NULL , SDL_MapRGB( surface->format, 0xFF, 0xFF, 0xFF)) ;
-
     renderer = SDL_CreateRenderer( window , -1 , SDL_RENDERER_ACCELERATED ) ;
     if( renderer == NULL )
     {
@@ -82,6 +80,26 @@ bool Game:: init()
     running = true ;
 
     return true ;
+}
+
+void Game:: run()
+{
+    while( running )
+    {
+        pressed_key = get_input( event ) ;
+        
+        if( pressed_key == KEY_QUIT )
+            running = false ;
+        
+        else
+            use_key() ;
+
+        
+    }
+}
+
+void Game:: use_key() ;
+{
 }
 
 // bool Game:: load_menu()

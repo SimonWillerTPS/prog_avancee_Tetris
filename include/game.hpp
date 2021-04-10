@@ -3,10 +3,14 @@
 
 #include "input.hpp"
 #include "board.hpp"
+#include "pieces.hpp"
+#include "shape.hpp"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <iostream>
+
+class Board ;
 
 class Game
 {
@@ -21,7 +25,8 @@ class Game
         int             width ;
         int             height ;
         bool            running ;
-
+        SDL_Event       event ;
+        Keys            pressed_key ;
 
     public :
 
@@ -38,6 +43,8 @@ class Game
         bool            is_running() ;
 
         bool            init() ;
+        void            run() ;
+        void            use_key() ;
         SDL_Texture*    load_texture( std::string path ) ;
         
 } ;

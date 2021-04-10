@@ -1,6 +1,7 @@
 #ifndef BOARD_HPP
 #define BOARD_HPP
 
+#include "game.hpp"
 #include "pieces.hpp"
 #include "usefull_functions.hpp"
 
