@@ -60,7 +60,7 @@ void Board::newPiece(Piece p)
  
     drawPiece(p);
  
-    // setCurPiece(p);
+    setCurPiece(p);
 }
 
 
