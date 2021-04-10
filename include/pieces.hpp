@@ -7,7 +7,7 @@
 const int Piv_X = 1;
 const int Piv_Y = 2;
 
-enum Color {CYAN, BLUE, ORANGE, YELLOW, GREEN, PURPLE, RED}
+enum Color {CYAN, BLUE, ORANGE, YELLOW, GREEN, PURPLE, RED};
 class Piece
 {
  

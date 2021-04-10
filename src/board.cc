@@ -51,10 +51,10 @@ Board::Board()
             area[i][j] = EMPTY;
 }
 
-void Board::newPiece()
+void Board::newPiece(Piece p)
 {
-    int t = rand() % 7;
-    Piece p = Piece(t, 1);
+    p.setType(rand() % 7);
+    p.setOrient(0);
     p.setX(SPAWN_X);
     p.setY(SPAWN_Y);
  
@@ -87,11 +87,11 @@ void Board::drawPiece(Piece p)
     int i = p.getX();
     int j = p.getY();
  
-    int t = p.getKind();
+    int t = p.getType();
     int o = p.getOrient();
 
      
-    switch(k)
+    switch(t)
     {
         case 0:  //I
             p.setColor(CYAN);
@@ -117,7 +117,7 @@ void Board::drawPiece(Piece p)
         default:
             break;
     }
-    floodFill(i, j, Piv_X, Piv_Y, t, o, p.getColor());
+    Fill_draw(i, j, Piv_X, Piv_Y, t, o, p.getColor());
 
 }
 
