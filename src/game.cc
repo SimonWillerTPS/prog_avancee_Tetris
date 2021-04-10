@@ -9,6 +9,9 @@ Game:: Game( std::string title , int width , int height ) :
 
 Game:: ~Game()
 {
+    SDL_DestroyRenderer( renderer );
+	SDL_DestroyWindow( window );
+    SDL_Quit() ;
     delete( board ) ;
 }
 
@@ -51,7 +54,7 @@ bool Game:: init()
 {
     if( SDL_Init( SDL_INIT_EVERYTHING ) != 0 )
     {
-		std::cout << "SDL_Error: %s" << std::endl ;
+		std::cout << "SDL_Error: " << SDL_GetError() << std::endl ;
         return false ;
     }
 
@@ -60,21 +63,21 @@ bool Game:: init()
                                0 ) ;
     if( window == NULL )
     {
-        std::cout << "SDL_Error: %s" << std::endl ;
+        std::cout << "SDL_Error: " << SDL_GetError() << std::endl ;
         return false ;
     }
 
     surface = SDL_GetWindowSurface( window ) ;
     if( surface == NULL ) 
     {
-        std::cout << "SDL_Error: %s" << std::endl ;
+        std::cout << "SDL_Error: " << SDL_GetError() << std::endl ;
         return false ;
     }
 
     renderer = SDL_CreateRenderer( window , -1 , SDL_RENDERER_ACCELERATED ) ;
     if( renderer == NULL )
     {
-        std::cout << "SDL_Error: %s" << std::endl ;
+        std::cout << "SDL_Error: " << SDL_GetError() << std::endl ;
         return false ;
     }
 
