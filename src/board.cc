@@ -5,6 +5,7 @@ Board::Board()
     for(int i = 0; i < BOARD_WIDTH; ++i)
         for(int j = 0; j < BOARD_HEIGHT; ++j)
             area[i][j] = EMPTY;
+    newPiece();
 }
 
 
@@ -68,9 +69,9 @@ void Board::destroyPiece(Piece p)
     Fill_draw(i, j, Piv_X, Piv_Y, k, o, EMPTY);
 }
 
-void Board::newPiece(Piece p)
+void Board::newPiece()
 {
-    p.setType(rand() % 7);
+    p = new Piece((rand() % 7),0);
     p.setOrient(0);
     p.setX(SPAWN_X);
     p.setY(SPAWN_Y);
