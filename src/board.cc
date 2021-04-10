@@ -60,7 +60,7 @@ void Board::newPiece(Piece p)
  
     drawPiece(p);
  
-    setCurPiece(p);
+    // setCurPiece(p);
 }
 
 
@@ -154,7 +154,7 @@ void Board::rotatePiece()
  
     if(isPieceRotable(o))
     {
-        destroyPiece(currentPiece);
+        // destroyPiece(currentPiece);
         currentPiece.setOrient(o);
  
         drawPiece(currentPiece);
@@ -168,7 +168,7 @@ void Board::movePieceDown()
  
     if(isPieceMovable(x + 1, y))
     {
-        destroyPiece(currentPiece);
+        // destroyPiece(currentPiece);
         currentPiece.setX(x + 1);
  
         drawPiece(currentPiece);
@@ -182,7 +182,7 @@ void Board::movePieceLeft()
  
     if( isPieceMovable(x, y - 1))
     {
-        destroyPiece(currentPiece);
+        // destroyPiece(currentPiece);
         currentPiece.setY(y - 1);
  
         drawPiece(currentPiece);
@@ -196,7 +196,7 @@ void Board::movePieceRight()
  
     if(isPieceMovable(x, y + 1))
     {
-        destroyPiece(currentPiece);
+        // destroyPiece(currentPiece);
         currentPiece.setY(y + 1);
  
         drawPiece(currentPiece);
@@ -206,7 +206,7 @@ void Board::movePieceRight()
 
 void Board::deleteLine(int y)
 {
-    destroyPiece(currentPiece);
+    // destroyPiece(currentPiece);
  
     for(int j = y; j > 0; --j)
     {

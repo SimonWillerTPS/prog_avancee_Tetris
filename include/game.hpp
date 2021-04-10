@@ -12,7 +12,7 @@ class Game
 {
     private :
 
-        // Board*          board ;
+        Board*          board ;
         SDL_Renderer*   renderer ;
         SDL_Window*     window ;
         SDL_Surface*    surface ;
