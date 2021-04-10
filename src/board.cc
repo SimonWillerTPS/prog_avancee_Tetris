@@ -292,9 +292,12 @@ bool Board::GameOver()
 
 void Board::clear()
 {
-    for(int i = 0; i < BOARD_WIDTH; ++i)
+    posX = currentPiece.getX()
+    posY = currentPiece.gety()
+    if((isPieceMovable(posX + 1, posY) == false) && (isPieceMovable(posX ,posY + 1) == false) 
+        && (isPieceMovable(posX, posY - 1) == false ))
     {
-        for(int j = 0; j < BOARD_HEIGHT; ++j)
-            area[i][j] = EMPTY;
+        return true;
     }
+    return false;
 }
