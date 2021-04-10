@@ -101,8 +101,33 @@ void Game:: run()
 
 void Game:: use_key()
 {
-    if( pressed_key == KEY_QUIT )
-        running = false ;
+    switch(pressed_Keys)
+    {
+        case KEY_UP :
+            Board.rotatePiece();
+            break;
+        case KEY_DOWN :
+            Board.movePieceDown();
+            break;
+        case KEY_LEFT :
+            Board.movePieceLeft();
+            break;
+        case KEY_RIGHT :
+            Board.movePieceRight();
+            break;
+        //case KEY_STORE :
+            //Board.store();
+        //case KEY_ENTER :
+            //Board.rotatePiece();
+        case KEY_SPACE :
+            Board.dropPiece();
+            break;
+        case KEY_QUIT :
+            running= false ;
+            break;
+        default :
+            break;
+    }
 }
 
 // bool Game:: load_menu()
