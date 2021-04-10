@@ -281,12 +281,13 @@ bool Board::isPieceFallen()
  
 bool Board::GameOver()
 {
-    for(int i = 0; i < BOARD_WIDTH; ++i)
+    int posX = currentPiece.getX();
+    int posY = currentPiece.getY();
+    if((isPieceMovable(posX + 1, posY) == false) && (isPieceMovable(posX ,posY + 1) == false) 
+        && (isPieceMovable(posX, posY - 1) == false ))
     {
-        if(area[i][0] != EMPTY)
-            return true;
+        return true;
     }
- 
     return false;
 }
 
