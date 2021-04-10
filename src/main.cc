@@ -4,7 +4,7 @@
 
 int main()
 {
-    Game tetris( "Tétris" , 500 , 900 ) ;
+    Game tetris( "Tétris" , 750 , 750 ) ;
     tetris.init() ;
     tetris.run() ;
 }

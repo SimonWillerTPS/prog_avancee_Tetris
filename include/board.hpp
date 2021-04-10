@@ -55,8 +55,8 @@ private:
     int deletePossibleLines();
  
     void dropPiece();
-    bool GameOver();
- 
+    bool GameOver() ;
+
     void clear();
 };
  

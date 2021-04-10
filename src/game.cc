@@ -99,9 +99,8 @@ void Game:: run()
         else
             use_key() ;
 
-        // board->update
+        update_board() ;
 
-        // if( time % ( 1000 / 24 ) < 10 )
         render_board() ;
     }
 }
@@ -111,19 +110,15 @@ void Game:: use_key()
     switch(pressed_key)
     {
         case KEY_UP :
-            std::cout << "UP" << std::endl ;
             board->rotatePiece();
             break;
         case KEY_DOWN :
-            std::cout << "down" << std::endl ;
             board->movePieceDown();
             break;
         case KEY_LEFT :
-            std::cout << "left" << std::endl ;
             board->movePieceLeft();
             break;
         case KEY_RIGHT :
-            std::cout << "right" << std::endl ;
             board->movePieceRight();
             break;
         //case KEY_STORE :
@@ -131,7 +126,6 @@ void Game:: use_key()
         //case KEY_ENTER :
             //Board.rotatePiece();
         case KEY_SPACE :
-            std::cout << "drop" << std::endl ;
             board->dropPiece();
             break;
         case KEY_QUIT :
@@ -209,6 +203,8 @@ void Game:: render_board()
             render_square( j * SQUARE_DIM , i * SQUARE_DIM , board->area[ j ][ i ]) ;
         }
 
+    render_holded() ;
+    render_next_piece() ;
     SDL_RenderPresent( renderer ) ;
 }
 
@@ -281,6 +277,43 @@ void Game::render_square( int pos_x , int pos_y , int color )
         default :
             break ;
     }
+}
+
+void Game:: render_holded()
+{
+    SDL_Rect rectangle = { width / 2 - 10 * SQUARE_DIM , 
+                           height / 2 - 10 * SQUARE_DIM  , 
+                           4 * SQUARE_DIM , 4 * SQUARE_DIM } ;
+    
+    SDL_SetRenderDrawColor( renderer , 0 , 0 , 0 , 255 ) ;
+    SDL_RenderFillRect( renderer , &rectangle ) ;
+    SDL_SetRenderDrawColor( renderer , 30 , 30 , 30 , 255 ) ;
+    SDL_RenderDrawRect( renderer , &rectangle ) ;
+}
+
+void Game:: render_next_piece()
+{
+    SDL_Rect rectangle = { width / 2 + 6 * SQUARE_DIM , 
+                           height / 2 - 10 * SQUARE_DIM  , 
+                           4 * SQUARE_DIM , 4 * SQUARE_DIM } ;
+    
+    SDL_SetRenderDrawColor( renderer , 0 , 0 , 0 , 255 ) ;
+    SDL_RenderFillRect( renderer , &rectangle ) ;
+    SDL_SetRenderDrawColor( renderer , 30 , 30 , 30 , 255 ) ;
+    SDL_RenderDrawRect( renderer , &rectangle ) ;
+}
+
+void Game:: update_board()
+{
+    if( board->isPieceFallen())
+    {
+        board->newPiece() ;
+        board->deletePossibleLines() ;
+    }
+    // if( board->GameOver())
+    // {
+    //     running = false ;
+    // }
 }
 
 /* Credit to http://lazyfoo.net/tutorials/SDL/ */

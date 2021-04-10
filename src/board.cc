@@ -289,7 +289,7 @@ bool Board::GameOver()
  
     return false;
 }
- 
+
 void Board::clear()
 {
     for(int i = 0; i < BOARD_WIDTH; ++i)

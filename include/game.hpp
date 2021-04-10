@@ -67,6 +67,9 @@ class Game
         void            get_input() ;
         void            render_board() ;
         void            render_square( int pos_x , int pos_y , int color ) ;
+        void            render_holded() ;
+        void            render_next_piece() ;
+        void            update_board() ;
         SDL_Texture*    load_texture( std::string path ) ;
 } ;
 
