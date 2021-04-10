@@ -1,5 +1,13 @@
 #include "board.hpp"
 
+Board::Board()
+{
+    for(int i = 0; i < BOARD_WIDTH; ++i)
+        for(int j = 0; j < BOARD_HEIGHT; ++j)
+            area[i][j] = EMPTY;
+}
+
+
 void Board::Visited(int i, int j, int P_X, int P_Y, int t, int o, bool &flag, bool visited[][SIZE])
 {
     if(P_X < 0 || P_Y >= SIZE || P_Y < 0 || P_Y >= SIZE || visited[P_X][P_Y] || SHAPE[t][o][P_X][P_Y] == EMPTY)
@@ -43,12 +51,21 @@ void Board::Fill_draw(int i, int j, int P_X, int P_Y, int t, int o, int value)
  
     Fill(i, j, P_X, P_Y, t, o, value, visited);
 }
- 
-Board::Board()
+
+void Board::setCurPiece(Piece p)
 {
-    for(int i = 0; i < BOARD_WIDTH; ++i)
-        for(int j = 0; j < BOARD_HEIGHT; ++j)
-            area[i][j] = EMPTY;
+    currentPiece = p;
+}
+
+void Board::destroyPiece(Piece p)
+{
+    int i = p.getX();
+    int j = p.getY();
+ 
+    int k = p.getType();
+    int o = p.getOrient();
+ 
+    Fill_draw(i, j, Piv_X, Piv_Y, k, o, EMPTY);
 }
 
 void Board::newPiece(Piece p)
@@ -60,7 +77,7 @@ void Board::newPiece(Piece p)
  
     drawPiece(p);
  
-    // setCurPiece(p);
+    setCurPiece(p);
 }
 
 
@@ -124,7 +141,7 @@ void Board::drawPiece(Piece p)
 
 bool Board::isPieceRotable(int o)
 {
-    //destroyPiece(currentPiece);
+    destroyPiece(currentPiece);
  
     bool rotable = true;
  
@@ -154,7 +171,7 @@ void Board::rotatePiece()
  
     if(isPieceRotable(o))
     {
-        // destroyPiece(currentPiece);
+        destroyPiece(currentPiece);
         currentPiece.setOrient(o);
  
         drawPiece(currentPiece);
@@ -168,7 +185,7 @@ void Board::movePieceDown()
  
     if(isPieceMovable(x + 1, y))
     {
-        // destroyPiece(currentPiece);
+        destroyPiece(currentPiece);
         currentPiece.setX(x + 1);
  
         drawPiece(currentPiece);
@@ -182,7 +199,7 @@ void Board::movePieceLeft()
  
     if( isPieceMovable(x, y - 1))
     {
-        // destroyPiece(currentPiece);
+        destroyPiece(currentPiece);
         currentPiece.setY(y - 1);
  
         drawPiece(currentPiece);
@@ -196,7 +213,7 @@ void Board::movePieceRight()
  
     if(isPieceMovable(x, y + 1))
     {
-        // destroyPiece(currentPiece);
+         destroyPiece(currentPiece);
         currentPiece.setY(y + 1);
  
         drawPiece(currentPiece);
@@ -206,7 +223,7 @@ void Board::movePieceRight()
 
 void Board::deleteLine(int y)
 {
-    // destroyPiece(currentPiece);
+    destroyPiece(currentPiece);
  
     for(int j = y; j > 0; --j)
     {
