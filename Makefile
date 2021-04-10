@@ -1,4 +1,4 @@
-CFLAGS			=	-std=c++11 -g -Wall
+CFLAGS			=	-std=c++11 -g -Wall -lSDL2 -lSDL2_image
 TARGET			=	Tetris
 # DOC				=	doc_file
 # DOCDIR			=	doc
