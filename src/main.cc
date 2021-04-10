@@ -4,7 +4,7 @@
 
 int main()
 {
-    Game tetris( "Tétris" , 500 , 500 ) ;
+    Game tetris( "Tétris" , 500 , 900 ) ;
     tetris.init() ;
-    SDL_Delay(5000) ;
+    tetris.run() ;
 }

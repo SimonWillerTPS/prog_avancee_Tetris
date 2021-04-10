@@ -10,6 +10,8 @@
 #include "pieces.hpp"
 #include "shape.hpp"
 
+#define SQUARE_DIM 30
+
 class Board ;
 
 typedef enum Keys
@@ -59,9 +61,10 @@ class Game
         bool            init() ;
         void            run() ;
         void            use_key() ;
-        SDL_Texture*    load_texture( std::string path ) ;
         void            get_input() ;
-        
+        void            render_board() ;
+        void            render_square( int pos_x , int pos_y , int color ) ;
+        SDL_Texture*    load_texture( std::string path ) ;
 } ;
 
 
