@@ -101,26 +101,26 @@ void Game:: run()
 
 void Game:: use_key()
 {
-    switch(pressed_Keys)
+    switch(pressed_key)
     {
         case KEY_UP :
-            Board.rotatePiece();
+            board->rotatePiece();
             break;
         case KEY_DOWN :
-            Board.movePieceDown();
+            board->movePieceDown();
             break;
         case KEY_LEFT :
-            Board.movePieceLeft();
+            board->movePieceLeft();
             break;
         case KEY_RIGHT :
-            Board.movePieceRight();
+            board->movePieceRight();
             break;
         //case KEY_STORE :
             //Board.store();
         //case KEY_ENTER :
             //Board.rotatePiece();
         case KEY_SPACE :
-            Board.dropPiece();
+            board->dropPiece();
             break;
         case KEY_QUIT :
             running= false ;

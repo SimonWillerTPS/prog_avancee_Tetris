@@ -71,14 +71,14 @@ void Board::destroyPiece(Piece p)
 
 void Board::newPiece()
 {
-    p = new Piece((rand() % 7),0);
-    p.setOrient(0);
-    p.setX(SPAWN_X);
-    p.setY(SPAWN_Y);
+    Piece *p = new Piece((rand() % 7),0);
+    p->setOrient(0);
+    p->setX(SPAWN_X);
+    p->setY(SPAWN_Y);
  
-    drawPiece(p);
+    drawPiece(*p);
  
-    setCurPiece(p);
+    setCurPiece(*p);
 }
 
 
