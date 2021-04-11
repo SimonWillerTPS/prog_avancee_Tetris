@@ -47,6 +47,7 @@ class Game
         SDL_Event       event ;
         Keys            pressed_key = KEY_NULL ;
         LTimer*         timer ;
+        int             fallenCounter = 0 ;
 
     public :
 

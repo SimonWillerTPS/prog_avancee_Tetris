@@ -158,37 +158,38 @@ void Game:: get_input()
             pressed_key = KEY_QUIT ;
         else if( event.type == SDL_KEYDOWN )
         {
-            switch( event.key.keysym.scancode )
+            switch( event.key.keysym.sym )
             {
-                case SDL_SCANCODE_UP :
+                case SDLK_UP :
                     pressed_key = KEY_UP ;
                     break ;
                 
-                case SDL_SCANCODE_DOWN :
+                case SDLK_DOWN :
                     pressed_key = KEY_DOWN ;
                     break ;
 
-                case SDL_SCANCODE_LEFT :
+                case SDLK_LEFT :
                     pressed_key = KEY_LEFT ;
                     break ;
                 
-                case SDL_SCANCODE_RIGHT :
+                case SDLK_RIGHT :
                     pressed_key = KEY_RIGHT ;
                     break ;
 
-                case SDL_SCANCODE_C :
+                case SDLK_c :
                     pressed_key = KEY_STORE ;
                     break ;
 
-                case SDL_SCANCODE_RETURN :
+                case SDLK_RETURN :
                     pressed_key = KEY_ENTER ;
                     break ;
 
-                case SDL_SCANCODE_SPACE :
+                case SDLK_SPACE :
                     pressed_key = KEY_SPACE ;
+                    fallenCounter = 10 + 1 ;
                     break ;
 
-                case SDL_SCANCODE_ESCAPE :
+                case SDLK_ESCAPE :
                     pressed_key = KEY_PAUSE ;
                     break ;
 
@@ -325,10 +326,16 @@ void Game:: update_board()
 {
     if( board->isPieceFallen())
     {
-        board->newPiece() ;
-        int a = board->deletePossibleLines() ;
-        board->calculScore(a);
+        fallenCounter ++ ;
+        if( fallenCounter > 10 )
+        {
+            board->newPiece() ;
+            int a = board->deletePossibleLines() ;
+            board->calculScore(a);
+            fallenCounter = 0 ;
+        }
     }
+    
     if( board->GameOver())
     {
         running = false ;
