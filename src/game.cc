@@ -326,6 +326,7 @@ void Game:: render_next_piece()
 
 void Game:: update_board()
 {
+    //board->projectedPiece();
     if( board->isPieceFallen())
     {
         fallenCounter ++ ;

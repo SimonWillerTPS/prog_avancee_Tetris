@@ -60,7 +60,6 @@ private:
     bool isPieceRotable(int r);
 
     void rotatePiece();
-
     void movePieceDown();
     void movePieceLeft();
     void movePieceRight();
@@ -70,6 +69,9 @@ private:
     void addLines(int y);
     void deleteLine(int l);
     int deletePossibleLines();
+
+    bool shadeDropTest(int x, int y);
+    void moveShadePieceDown();
 
     void projectedPiece();
  

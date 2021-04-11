@@ -226,6 +226,45 @@ void Board::movePieceDown()
         drawPiece(currentPiece);
     }
 }
+
+bool Board::shadeDropTest(int x, int y)
+{
+    bool drop = true;
+ 
+    bool visited[SIZE][SIZE];
+ 
+    for(int l = 0; l < SIZE; ++l)
+        for(int m = 0; m < SIZE; ++m)
+            visited[l][m] = false;
+ 
+    int t = shadePiece.getType();
+    int o = shadePiece.getOrient();
+ 
+    Visited(x, y, Piv_X, Piv_Y, t, o, drop, visited);
+ 
+    return drop;
+}
+
+void Board::moveShadePieceDown()
+{
+    int x = shadePiece.getX();
+    int y = shadePiece.getY();
+
+        if (shadeDropTest(x + 1, y))
+        {
+            destroyPiece(shadePiece);
+            shadePiece.setX(x + 1);
+        }
+}
+
+void Board::dropShadePiece()
+{
+    int x = shadePiece.getX();
+    int y = shadePiece.getY();
+    while (shadeDropTest(x++,y))
+        moveShadePieceDown();
+
+}
  
 void Board::movePieceLeft()
 {
@@ -300,15 +339,6 @@ void Board::dropPiece()
     while(isPieceMovable(x++, y))
         movePieceDown();
 }
-
-void Board::dropShadePiece()
-{
-    int x = shadePiece.getX();
-    int y = shadePiece.getY();
- 
-    while(isPieceMovable(x++, y))
-        movePieceDown();
-}
  
 bool Board::isPieceFallen()
 {
@@ -364,12 +394,14 @@ void Board:: insertPiece( Piece p )
 
 void Board::projectedPiece()
 {
+    destroyPiece(shadePiece);
     shadePiece.setX(currentPiece.getX()) ;
     shadePiece.setY(currentPiece.getY()) ;
     shadePiece.setType(currentPiece.getType());
     shadePiece.setOrient(currentPiece.getOrient());
-    shadePiece.setColor(SHADE);
+    shadePiece.setColor(RED);
     dropShadePiece();
+    drawPiece(shadePiece);
 }
 
 bool Board::GameOver()
