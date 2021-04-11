@@ -211,6 +211,8 @@ void Game:: render_board()
             render_square( j * SQUARE_DIM , i * SQUARE_DIM , board->area[ j ][ i ]) ;
         }
 
+    render_text() ;
+
     render_holded() ;
     
     render_next_piece() ;
@@ -465,6 +467,17 @@ void Game:: renderPiece( int type , int center_x , int center_y )
             }
             break ;
     }
+}
+
+void Game:: render_text( /* std::string text , pos_x , pos_y , width , height */ )
+{
+    // SDL_Rect rectange = { pos_x , pos_y , width , height } ;
+    // SDL_Surface* surface ;
+    // SDL_Texture* texture ;
+    // TTF_Font font = TTF_OpenFont( "res/monobit.ttf" , 28 ) ;
+    // TTF_RenderText_Solid( font , "Score :" , 
+    //                       SDL_SetTextureColorMod( texture , 255 , 255 , 255 )) ;
+    // texture = SDL_CreateTextureFromSurface( renderer , surface ) ;
 }
 
 /* Credit to http://lazyfoo.net/tutorials/SDL/ */
