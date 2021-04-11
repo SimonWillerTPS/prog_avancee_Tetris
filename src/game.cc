@@ -100,7 +100,7 @@ void Game:: run()
         else
             use_key() ;
 
-        if( timer->getTicks() % 2000 < 100 )
+        if( timer->getTicks() % 2000 < 200 )
             board->movePieceDown() ;
 
         update_board() ;
@@ -287,9 +287,9 @@ void Game::render_square( int pos_x , int pos_y , int color )
 
 void Game:: render_holded()
 {
-    SDL_Rect rectangle = { width / 2 - 10 * SQUARE_DIM , 
+    SDL_Rect rectangle = { width / 2 - 11 * SQUARE_DIM , 
                            height / 2 - 10 * SQUARE_DIM  , 
-                           4 * SQUARE_DIM , 4 * SQUARE_DIM } ;
+                           5 * SQUARE_DIM , 5 * SQUARE_DIM } ;
     
     SDL_SetRenderDrawColor( renderer , 0 , 0 , 0 , 255 ) ;
     SDL_RenderFillRect( renderer , &rectangle ) ;
@@ -299,9 +299,9 @@ void Game:: render_holded()
 
 void Game:: render_next_piece()
 {
-    SDL_Rect rectangle = { width / 2 + 6 * SQUARE_DIM , 
+    SDL_Rect rectangle = { width / 2 + 7 * SQUARE_DIM , 
                            height / 2 - 10 * SQUARE_DIM  , 
-                           4 * SQUARE_DIM , 4 * SQUARE_DIM } ;
+                           5 * SQUARE_DIM , 5 * SQUARE_DIM } ;
     
     SDL_SetRenderDrawColor( renderer , 0 , 0 , 0 , 255 ) ;
     SDL_RenderFillRect( renderer , &rectangle ) ;
@@ -316,10 +316,10 @@ void Game:: update_board()
         board->newPiece() ;
         board->deletePossibleLines() ;
     }
-    // if( board->GameOver())
-    // {
-    //     running = false ;
-    // }
+    if( board->GameOver())
+    {
+        running = false ;
+    }
 }
 
 /* Credit to http://lazyfoo.net/tutorials/SDL/ */
