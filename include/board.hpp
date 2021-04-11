@@ -36,14 +36,14 @@ private:
  
     Board();
  
-    void setCurPiece(Piece p);
+    void  setCurPiece(Piece p);
     Piece getCurPiece();
-    int getHoldedPieceType() ;
-    int getNextPieceType() ;
-    int getLines() ;
-    int getLevel() ;
-    int getScore() ;
-    void updateLevel();
+    int   getHoldedPieceType() ;
+    int   getNextPieceType() ;
+    int   getLines() ;
+    int   getLevel() ;
+    int   getScore() ;
+    void  updateLevel();
 
     bool isHolded() ;
     
@@ -69,7 +69,7 @@ private:
     
     void addLines(int y);
     void deleteLine(int l);
-    int deletePossibleLines();
+    int  deletePossibleLines();
 
     bool shadeDropTest(int x, int y);
     void moveShadePieceDown();
@@ -82,7 +82,7 @@ private:
     void dropPiece();
     void dropShadePiece();
     bool GameOver() ;
-    int calculScore(int l);
+    int  calculScore(int l);
 
     void clear();
 };
