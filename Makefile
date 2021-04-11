@@ -1,4 +1,5 @@
-CFLAGS			=	-std=c++11 -g -Wall -lSDL2 -lSDL2_image
+CFLAGS			=	-std=c++11 -g -Wall 
+LIBS			= 	-lSDL2 -lSDL2_image
 TARGET			=	Tetris
 # DOC				=	doc_file
 # DOCDIR			=	doc
@@ -11,11 +12,11 @@ INCLUDES		:=	$(wildcard $(INCLUDE_PATH)/*.hpp)
 OBJECTS			:=	$(SOURCES:$(SRCDIR)/%.cc=$(OBJDIR)/%.o)
 
 $(TARGET) :	$(OBJECTS)
-	g++		-o $@ $^ $(CFLAGS)
+	g++		-o $@ $^ $(CFLAGS) $(LIBS)
 
 $(OBJECTS):				$(OBJDIR)/%.o:	$(SRCDIR)/%.cc
 	mkdir	-p $(OBJDIR)
-	g++		-o $@ -c $< $(CFLAGS) -I$(INCLUDE_PATH)
+	g++		-o $@ -c $< $(CFLAGS) $(LIBS) -I $(INCLUDE_PATH)
 
 # $(DOC) :
 # 	@doxygen $(DOCDIR)/$(DOC)

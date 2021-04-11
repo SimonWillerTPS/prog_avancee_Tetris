@@ -1,11 +1,11 @@
-/* shapes.h */
+/* shapes.hpp */
 #ifndef SHAPE_H
 #define SHAPE_H
  
 const int NB_TYPES = 7; // Le nombre de types de pièces qu'on a
 const int NB_ROTATIONS = 4; // Le nombre de rotations de chaque pièce
 const int SIZE = 4; // La taille de la matrice de chaque rotation
- 
+
 static int SHAPE[NB_TYPES][NB_ROTATIONS][SIZE][SIZE] =
 {
     { // O
@@ -218,5 +218,5 @@ static int SHAPE[NB_TYPES][NB_ROTATIONS][SIZE][SIZE] =
         }
     }
 };
- 
+
 #endif

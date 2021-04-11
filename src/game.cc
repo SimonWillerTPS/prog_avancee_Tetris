@@ -76,7 +76,7 @@ bool Game:: init()
         return false ;
     }
 
-    renderer = SDL_CreateRenderer( window , -1 , SDL_RENDERER_ACCELERATED ) ;
+    renderer = SDL_CreateRenderer( window , -1 , 0 ) ;
     if( renderer == NULL )
     {
         std::cout << "SDL_Error: " << SDL_GetError() << std::endl ;
