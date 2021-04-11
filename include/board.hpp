@@ -21,8 +21,10 @@ private:
     
     Piece currentPiece;
     Piece holdedPiece;
+    Piece nextPiece;
     bool hold = false ;
     bool canHold = true ;
+    bool firstPiece = true ;
 
  public:
     int area[BOARD_WIDTH][BOARD_HEIGHT];
@@ -31,7 +33,9 @@ private:
  
     void setCurPiece(Piece p);
     Piece getCurPiece();
-    Piece getHoldedPiece() ;
+    int getHoldedPieceType() ;
+    int getNextPieceType() ;
+
     bool isHolded() ;
     
     void Visited(int i, int j, int P_X, int P_Y, int t, int o, bool &flag, bool visited[][SIZE]);

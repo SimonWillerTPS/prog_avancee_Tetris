@@ -296,6 +296,7 @@ void Game:: render_holded()
     SDL_RenderFillRect( renderer , &rectangle ) ;
     SDL_SetRenderDrawColor( renderer , 30 , 30 , 30 , 255 ) ;
     SDL_RenderDrawRect( renderer , &rectangle ) ;
+
 }
 
 void Game:: render_next_piece()

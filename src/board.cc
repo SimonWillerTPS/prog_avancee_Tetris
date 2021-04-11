@@ -9,9 +9,9 @@ Board::Board()
     newPiece();
 }
 
-Piece Board:: getHoldedPiece()
+int Board:: getHoldedPieceType()
 {
-    return holdedPiece ;
+    return holdedPiece.getType() ;
 }
 
 void Board::Visited(int i, int j, int P_X, int P_Y, int t, int o, bool &flag, bool visited[][SIZE])
@@ -74,16 +74,24 @@ void Board::destroyPiece(Piece p)
     Fill_draw(i, j, Piv_X, Piv_Y, k, o, EMPTY);
 }
 
+int Board:: getNextPieceType()
+{
+    return nextPiece.getType() ;
+}
+
 void Board::newPiece()
 {
-    Piece p((rand() % 7),0);
-    p.setOrient(0);
-    p.setX(SPAWN_X);
-    p.setY(SPAWN_Y);
- 
-    drawPiece(p);
- 
-    setCurPiece(p);
+    if( !firstPiece )
+    {    
+        insertPiece( nextPiece ) ;
+        nextPiece = Piece(rand() % 7 , 0 ) ;
+    }
+    else
+    {
+        insertPiece( Piece(rand() % 7 , 0 )) ;
+        nextPiece = Piece(rand() % 7 , 0 ) ;
+        firstPiece = false ;
+    }
 }
 
 
