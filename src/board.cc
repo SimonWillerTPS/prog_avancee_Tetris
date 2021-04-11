@@ -63,7 +63,7 @@ void Board::setCurPiece(Piece p)
     currentPiece = p;
 }
 
-int Board::getLinesCompleted()
+int Board::getLines()
 {
     return linesCompleted;
 }
@@ -71,6 +71,11 @@ int Board::getLinesCompleted()
 int Board::getLevel()
 {
     return level;
+}
+
+int Board::getScore()
+{
+    return score ;
 }
 
 void Board::updateLevel()

@@ -5,6 +5,6 @@
 int main()
 {
     Game tetris( "Tétris" , 750 , 750 ) ;
-    tetris.init() ;
-    tetris.run() ;
+    if( tetris.init() )
+        tetris.run() ;
 }
