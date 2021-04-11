@@ -206,6 +206,7 @@ void Board::rotatePiece()
     if(isPieceRotable(o))
     {
         destroyPiece(currentPiece);
+        destroyPiece(shadePiece);
         currentPiece.setOrient(o);
  
         drawPiece(currentPiece);
@@ -234,6 +235,7 @@ void Board::movePieceLeft()
     if( isPieceMovable(x, y - 1))
     {
         destroyPiece(currentPiece);
+        destroyPiece(shadePiece);
         currentPiece.setY(y - 1);
  
         drawPiece(currentPiece);
@@ -247,7 +249,8 @@ void Board::movePieceRight()
  
     if(isPieceMovable(x, y + 1))
     {
-         destroyPiece(currentPiece);
+        destroyPiece(currentPiece);
+        destroyPiece(shadePiece);
         currentPiece.setY(y + 1);
  
         drawPiece(currentPiece);
@@ -293,6 +296,15 @@ void Board::dropPiece()
 {
     int x = currentPiece.getX();
     int y = currentPiece.getY();
+ 
+    while(isPieceMovable(x++, y))
+        movePieceDown();
+}
+
+void Board::dropShadePiece()
+{
+    int x = shadePiece.getX();
+    int y = shadePiece.getY();
  
     while(isPieceMovable(x++, y))
         movePieceDown();
@@ -348,6 +360,16 @@ void Board:: insertPiece( Piece p )
     drawPiece(p);
  
     setCurPiece(p);
+}
+
+void Board::projectedPiece()
+{
+    shadePiece.setX(currentPiece.getX()) ;
+    shadePiece.setY(currentPiece.getY()) ;
+    shadePiece.setType(currentPiece.getType());
+    shadePiece.setOrient(currentPiece.getOrient());
+    shadePiece.setColor(SHADE);
+    dropShadePiece();
 }
 
 bool Board::GameOver()
