@@ -283,8 +283,7 @@ bool Board::GameOver()
 {
     int posX = currentPiece.getX();
     int posY = currentPiece.getY();
-    if((isPieceMovable(posX + 1, posY) == false) && (isPieceMovable(posX ,posY + 1) == false) 
-        && (isPieceMovable(posX, posY - 1) == false ))
+    if((isPieceMovable(posX + 1, posY) == false) && (posX == 0 )))
     {
         return true;
     }
