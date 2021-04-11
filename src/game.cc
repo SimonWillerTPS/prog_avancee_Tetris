@@ -83,6 +83,10 @@ bool Game:: init()
         return false ;
     }
 
+    TTF_Init() ;
+
+    font = TTF_OpenFont( "res/monobit.ttf" , 20 ) ;
+
     running = true ;
 
     return true ;
@@ -144,11 +148,6 @@ void Game:: use_key()
     pressed_key = KEY_NULL ;
     // SDL_Delay( 1000 / 24 ) ;
 }
-
-// bool Game:: load_menu()
-// {
-
-// }
 
 void Game:: get_input()
 {
@@ -220,10 +219,10 @@ void Game:: render_board()
     SDL_RenderPresent( renderer ) ;
 }
 
-void Game::render_square( int pos_x , int pos_y , int color )
+void Game:: render_square( int pos_x , int pos_y , int color )
 {
     int orig_x = width / 2 - 5 * SQUARE_DIM ;
-    int orig_y = height / 2 - 10 * SQUARE_DIM ;
+    int orig_y = height - 21 * SQUARE_DIM ;
 
     SDL_Rect rectangle = { orig_x + pos_x , orig_y + pos_y , 
                            SQUARE_DIM , SQUARE_DIM } ;
@@ -294,7 +293,7 @@ void Game::render_square( int pos_x , int pos_y , int color )
 void Game:: render_holded()
 {
     SDL_Rect rectangle = { width / 2 - 11 * SQUARE_DIM , 
-                           height / 2 - 10 * SQUARE_DIM  , 
+                           height - 21 * SQUARE_DIM  , 
                            5 * SQUARE_DIM , 5 * SQUARE_DIM } ;
     
     SDL_SetRenderDrawColor( renderer , 0 , 0 , 0 , 255 ) ;
@@ -305,13 +304,13 @@ void Game:: render_holded()
     if( board->isHolded())
         renderPiece( board->getHoldedPieceType() , 
                      width / 2 - 6 * SQUARE_DIM - 5 * SQUARE_DIM / 2 ,
-                     height / 2 - 10 * SQUARE_DIM + 5 * SQUARE_DIM / 2) ;
+                     height - 21 * SQUARE_DIM + 5 * SQUARE_DIM / 2) ;
 }
 
 void Game:: render_next_piece()
 {
     SDL_Rect rectangle = { width / 2 + 6 * SQUARE_DIM , 
-                           height / 2 - 10 * SQUARE_DIM  , 
+                           height - 21 * SQUARE_DIM  , 
                            5 * SQUARE_DIM , 5 * SQUARE_DIM } ;
     
     SDL_SetRenderDrawColor( renderer , 0 , 0 , 0 , 255 ) ;
@@ -321,7 +320,7 @@ void Game:: render_next_piece()
 
     renderPiece( board->getNextPieceType() , 
                  width / 2 + 6 * SQUARE_DIM + 5 * SQUARE_DIM / 2 ,
-                 height / 2 - 10 * SQUARE_DIM + 5 * SQUARE_DIM / 2) ;
+                 height - 21 * SQUARE_DIM + 5 * SQUARE_DIM / 2) ;
 }
 
 void Game:: update_board()
@@ -469,41 +468,43 @@ void Game:: renderPiece( int type , int center_x , int center_y )
     }
 }
 
-void Game:: render_text( /* std::string text , pos_x , pos_y , width , height */ )
+void Game:: render_text()
 {
-    // SDL_Rect rectange = { pos_x , pos_y , width , height } ;
-    // SDL_Surface* surface ;
-    // SDL_Texture* texture ;
-    // TTF_Font font = TTF_OpenFont( "res/monobit.ttf" , 28 ) ;
-    // TTF_RenderText_Solid( font , "Score :" , 
-    //                       SDL_SetTextureColorMod( texture , 255 , 255 , 255 )) ;
-    // texture = SDL_CreateTextureFromSurface( renderer , surface ) ;
-}
+    string_level = "LEVEL : " + std::to_string( board->getLevel()) ;
+    string_lines = "LINES : " + std::to_string( board->getLines()) ;
+    string_score = "SCORE : " + std::to_string( board->getScore()) ;
+    
+    SDL_Surface* level_surface = TTF_RenderText_Solid( font , 
+                                                       string_level.c_str() ,
+                                                       { 255 , 255 , 255 } ) ; 
+    SDL_Surface* lines_surface = TTF_RenderText_Solid( font , 
+                                                       string_lines.c_str() ,
+                                                       { 255 , 255 , 255 } ) ; 
+    SDL_Surface* score_surface = TTF_RenderText_Solid( font , 
+                                                       string_score.c_str() ,
+                                                       { 255 , 255 , 255 } ) ; 
 
-/* Credit to http://lazyfoo.net/tutorials/SDL/ */
-SDL_Texture* Game:: load_texture( std::string path )
-{
-    //The final texture
-	SDL_Texture* newTexture = NULL;
+    level_texture = SDL_CreateTextureFromSurface( renderer , level_surface ) ; 
+    lines_texture = SDL_CreateTextureFromSurface( renderer , lines_surface ) ;
+    score_texture = SDL_CreateTextureFromSurface( renderer , score_surface ) ;
 
-	//Load image at specified path
-	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
-	if( loadedSurface == NULL )
-	{
-		printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
-	}
-	else
-	{
-		//Create texture from surface pixels
-        newTexture = SDL_CreateTextureFromSurface( renderer, loadedSurface );
-		if( newTexture == NULL )
-		{
-			printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
-		}
+    SDL_FreeSurface( level_surface ) ;
+    SDL_FreeSurface( lines_surface ) ;
+    SDL_FreeSurface( score_surface ) ;
 
-		//Get rid of old loaded surface
-		SDL_FreeSurface( loadedSurface );
-	}
+    SDL_Rect score_rect = { width / 2 - 11 * SQUARE_DIM , 
+                            height - 4 * SQUARE_DIM ,
+                            5 * SQUARE_DIM , SQUARE_DIM } ;
+    
+    SDL_Rect level_rect = { width / 2 - 11 * SQUARE_DIM , 
+                            height - 3 * SQUARE_DIM ,
+                            5 * SQUARE_DIM , SQUARE_DIM } ;
 
-	return newTexture;
+    SDL_Rect lines_rect = { width / 2 - 11 * SQUARE_DIM , 
+                            height - 2 * SQUARE_DIM ,
+                            5 * SQUARE_DIM , SQUARE_DIM } ;
+
+    SDL_RenderCopy( renderer , level_texture , NULL , &level_rect ) ;
+    SDL_RenderCopy( renderer , lines_texture , NULL , &lines_rect ) ;
+    SDL_RenderCopy( renderer , score_texture , NULL , &score_rect ) ;
 }

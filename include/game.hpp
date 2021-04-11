@@ -48,6 +48,13 @@ class Game
         Keys            pressed_key = KEY_NULL ;
         LTimer*         timer ;
         int             fallenCounter = 0 ;
+        SDL_Texture*    score_texture ;
+        SDL_Texture*    level_texture ;
+        SDL_Texture*    lines_texture ;
+        TTF_Font*       font ;
+        std::string     string_score ;
+        std::string     string_level ;
+        std::string     string_lines ;
 
     public :
 

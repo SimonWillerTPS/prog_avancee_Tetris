@@ -1,5 +1,5 @@
 CFLAGS			=	-std=c++11 -g -Wall 
-LIBS			= 	-lSDL2 -lSDL2_image
+LIBS			= 	-lSDL2 -lSDL2_image -lSDL2_ttf
 TARGET			=	Tetris
 # DOC				=	doc_file
 # DOCDIR			=	doc

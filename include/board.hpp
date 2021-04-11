@@ -39,8 +39,9 @@ private:
     Piece getCurPiece();
     int getHoldedPieceType() ;
     int getNextPieceType() ;
-    int getLinesCompleted() ;
+    int getLines() ;
     int getLevel() ;
+    int getScore() ;
     void updateLevel();
 
     bool isHolded() ;
