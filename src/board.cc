@@ -350,3 +350,29 @@ void Board::clear()
             area[i][j] = EMPTY;
     }
 }
+
+int Game::calculScore(int line_Destroyed)
+{
+    int level = 1; // Le niveau actuel
+    int score = 0;
+ 
+    switch(line_Destroyed)
+    {
+        case 1:
+            score = 40 * (level + 1);
+            break;
+        case 2:
+            score = 100 * (level + 1);
+            break;
+        case 3:
+            score = 300 * (level + 1);
+            break;
+        case 4:
+             score = 1200 * (level + 1);
+             break;
+         default:
+             break;
+    }
+ 
+    return score;
+}
