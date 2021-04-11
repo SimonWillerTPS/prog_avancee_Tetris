@@ -158,37 +158,38 @@ void Game:: get_input()
             pressed_key = KEY_QUIT ;
         else if( event.type == SDL_KEYDOWN )
         {
-            switch( event.key.keysym.scancode )
+            switch( event.key.keysym.sym )
             {
-                case SDL_SCANCODE_UP :
+                case SDLK_UP :
                     pressed_key = KEY_UP ;
                     break ;
                 
-                case SDL_SCANCODE_DOWN :
+                case SDLK_DOWN :
                     pressed_key = KEY_DOWN ;
                     break ;
 
-                case SDL_SCANCODE_LEFT :
+                case SDLK_LEFT :
                     pressed_key = KEY_LEFT ;
                     break ;
                 
-                case SDL_SCANCODE_RIGHT :
+                case SDLK_RIGHT :
                     pressed_key = KEY_RIGHT ;
                     break ;
 
-                case SDL_SCANCODE_C :
+                case SDLK_c :
                     pressed_key = KEY_STORE ;
                     break ;
 
-                case SDL_SCANCODE_RETURN :
+                case SDLK_RETURN :
                     pressed_key = KEY_ENTER ;
                     break ;
 
-                case SDL_SCANCODE_SPACE :
+                case SDLK_SPACE :
                     pressed_key = KEY_SPACE ;
+                    fallenCounter = 10 + 1 ;
                     break ;
 
-                case SDL_SCANCODE_ESCAPE :
+                case SDLK_ESCAPE :
                     pressed_key = KEY_PAUSE ;
                     break ;
 
@@ -209,6 +210,8 @@ void Game:: render_board()
         {
             render_square( j * SQUARE_DIM , i * SQUARE_DIM , board->area[ j ][ i ]) ;
         }
+
+    render_text() ;
 
     render_holded() ;
     
@@ -325,10 +328,16 @@ void Game:: update_board()
 {
     if( board->isPieceFallen())
     {
-        board->newPiece() ;
-        int a = board->deletePossibleLines() ;
-        board->calculScore(a);
+        fallenCounter ++ ;
+        if( fallenCounter > 10 )
+        {
+            board->newPiece() ;
+            int a = board->deletePossibleLines() ;
+            board->calculScore(a);
+            fallenCounter = 0 ;
+        }
     }
+    
     if( board->GameOver())
     {
         running = false ;
@@ -458,6 +467,17 @@ void Game:: renderPiece( int type , int center_x , int center_y )
             }
             break ;
     }
+}
+
+void Game:: render_text( /* std::string text , pos_x , pos_y , width , height */ )
+{
+    // SDL_Rect rectange = { pos_x , pos_y , width , height } ;
+    // SDL_Surface* surface ;
+    // SDL_Texture* texture ;
+    // TTF_Font font = TTF_OpenFont( "res/monobit.ttf" , 28 ) ;
+    // TTF_RenderText_Solid( font , "Score :" , 
+    //                       SDL_SetTextureColorMod( texture , 255 , 255 , 255 )) ;
+    // texture = SDL_CreateTextureFromSurface( renderer , surface ) ;
 }
 
 /* Credit to http://lazyfoo.net/tutorials/SDL/ */

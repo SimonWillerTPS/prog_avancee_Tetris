@@ -47,6 +47,7 @@ class Game
         SDL_Event       event ;
         Keys            pressed_key = KEY_NULL ;
         LTimer*         timer ;
+        int             fallenCounter = 0 ;
 
     public :
 
@@ -70,6 +71,7 @@ class Game
         void            render_square( int pos_x , int pos_y , int color ) ;
         void            render_holded() ;
         void            render_next_piece() ;
+        void            render_text() ;
         void            update_board() ;
         void            renderPiece( int type , int center_x , int center_y ) ;
         SDL_Texture*    load_texture( std::string path ) ;

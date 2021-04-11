@@ -137,9 +137,9 @@ static int SHAPE[NB_TYPES][NB_ROTATIONS][SIZE][SIZE] =
         },
  
         {
+            {0, 5, 5, 0},
             {0, 0, 5, 0},
             {0, 0, 5, 0},
-            {0, 0, 5, 5},
             {0, 0, 0, 0}
         },
  
@@ -149,11 +149,10 @@ static int SHAPE[NB_TYPES][NB_ROTATIONS][SIZE][SIZE] =
             {0, 0, 0, 0},
             {0, 0, 0, 0}
         },
- 
         {
-            {0, 5, 5, 0},
             {0, 0, 5, 0},
             {0, 0, 5, 0},
+            {0, 0, 5, 5},
             {0, 0, 0, 0}
         }
     },
@@ -167,9 +166,9 @@ static int SHAPE[NB_TYPES][NB_ROTATIONS][SIZE][SIZE] =
         },
  
         {
-            {0, 0, 6, 6},
             {0, 0, 6, 0},
             {0, 0, 6, 0},
+            {0, 6, 6, 0},
             {0, 0, 0, 0}
         },
  
@@ -181,9 +180,9 @@ static int SHAPE[NB_TYPES][NB_ROTATIONS][SIZE][SIZE] =
         },
  
         {
+            {0, 0, 6, 6},
             {0, 0, 6, 0},
             {0, 0, 6, 0},
-            {0, 6, 6, 0},
             {0, 0, 0, 0}
         }
     },
