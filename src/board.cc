@@ -81,16 +81,16 @@ int Board:: getNextPieceType()
 
 void Board::newPiece()
 {
-    if( !firstPiece )
+    if( firstPiece )
     {    
-        insertPiece( nextPiece ) ;
-        nextPiece = Piece(rand() % 7 , 0 ) ;
-    }
-    else
-    {
         insertPiece( Piece(rand() % 7 , 0 )) ;
         nextPiece = Piece(rand() % 7 , 0 ) ;
         firstPiece = false ;
+    }
+    else
+    {
+        insertPiece( nextPiece ) ;
+        nextPiece = Piece(rand() % 7 , 0 ) ;
     }
 }
 
@@ -351,7 +351,7 @@ void Board::clear()
     }
 }
 
-int Game::calculScore(int line_Destroyed)
+int Board::calculScore(int line_Destroyed)
 {
     int level = 1; // Le niveau actuel
     int score = 0;

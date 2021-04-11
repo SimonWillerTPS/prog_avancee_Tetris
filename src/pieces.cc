@@ -41,7 +41,7 @@ int Piece::getOrient()
     return orient;
 }
  
-void Piece::setColor(int c)
+void Piece::setColor(Color c)
 {
     color = c;
 }

@@ -70,6 +70,9 @@ private:
     bool GameOver() ;
 
     void clear();
+
+    int calculScore(int line_Destroyed) ;
+
 };
  
 #endif

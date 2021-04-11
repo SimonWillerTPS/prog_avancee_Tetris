@@ -71,6 +71,7 @@ class Game
         void            render_holded() ;
         void            render_next_piece() ;
         void            update_board() ;
+        void            renderPiece( int type , int center_x , int center_y ) ;
         SDL_Texture*    load_texture( std::string path ) ;
 } ;
 
