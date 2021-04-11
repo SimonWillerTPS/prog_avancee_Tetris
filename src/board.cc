@@ -198,7 +198,7 @@ void Board::rotatePiece()
 {
     int o = currentPiece.getOrient();
  
-    if(o < NB_ROTATIONS - 1)
+    if(o != 3)
         o++;
     else
         o = 0;
