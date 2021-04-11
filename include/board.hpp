@@ -25,6 +25,9 @@ private:
     bool hold = false ;
     bool canHold = true ;
     bool firstPiece = true ;
+    int linesCompleted = 0 ;
+    int linesCompletedLevel = 0 ;
+    int level = 0 ;
 
  public:
     int area[BOARD_WIDTH][BOARD_HEIGHT];
@@ -35,6 +38,9 @@ private:
     Piece getCurPiece();
     int getHoldedPieceType() ;
     int getNextPieceType() ;
+    int getLinesCompleted() ;
+    int getLevel() ;
+    void updateLevel();
 
     bool isHolded() ;
     
@@ -68,6 +74,7 @@ private:
 
     void dropPiece();
     bool GameOver() ;
+    int calculScore(int l);
 
     void clear();
 };

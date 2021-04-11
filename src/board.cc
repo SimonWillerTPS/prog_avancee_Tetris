@@ -63,6 +63,24 @@ void Board::setCurPiece(Piece p)
     currentPiece = p;
 }
 
+int Board::getLinesCompleted()
+{
+    return linesCompleted;
+}
+
+int Board::getLevel()
+{
+    return level;
+}
+
+void Board::updateLevel()
+{
+    if (linesCompletedLevel >= 10)
+    {
+        level +=1;
+        linesCompletedLevel -= 10;
+    }
+}
 void Board::destroyPiece(Piece p)
 {
     int i = p.getX();
@@ -266,7 +284,8 @@ int Board::deletePossibleLines()
             deleteLine(j);
         }
     }
- 
+    linesCompleted += nbLinesDeleted ;
+    linesCompletedLevel += nbLinesDeleted ;
     return nbLinesDeleted;
 }
  
@@ -351,9 +370,8 @@ void Board::clear()
     }
 }
 
-int Game::calculScore(int line_Destroyed)
+int Board::calculScore(int line_Destroyed)
 {
-    int level = 1; // Le niveau actuel
     int score = 0;
  
     switch(line_Destroyed)
