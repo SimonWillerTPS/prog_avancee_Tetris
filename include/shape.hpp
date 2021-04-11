@@ -197,7 +197,7 @@ static int SHAPE[NB_TYPES][NB_ROTATIONS][SIZE][SIZE] =
  
         {
             {0, 0, 7, 0},
-            {0, 0, 7, 7},
+            {0, 7, 7, 0},
             {0, 0, 7, 0},
             {0, 0, 0, 0}
         },
@@ -211,7 +211,7 @@ static int SHAPE[NB_TYPES][NB_ROTATIONS][SIZE][SIZE] =
  
         {
             {0, 0, 7, 0},
-            {0, 7, 7, 0},
+            {0, 0, 7, 7},
             {0, 0, 7, 0},
             {0, 0, 0, 0}
         }

@@ -4,16 +4,23 @@ Game:: Game( std::string title , int width , int height ) :
                  title( title ) , width ( width ) , height( height )
 {
     board = new Board() ;
-    timer = new LTimer() ;
-    timer->start() ;
+    fps_timer = new LTimer() ;
+    cap_timer = new LTimer() ;
 }
 
 Game:: ~Game()
 {
     SDL_DestroyRenderer( renderer );
 	SDL_DestroyWindow( window );
+    
+    TTF_CloseFont( font ) ;
+
+    TTF_Quit();
+	IMG_Quit();
     SDL_Quit() ;
-    delete( timer ) ;
+    
+    delete( fps_timer ) ;
+    delete( cap_timer ) ;
     delete( board ) ;
 }
 
@@ -94,8 +101,16 @@ bool Game:: init()
 
 void Game:: run()
 {
+    fps_timer->start() ;
+
     while( running )
     {
+        cap_timer->start() ;
+
+        avgFPS = counted_frames / ( fps_timer->getTicks() / 1000.f ) ;
+        if( avgFPS > 2000000 )
+            avgFPS = 0 ;
+
         get_input() ;
         
         if( pressed_key == KEY_QUIT )
@@ -104,14 +119,20 @@ void Game:: run()
         else
             use_key() ;
 
-        if( timer->getTicks() % 2000 < 200 )
+        if( ++ down_counter > 60 - difficulty * board->getLevel())
+        {
             board->movePieceDown() ;
-
+            down_counter = 0 ;
+        }
+        
         update_board() ;
 
         render_board() ;
 
-        SDL_Delay( 200 ) ;
+        ++ counted_frames ;
+        frame_Ticks = cap_timer->getTicks() ;
+        if( frame_Ticks < TICK_PER_FRAME )
+            SDL_Delay( TICK_PER_FRAME - frame_Ticks ) ;
     }
 }
 
@@ -138,6 +159,7 @@ void Game:: use_key()
             //break ;
         case KEY_SPACE :
             board->dropPiece();
+            fallenCounter = 60 ;
             break;
         case KEY_QUIT :
             running= false ;
@@ -185,7 +207,6 @@ void Game:: get_input()
 
                 case SDLK_SPACE :
                     pressed_key = KEY_SPACE ;
-                    fallenCounter = 10 + 1 ;
                     break ;
 
                 case SDLK_ESCAPE :
@@ -328,8 +349,7 @@ void Game:: update_board()
     //board->projectedPiece();
     if( board->isPieceFallen())
     {
-        fallenCounter ++ ;
-        if( fallenCounter > 10 )
+        if( ++ fallenCounter > (60 - (board->getLevel() * difficulty )))
         {
             board->newPiece() ;
             int a = board->deletePossibleLines() ;
@@ -342,6 +362,8 @@ void Game:: update_board()
     {
         running = false ;
     }
+
+    board->updateLevel() ;
 }
 
 void Game:: renderPiece( int type , int center_x , int center_y )
