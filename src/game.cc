@@ -342,6 +342,8 @@ void Game:: update_board()
     {
         running = false ;
     }
+
+    board->updateLevel() ;
 }
 
 void Game:: renderPiece( int type , int center_x , int center_y )
