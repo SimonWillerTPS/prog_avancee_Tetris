@@ -326,7 +326,10 @@ void Game:: update_board()
     if( board->isPieceFallen())
     {
         board->newPiece() ;
-        board->deletePossibleLines() ;
+        int a = board->deletePossibleLines() ;
+        board->calculScore(a);
+        Level = board->getLevel();
+        
     }
     if( board->GameOver())
     {

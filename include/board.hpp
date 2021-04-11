@@ -27,6 +27,7 @@ private:
     bool firstPiece = true ;
     int linesCompleted = 0 ;
     int linesCompletedLevel = 0 ;
+    int score = 0 ;
     int level = 0 ;
 
  public:
@@ -77,9 +78,6 @@ private:
     int calculScore(int l);
 
     void clear();
-
-    int calculScore(int line_Destroyed) ;
-
 };
  
 #endif

@@ -372,21 +372,19 @@ void Board::clear()
 
 int Board::calculScore(int line_Destroyed)
 {
-    int score = 0;
- 
     switch(line_Destroyed)
     {
         case 1:
-            score = 40 * (level + 1);
+            score += 40 * (level + 1);
             break;
         case 2:
-            score = 100 * (level + 1);
+            score += 100 * (level + 1);
             break;
         case 3:
-            score = 300 * (level + 1);
+            score += 300 * (level + 1);
             break;
         case 4:
-             score = 1200 * (level + 1);
+             score += 1200 * (level + 1);
              break;
          default:
              break;
