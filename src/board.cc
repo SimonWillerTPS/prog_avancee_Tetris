@@ -211,7 +211,7 @@ void Board::rotatePiece()
     if(isPieceRotable(o))
     {
         destroyPiece(currentPiece);
-        destroyPiece(shadePiece);
+        //destroyPiece(shadePiece);
         currentPiece.setOrient(o);
  
         drawPiece(currentPiece);
@@ -279,7 +279,7 @@ void Board::movePieceLeft()
     if( isPieceMovable(x, y - 1))
     {
         destroyPiece(currentPiece);
-        destroyPiece(shadePiece);
+        //destroyPiece(shadePiece);
         currentPiece.setY(y - 1);
  
         drawPiece(currentPiece);
@@ -294,7 +294,7 @@ void Board::movePieceRight()
     if(isPieceMovable(x, y + 1))
     {
         destroyPiece(currentPiece);
-        destroyPiece(shadePiece);
+        //destroyPiece(shadePiece);
         currentPiece.setY(y + 1);
  
         drawPiece(currentPiece);
