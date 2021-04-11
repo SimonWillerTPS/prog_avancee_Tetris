@@ -13,7 +13,8 @@
 #include "timer.hpp"
 
 #define SQUARE_DIM 30
-#define FPS 24
+#define FPS 60
+#define TICK_PER_FRAME 1000/FPS
 
 class Board ;
 
@@ -46,7 +47,15 @@ class Game
         bool            running ;
         SDL_Event       event ;
         Keys            pressed_key = KEY_NULL ;
-        LTimer*         timer ;
+        int             difficulty = 3 ;
+
+        LTimer*         fps_timer ;
+        LTimer*         cap_timer ;
+        int             counted_frames = 0 ;
+        float           avgFPS ;
+        int             frame_Ticks ;
+        int             down_counter = 0 ;
+
         int             fallenCounter = 0 ;
         SDL_Texture*    score_texture ;
         SDL_Texture*    level_texture ;
