@@ -20,7 +20,10 @@ class Board
 private:
     
     Piece currentPiece;
- 
+    Piece holdedPiece;
+    bool hold = false ;
+    bool canHold = true ;
+
  public:
     int area[BOARD_WIDTH][BOARD_HEIGHT];
  
@@ -28,6 +31,8 @@ private:
  
     void setCurPiece(Piece p);
     Piece getCurPiece();
+    Piece getHoldedPiece() ;
+    bool isHolded() ;
     
     void Visited(int i, int j, int P_X, int P_Y, int t, int o, bool &flag, bool visited[][SIZE]);
     void Fill(int i, int j, int P_X, int P_Y, int t, int o, int value, bool visited[][SIZE]);
@@ -54,6 +59,9 @@ private:
     void deleteLine(int l);
     int deletePossibleLines();
  
+    bool holdPiece() ;
+    void insertPiece( Piece p ) ;
+
     void dropPiece();
     bool GameOver() ;
 
