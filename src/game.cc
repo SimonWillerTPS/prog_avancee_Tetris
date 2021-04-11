@@ -211,7 +211,9 @@ void Game:: render_board()
         }
 
     render_holded() ;
+    
     render_next_piece() ;
+    
     SDL_RenderPresent( renderer ) ;
 }
 
@@ -297,6 +299,10 @@ void Game:: render_holded()
     SDL_SetRenderDrawColor( renderer , 30 , 30 , 30 , 255 ) ;
     SDL_RenderDrawRect( renderer , &rectangle ) ;
 
+    if( board->isHolded())
+        renderPiece( board->getHoldedPieceType() , 
+                     width / 2 - 6 * SQUARE_DIM - 5 * SQUARE_DIM / 2 ,
+                     height / 2 - 10 * SQUARE_DIM + 5 * SQUARE_DIM / 2) ;
 }
 
 void Game:: render_next_piece()
@@ -309,6 +315,10 @@ void Game:: render_next_piece()
     SDL_RenderFillRect( renderer , &rectangle ) ;
     SDL_SetRenderDrawColor( renderer , 30 , 30 , 30 , 255 ) ;
     SDL_RenderDrawRect( renderer , &rectangle ) ;
+
+    renderPiece( board->getNextPieceType() , 
+                 width / 2 + 6 * SQUARE_DIM + 5 * SQUARE_DIM / 2 ,
+                 height / 2 - 10 * SQUARE_DIM + 5 * SQUARE_DIM / 2) ;
 }
 
 void Game:: update_board()
@@ -321,6 +331,131 @@ void Game:: update_board()
     if( board->GameOver())
     {
         running = false ;
+    }
+}
+
+void Game:: renderPiece( int type , int center_x , int center_y )
+{
+    SDL_Rect rectangle ;
+    switch( type )
+    {
+        case 0 :
+            for( int i = -1 ; i < 1 ; i ++ )
+                for( int j = -1 ; j < 1 ; j ++ )
+                {
+                    rectangle = { center_x + i * SQUARE_DIM , 
+                                  center_y + j * SQUARE_DIM  , 
+                                  SQUARE_DIM , SQUARE_DIM } ;
+                    SDL_SetRenderDrawColor( renderer , 0x00 , 0xFF , 
+                                            0xFF , 255 ) ;
+                    SDL_RenderFillRect( renderer , &rectangle ) ;
+                    SDL_SetRenderDrawColor( renderer , 0x00 , 0xF0 , 
+                                            0xF0 , 255 ) ;
+                    SDL_RenderDrawRect( renderer , &rectangle ) ;
+                }
+            break ;
+
+        case 1 :
+            for( int i = -2 ; i < 2 ; i ++ )
+            {
+                rectangle = { center_x - SQUARE_DIM / 2 ,
+                              center_y + i * SQUARE_DIM ,
+                              SQUARE_DIM , SQUARE_DIM } ;
+                SDL_SetRenderDrawColor( renderer , 0x00 , 0x00 , 0xFF , 255 ) ;
+                SDL_RenderFillRect( renderer , &rectangle ) ;
+                SDL_SetRenderDrawColor( renderer , 0x00 , 0x00 , 0xF0 , 255 ) ;
+                SDL_RenderDrawRect( renderer , &rectangle ) ;
+            }
+            break ;
+
+        case 5 :
+            rectangle = { center_x + SQUARE_DIM / 2 ,
+                          center_y - SQUARE_DIM ,
+                          SQUARE_DIM , SQUARE_DIM } ;
+            SDL_SetRenderDrawColor( renderer , 0x80 , 0x00 , 0x80 , 255 ) ;
+            SDL_RenderFillRect( renderer , &rectangle ) ;
+            SDL_SetRenderDrawColor( renderer , 0x70 , 0x00 , 0x70 , 255 ) ;
+            SDL_RenderDrawRect( renderer , &rectangle ) ;
+            for(float i = -1.5 ; i < 1 ; i ++ )
+            {
+                rectangle = { (int)( center_x + i * SQUARE_DIM ) ,
+                              center_y , SQUARE_DIM , SQUARE_DIM } ;
+                SDL_SetRenderDrawColor( renderer , 0x80 , 0x00 , 0x80 , 255 ) ;
+                SDL_RenderFillRect( renderer , &rectangle ) ;
+                SDL_SetRenderDrawColor( renderer , 0x70 , 0x00 , 0x70 , 255 ) ;
+                SDL_RenderDrawRect( renderer , &rectangle ) ;
+            }
+            break ;
+
+        case 2 : //S
+            for( int j = 0 ; j < 2 ; j ++ )
+                for( float i = -1.5 ; i < 0 ; i ++ )
+                {
+                    rectangle = { (int)( center_x + ( i + j ) * SQUARE_DIM ) ,
+                                  center_y - j * SQUARE_DIM ,
+                                  SQUARE_DIM , SQUARE_DIM } ;
+                    SDL_SetRenderDrawColor( renderer , 0xFF , 0x7F , 
+                                            0x00 , 255 ) ;
+                    SDL_RenderFillRect( renderer , &rectangle ) ;
+                    SDL_SetRenderDrawColor( renderer , 0xFF , 0x70 , 
+                                            0x00 , 255 ) ;
+                    SDL_RenderDrawRect( renderer , &rectangle ) ;
+                }
+            break ;
+
+        case 6 :
+            rectangle = { center_x - SQUARE_DIM / 2 ,
+                          center_y - SQUARE_DIM ,
+                          SQUARE_DIM , SQUARE_DIM } ;
+            SDL_SetRenderDrawColor( renderer , 0xFF , 0x00 , 0x00 , 255 ) ;
+            SDL_RenderFillRect( renderer , &rectangle ) ;
+            SDL_SetRenderDrawColor( renderer , 0xF0 , 0x00 , 0x00 , 255 ) ;
+            SDL_RenderDrawRect( renderer , &rectangle ) ;
+            for( float i = -1.5 ; i < 1 ; i ++ )
+            {
+                rectangle = { (int)( center_x + i * SQUARE_DIM ) ,
+                              center_y , SQUARE_DIM , SQUARE_DIM } ;
+                SDL_SetRenderDrawColor( renderer , 0xFF , 0x00 , 0x00 , 255 ) ;
+                SDL_RenderFillRect( renderer , &rectangle ) ;
+                SDL_SetRenderDrawColor( renderer , 0xF0 , 0x00 , 0x00 , 255 ) ;
+                SDL_RenderDrawRect( renderer , &rectangle ) ;
+            }
+            break ;
+
+        case 3 : //Z
+            for( int j = -1 ; j < 1 ; j ++ )
+                for( float i = -1.5 ; i < 0 ; i ++ )
+                {
+                    rectangle = { (int)( center_x + (i+j+1) * SQUARE_DIM ) ,
+                                  center_y + j * SQUARE_DIM ,
+                                  SQUARE_DIM , SQUARE_DIM } ;
+                    SDL_SetRenderDrawColor( renderer , 0xFF , 0xFF , 
+                                            0x00 , 255 ) ;
+                    SDL_RenderFillRect( renderer , &rectangle ) ;
+                    SDL_SetRenderDrawColor( renderer , 0xF0 , 0xF0 , 
+                                            0x00 , 255 ) ;
+                    SDL_RenderDrawRect( renderer , &rectangle ) ;
+                }
+            break ;
+
+        case 4  : //L
+            rectangle = { center_x + SQUARE_DIM / 2 ,
+                          center_y - SQUARE_DIM ,
+                          SQUARE_DIM , SQUARE_DIM } ;
+            SDL_SetRenderDrawColor( renderer , 0x00 , 0xFF , 0x00 , 255 ) ;
+            SDL_RenderFillRect( renderer , &rectangle ) ;
+            SDL_SetRenderDrawColor( renderer , 0x00 , 0xF0 , 0x00 , 255 ) ;
+            SDL_RenderDrawRect( renderer , &rectangle ) ;
+            for(float i = -1.5 ; i < 1 ; i ++ )
+            {
+                rectangle = { (int)( center_x + i * SQUARE_DIM ) ,
+                              center_y , SQUARE_DIM , SQUARE_DIM } ;
+                SDL_SetRenderDrawColor( renderer , 0x00 , 0xFF , 0x00 , 255 ) ;
+                SDL_RenderFillRect( renderer , &rectangle ) ;
+                SDL_SetRenderDrawColor( renderer , 0x00 , 0xF0 , 0x00 , 255 ) ;
+                SDL_RenderDrawRect( renderer , &rectangle ) ;
+            }
+            break ;
     }
 }
 

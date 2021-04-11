@@ -77,6 +77,9 @@ private:
     int calculScore(int l);
 
     void clear();
+
+    int calculScore(int line_Destroyed) ;
+
 };
  
 #endif

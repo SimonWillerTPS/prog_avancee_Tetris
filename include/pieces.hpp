@@ -14,7 +14,7 @@ class Piece
 private:
     int type; // Le type de la pièce
     int orient; // Sa rotation courante
-    int color; // Sa couleur
+    Color color; // Sa couleur
  
     int X; // Son ordonnée dans l'aire de jeu
     int Y; // Son abscisse dans l'aire de jeu
@@ -30,7 +30,7 @@ public:
     int getType();
     int getOrient();
  
-    void setColor(int c);
+    void setColor(Color c);
     int getColor();
  
     void setX(int x);
