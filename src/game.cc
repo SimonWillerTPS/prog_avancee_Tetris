@@ -69,12 +69,12 @@ bool Game:: init()
         return false ;
     }
 
-    surface = SDL_GetWindowSurface( window ) ;
-    if( surface == NULL ) 
-    {
-        std::cout << "SDL_Error: " << SDL_GetError() << std::endl ;
-        return false ;
-    }
+    // surface = SDL_GetWindowSurface( window ) ;
+    // if( surface == NULL ) 
+    // {
+    //     std::cout << "SDL_Error: " << SDL_GetError() << std::endl ;
+    //     return false ;
+    // }
 
     renderer = SDL_CreateRenderer( window , -1 , 0 ) ;
     if( renderer == NULL )
