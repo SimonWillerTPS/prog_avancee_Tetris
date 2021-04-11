@@ -22,6 +22,7 @@ private:
     Piece currentPiece;
     Piece holdedPiece;
     Piece nextPiece;
+    Piece shadePiece;
     bool hold = false ;
     bool canHold = true ;
     bool firstPiece = true ;
@@ -70,11 +71,14 @@ private:
     void addLines(int y);
     void deleteLine(int l);
     int deletePossibleLines();
+
+    void projectedPiece();
  
     bool holdPiece() ;
     void insertPiece( Piece p ) ;
 
     void dropPiece();
+    void dropShadePiece();
     bool GameOver() ;
     int calculScore(int l);
 
