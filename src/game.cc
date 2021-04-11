@@ -127,10 +127,11 @@ void Game:: use_key()
         case KEY_RIGHT :
             board->movePieceRight();
             break;
-        //case KEY_STORE :
-            //Board.store();
+        case KEY_STORE :
+            board->holdPiece();
+            break ;
         //case KEY_ENTER :
-            //Board.rotatePiece();
+            //break ;
         case KEY_SPACE :
             board->dropPiece();
             break;
@@ -299,7 +300,7 @@ void Game:: render_holded()
 
 void Game:: render_next_piece()
 {
-    SDL_Rect rectangle = { width / 2 + 7 * SQUARE_DIM , 
+    SDL_Rect rectangle = { width / 2 + 6 * SQUARE_DIM , 
                            height / 2 - 10 * SQUARE_DIM  , 
                            5 * SQUARE_DIM , 5 * SQUARE_DIM } ;
     

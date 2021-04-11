@@ -9,6 +9,10 @@ Board::Board()
     newPiece();
 }
 
+Piece Board:: getHoldedPiece()
+{
+    return holdedPiece ;
+}
 
 void Board::Visited(int i, int j, int P_X, int P_Y, int t, int o, bool &flag, bool visited[][SIZE])
 {
@@ -140,7 +144,6 @@ void Board::drawPiece(Piece p)
             break;
     }
     Fill_draw(i, j, Piv_X, Piv_Y, t, o, p.getColor());
-
 }
 
 
@@ -275,10 +278,51 @@ bool Board::isPieceFallen()
  
     if(isPieceMovable(x + 1, y))
         return false;
- 
+    
+    canHold = true ;
+
     return true;
 }
+
+bool Board:: holdPiece()
+{
+    if( !canHold )
+        return false ;
+
+    if( !hold )
+    {
+        holdedPiece = currentPiece ;
+        destroyPiece( currentPiece ) ;
+        newPiece() ;
+        hold = true ;
+    }
+    else
+    {
+        Piece buffer = holdedPiece ;
+        holdedPiece = currentPiece ;
+        destroyPiece( currentPiece ) ;
+        insertPiece( buffer ) ;
+    }
+    canHold = false ; 
+    return true ;
+}
+
+bool Board::isHolded()
+{
+    return hold ;
+}
+
+void Board:: insertPiece( Piece p )
+{
+    p.setOrient(0);
+    p.setX(SPAWN_X);
+    p.setY(SPAWN_Y);
  
+    drawPiece(p);
+ 
+    setCurPiece(p);
+}
+
 bool Board::GameOver()
 {
     int posX = currentPiece.getX();
