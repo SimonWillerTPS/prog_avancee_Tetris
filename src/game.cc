@@ -141,23 +141,31 @@ void Game:: use_key()
     switch(pressed_key)
     {
         case KEY_UP :
+            board->destroyShadePiece();
             board->rotatePiece();
+            board->projectedPiece();
             break;
         case KEY_DOWN :
             board->movePieceDown();
             break;
         case KEY_LEFT :
+            board->destroyShadePiece();
             board->movePieceLeft();
+            board->projectedPiece();
             break;
         case KEY_RIGHT :
+            board->destroyShadePiece();
             board->movePieceRight();
+            board->projectedPiece();
             break;
         case KEY_STORE :
+            board->destroyShadePiece();
             board->holdPiece();
             break ;
         //case KEY_ENTER :
             //break ;
         case KEY_SPACE :
+            board->destroyShadePiece();
             board->dropPiece();
             fallenCounter = 60 ;
             break;
@@ -298,6 +306,16 @@ void Game:: render_square( int pos_x , int pos_y , int color )
             SDL_SetRenderDrawColor( renderer , 0xF0 , 0x00 , 0x00 , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             break ;
+
+        case SHADE :
+        {
+            SDL_SetRenderDrawColor( renderer , 0xA9, 0xA9, 0xA9, 255 ) ;
+            SDL_RenderFillRect( renderer , &rectangle ) ;
+            SDL_SetRenderDrawColor( renderer , 0xF0 , 0x00 , 0x00 , 255 ) ;
+            SDL_RenderDrawRect( renderer , &rectangle ) ;
+            break ;
+
+        }
             
         case EMPTY :
             SDL_SetRenderDrawColor( renderer , 0 , 0 , 0 , 255 ) ;
@@ -305,6 +323,7 @@ void Game:: render_square( int pos_x , int pos_y , int color )
             SDL_SetRenderDrawColor( renderer , 30 , 30 , 30 , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             break ;
+        
             
         default :
             break ;
@@ -346,15 +365,15 @@ void Game:: render_next_piece()
 
 void Game:: update_board()
 {
-    //board->projectedPiece();
     if( board->isPieceFallen())
     {
         if( ++ fallenCounter > (60 - (board->getLevel() * difficulty )))
         {
-            board->newPiece() ;
             int a = board->deletePossibleLines() ;
             board->calculScore(a);
             fallenCounter = 0 ;
+            board->newPiece() ;
+            board->projectedPiece();
         }
     }
     
