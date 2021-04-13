@@ -1,11 +1,15 @@
 #include "board.hpp"
 
-Board::Board()
+Board::Board( int level ) : level( level )
 {
+    if( level < 0 || level > 50 ) level = 0 ;
+
     srand(time(NULL));
+
     for(int i = 0; i < BOARD_WIDTH; ++i)
         for(int j = 0; j < BOARD_HEIGHT; ++j)
             area[i][j] = EMPTY;
+
     newPiece();
 }
 
@@ -422,8 +426,8 @@ void Board::projectedPiece()
     shadePiece.setType(currentPiece.getType());
     shadePiece.setOrient(currentPiece.getOrient());
     shadePiece.setColor(SHADE);
-    int x = shadePiece.getY();
-    int y = shadePiece.getX();
+    // int x = shadePiece.getY();
+    // int y = shadePiece.getX();
     dropShadePiece();
     drawShadePiece(shadePiece);
 }

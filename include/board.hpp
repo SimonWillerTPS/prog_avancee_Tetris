@@ -1,9 +1,8 @@
 #ifndef BOARD_HPP
 #define BOARD_HPP
 
-#include "game.hpp"
+#include "session.hpp"
 #include "pieces.hpp"
-#include "usefull_functions.hpp"
 #include <time.h>
 
 const int BOARD_HEIGHT = 20;
@@ -29,12 +28,12 @@ private:
     int linesCompleted = 0 ;
     int linesCompletedLevel = 0 ;
     int score = 0 ;
-    int level = 0 ;
+    int level ;
 
  public:
     int area[BOARD_WIDTH][BOARD_HEIGHT];
  
-    Board();
+    Board( int level );
  
     void  setCurPiece(Piece p);
     Piece getCurPiece();
