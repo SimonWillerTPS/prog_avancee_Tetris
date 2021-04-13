@@ -18,10 +18,10 @@ class Board
 
 private:
     
-    Piece currentPiece;
-    Piece holdedPiece;
-    Piece nextPiece;
-    Piece shadePiece;
+    Piece* currentPiece;
+    Piece* holdedPiece;
+    Piece* nextPiece;
+    Piece* shadePiece;
     bool hold = false ;
     bool canHold = true ;
     bool firstPiece = true ;
@@ -50,14 +50,14 @@ private:
     void Fill(int i, int j, int P_X, int P_Y, int t, int o, int value, bool visited[][SIZE]);
     void Fill_draw(int i, int j, int P_X, int P_Y, int t, int o, int value);
 
-    void  setCurPiece(Piece p);
+    void  setCurPiece(Piece* p);
 
-    void drawPiece(Piece p);
-    void drawShadePiece(Piece p);
+    void drawPiece(Piece* p);
+    void drawShadePiece(Piece* p);
     void newPiece();
 
-    void newPiece(Piece p);
-    void destroyPiece(Piece p);
+    void newPiece(Piece* p);
+    void destroyPiece(Piece* p);
     void destroyShadePiece();
  
     bool isPieceMovable(int x, int y);
@@ -80,7 +80,7 @@ private:
     void projectedPiece();
  
     bool holdPiece() ;
-    void insertPiece( Piece p ) ;
+    void insertPiece( Piece* p ) ;
 
     void dropPiece();
     void dropShadePiece();

@@ -12,13 +12,13 @@ Piece::Piece(int t, int o)
     orient = o;
 }
  
-Piece::Piece(const Piece &p)
+Piece::Piece( Piece* p)
 {
-    type = p.type;
-    orient = p.orient;
-    color = p.color;
-    X = p.X;
-    Y = p.Y;
+    type = p->type;
+    orient = p->orient;
+    color = p->color;
+    X = p->X;
+    Y = p->Y;
 }
  
 void Piece::setType(int t)

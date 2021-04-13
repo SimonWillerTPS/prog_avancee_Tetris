@@ -22,7 +22,7 @@ private:
 public:
     Piece();
     Piece(int k, int o);
-    Piece(const Piece &p);
+    Piece( Piece* p);
  
     void setType(int k);
     void setOrient(int o);

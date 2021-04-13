@@ -31,7 +31,7 @@ bool Game:: init_SDL()
         return false ;
     }
 
-    renderer = SDL_CreateRenderer( window , 0 , 0 ) ;
+    renderer = SDL_CreateRenderer( window , 0 , SDL_RENDERER_ACCELERATED ) ;
     if( renderer == NULL )
     {
         std::cout << "SDL_Error: " << SDL_GetError() << std::endl ;
@@ -104,5 +104,13 @@ bool Game:: launch_marathon()
 
 bool Game:: launch_battle()
 {
+    // session_player = new Session( 0 , 0 , win_width / 2 , win_height ,
+    //                               tile_size , renderer , 
+    //                               font , starting_level ) ;
+
+    // session_IA = new Session( win_width / 2 , 0 , win_width / 2 , 0 , 
+    //                           tile_size , renderer , font , starting_level ) ; 
+    
+    
     return false ;
 }

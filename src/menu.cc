@@ -83,11 +83,11 @@ void Menu:: render()
     SDL_SetRenderDrawColor( renderer , 0x03 , 0x41 , 0xAE , 0xFF ) ;
     SDL_RenderClear( renderer ) ;
 
-    SDL_Surface* mara_surface = TTF_RenderText_Solid( font , "MARATHON" ,
+    mara_surface = TTF_RenderText_Solid( font , "MARATHON" ,
                                                       { 255 , 255 , 255 } ) ;
-    SDL_Surface* batt_surface = TTF_RenderText_Solid( font , "BATTLE" ,
+    batt_surface = TTF_RenderText_Solid( font , "BATTLE" ,
                                                       { 255 , 255 , 255 }) ;
-    SDL_Surface* quit_surface = TTF_RenderText_Solid( font , "QUIT" ,
+    quit_surface = TTF_RenderText_Solid( font , "QUIT" ,
                                                       { 255 , 255 , 255 }) ;
 
     mara_texture = SDL_CreateTextureFromSurface( renderer , mara_surface) ;
@@ -116,6 +116,10 @@ void Menu:: render()
                       win_height / 2 + 2 * selected * list_size , 
                       4 * list_size , list_size } ;
     SDL_RenderDrawRect( renderer , &selected_rect ) ;
+
+    SDL_DestroyTexture( mara_texture ) ;
+    SDL_DestroyTexture( batt_texture ) ;
+    SDL_DestroyTexture( quit_texture ) ;
 
     SDL_RenderPresent( renderer ) ;
 }

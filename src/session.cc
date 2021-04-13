@@ -107,7 +107,6 @@ void Session:: use_key()
             board->projectedPiece();
             break;
         case KEY_STORE :
-            board->destroyShadePiece();
             board->holdPiece();
             break ;
         case KEY_SPACE :
@@ -259,7 +258,6 @@ void Session:: render_next_piece()
 
 void Session:: renderPiece( int type , int center_x , int center_y )
 {
-    rectangle ;
     switch( type )
     {
         case 0 :
@@ -421,4 +419,8 @@ void Session:: render_text()
     SDL_RenderCopy( renderer , level_texture , NULL , &level_rect ) ;
     SDL_RenderCopy( renderer , lines_texture , NULL , &lines_rect ) ;
     SDL_RenderCopy( renderer , score_texture , NULL , &score_rect ) ;
+
+    SDL_DestroyTexture( level_texture ) ;
+    SDL_DestroyTexture( lines_texture ) ;
+    SDL_DestroyTexture( score_texture ) ;
 }

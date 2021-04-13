@@ -93,5 +93,4 @@ class Session
         void renderPiece( int type , int center_x , int center_y ) ;
 } ;
 
-
 #endif

@@ -16,15 +16,21 @@ class Menu
     private :
 
         SDL_Renderer*       renderer ;
+
+        SDL_Surface*        mara_surface ;
         SDL_Texture*        mara_texture ;
-        SDL_Texture*        batt_texture ;
-        SDL_Texture*        quit_texture ;
         SDL_Rect            mara_rect ;
+        SDL_Surface*        batt_surface ;
+        SDL_Texture*        batt_texture ;
         SDL_Rect            batt_rect ;
+        SDL_Surface*        quit_surface ;
+        SDL_Texture*        quit_texture ;
         SDL_Rect            quit_rect ;
+
         SDL_Rect            selected_rect ;
         SDL_Event*          event ;
         TTF_Font*           font ;
+
         Key                 pressed_key ;
         std::vector<Choice> choices ;   
         int                 number_of_choices ;
