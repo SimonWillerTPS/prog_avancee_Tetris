@@ -62,6 +62,28 @@ bool Session:: run()
     return true ;
 }
 
+void Session:: update_board()
+{
+    if( board->isPieceFallen())
+    {
+        if( ++ fallenCounter > (60 - (board->getLevel() * difficulty )))
+        {
+            int a = board->deletePossibleLines() ;
+            board->calculScore(a);
+            fallenCounter = 0 ;
+            board->newPiece() ;
+            board->projectedPiece();
+        }
+    }
+    
+    if( board->GameOver())
+    {
+        running = false ;
+    }
+
+    board->updateLevel() ;
+}
+
 void Session:: use_key()
 {
     switch( pressed_key )
@@ -110,7 +132,8 @@ void Session:: render_board()
     for ( int i = 0 ; i < BOARD_HEIGHT ; i ++ )
         for ( int j = 0 ; j < BOARD_WIDTH ; j ++ )
         {
-            render_square( j * tile_size , i * tile_size , board->area[ j ][ i ]) ;
+            render_square( j * tile_size , i * tile_size , 
+            board->getAreaContent( j , i )) ;
         }
 
     render_text() ;
@@ -127,8 +150,8 @@ void Session:: render_square( int pos_x , int pos_y , int color )
     int orig_x = width / 2 - 5 * tile_size ;
     int orig_y = height - 21 * tile_size ;
 
-    SDL_Rect rectangle = { orig_x + pos_x , orig_y + pos_y , 
-                           tile_size , tile_size } ;
+    rectangle = { orig_x + pos_x , orig_y + pos_y , 
+                  tile_size , tile_size } ;
 
     switch( color )
     {
@@ -203,9 +226,9 @@ void Session:: render_square( int pos_x , int pos_y , int color )
 
 void Session:: render_holded()
 {
-    SDL_Rect rectangle = { width / 2 - 11 * tile_size , 
-                           height - 21 * tile_size  , 
-                           5 * tile_size , 5 * tile_size } ;
+    rectangle = { width / 2 - 11 * tile_size , 
+                  height - 21 * tile_size  , 
+                  5 * tile_size , 5 * tile_size } ;
     
     SDL_SetRenderDrawColor( renderer , 0 , 0 , 0 , 255 ) ;
     SDL_RenderFillRect( renderer , &rectangle ) ;
@@ -220,9 +243,9 @@ void Session:: render_holded()
 
 void Session:: render_next_piece()
 {
-    SDL_Rect rectangle = { width / 2 + 6 * tile_size , 
-                           height - 21 * tile_size  , 
-                           5 * tile_size , 5 * tile_size } ;
+    rectangle = { width / 2 + 6 * tile_size , 
+                  height - 21 * tile_size  , 
+                  5 * tile_size , 5 * tile_size } ;
     
     SDL_SetRenderDrawColor( renderer , 0 , 0 , 0 , 255 ) ;
     SDL_RenderFillRect( renderer , &rectangle ) ;
@@ -234,31 +257,9 @@ void Session:: render_next_piece()
                  height - 21 * tile_size + 5 * tile_size / 2) ;
 }
 
-void Session:: update_board()
-{
-    if( board->isPieceFallen())
-    {
-        if( ++ fallenCounter > (60 - (board->getLevel() * difficulty )))
-        {
-            int a = board->deletePossibleLines() ;
-            board->calculScore(a);
-            fallenCounter = 0 ;
-            board->newPiece() ;
-            board->projectedPiece();
-        }
-    }
-    
-    if( board->GameOver())
-    {
-        running = false ;
-    }
-
-    board->updateLevel() ;
-}
-
 void Session:: renderPiece( int type , int center_x , int center_y )
 {
-    SDL_Rect rectangle ;
+    rectangle ;
     switch( type )
     {
         case 0 :
@@ -387,15 +388,15 @@ void Session:: render_text()
     string_lines = "LINES : " + std::to_string( board->getLines()) ;
     string_score = "SCORE : " + std::to_string( board->getScore()) ;
     
-    SDL_Surface* level_surface = TTF_RenderText_Solid( font , 
-                                                       string_level.c_str() ,
-                                                       { 255 , 255 , 255 } ) ; 
-    SDL_Surface* lines_surface = TTF_RenderText_Solid( font , 
-                                                       string_lines.c_str() ,
-                                                       { 255 , 255 , 255 } ) ; 
-    SDL_Surface* score_surface = TTF_RenderText_Solid( font , 
-                                                       string_score.c_str() ,
-                                                       { 255 , 255 , 255 } ) ; 
+    level_surface = TTF_RenderText_Solid( font , 
+                                          string_level.c_str() ,
+                                          { 255 , 255 , 255 } ) ; 
+    lines_surface = TTF_RenderText_Solid( font , 
+                                          string_lines.c_str() ,
+                                          { 255 , 255 , 255 } ) ; 
+    score_surface = TTF_RenderText_Solid( font , 
+                                          string_score.c_str() ,
+                                          { 255 , 255 , 255 } ) ; 
 
     level_texture = SDL_CreateTextureFromSurface( renderer , level_surface ) ; 
     lines_texture = SDL_CreateTextureFromSurface( renderer , lines_surface ) ;
@@ -405,17 +406,17 @@ void Session:: render_text()
     SDL_FreeSurface( lines_surface ) ;
     SDL_FreeSurface( score_surface ) ;
 
-    SDL_Rect score_rect = { width / 2 - 11 * tile_size , 
-                            height - 4 * tile_size ,
-                            5 * tile_size , tile_size } ;
+    score_rect = { width / 2 - 11 * tile_size , 
+                   height - 4 * tile_size ,
+                   5 * tile_size , tile_size } ;
     
-    SDL_Rect level_rect = { width / 2 - 11 * tile_size , 
-                            height - 3 * tile_size ,
-                            5 * tile_size , tile_size } ;
+    level_rect = { width / 2 - 11 * tile_size , 
+                   height - 3 * tile_size ,
+                   5 * tile_size , tile_size } ;
 
-    SDL_Rect lines_rect = { width / 2 - 11 * tile_size , 
-                            height - 2 * tile_size ,
-                            5 * tile_size , tile_size } ;
+    lines_rect = { width / 2 - 11 * tile_size , 
+                   height - 2 * tile_size ,
+                   5 * tile_size , tile_size } ;
 
     SDL_RenderCopy( renderer , level_texture , NULL , &level_rect ) ;
     SDL_RenderCopy( renderer , lines_texture , NULL , &lines_rect ) ;

@@ -38,10 +38,17 @@ class Session
         SDL_Event*    event ;
         TTF_Font*     font ;
             // Local :
+        SDL_Surface* score_surface ;
+        SDL_Surface* level_surface ;
+        SDL_Surface* lines_surface ;    
         SDL_Texture* score_texture ;
         SDL_Texture* level_texture ;
         SDL_Texture* lines_texture ;
-
+        SDL_Rect rectangle ;
+        SDL_Rect level_rect ;
+        SDL_Rect lines_rect ;
+        SDL_Rect score_rect ;
+        
         // Board :
         Board* board ;
 
@@ -67,14 +74,17 @@ class Session
 
     public :
 
+        // Constructor, destructor :
         Session( int x , int y , int width , int height , int size , 
                  SDL_Renderer* renderer , TTF_Font* font , int level ) ;
         ~Session() ;
 
+        // Methods :
+            // Session itself :
         bool run() ;
         void update_board() ;
-
         void use_key() ;
+            // SDL :
         void render_board() ;
         void render_square( int pos_x , int pos_y , int color ) ;
         void render_holded() ;

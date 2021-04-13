@@ -4,7 +4,7 @@
 
 int main()
 {
-    Game* tetris = new Game( "Tétris" , 1500 , 750 ) ;
+    Game* tetris = new Game( "Tétris" , 1440 , 660 ) ;
     
     tetris->launch_menu() ;
     

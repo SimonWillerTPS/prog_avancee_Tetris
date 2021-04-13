@@ -42,9 +42,7 @@ class Game
         // Constructor, destructor :
         Game( std::string title , int width , int height ) ;
         ~Game() ;
-
-        // Accessors :
-
+        
         // Methods :
             // SDL :
         bool init_SDL() ;

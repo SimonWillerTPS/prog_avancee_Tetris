@@ -29,26 +29,28 @@ private:
     int linesCompletedLevel = 0 ;
     int score = 0 ;
     int level ;
+    int area[BOARD_WIDTH][BOARD_HEIGHT];
 
  public:
-    int area[BOARD_WIDTH][BOARD_HEIGHT];
  
+    // Constructor :
     Board( int level );
  
-    void  setCurPiece(Piece p);
-    Piece getCurPiece();
+    // Accessors :
     int   getHoldedPieceType() ;
     int   getNextPieceType() ;
     int   getLines() ;
     int   getLevel() ;
     int   getScore() ;
-    void  updateLevel();
+    bool  isHolded() ;
+    int   getAreaContent( int i , int j ) ;
 
-    bool isHolded() ;
-    
+    // Methods :    
     void Visited(int i, int j, int P_X, int P_Y, int t, int o, bool &flag, bool visited[][SIZE]);
     void Fill(int i, int j, int P_X, int P_Y, int t, int o, int value, bool visited[][SIZE]);
     void Fill_draw(int i, int j, int P_X, int P_Y, int t, int o, int value);
+
+    void  setCurPiece(Piece p);
 
     void drawPiece(Piece p);
     void drawShadePiece(Piece p);
@@ -83,6 +85,8 @@ private:
     void dropPiece();
     void dropShadePiece();
     bool GameOver() ;
+    
+    void updateLevel();
     int  calculScore(int l);
 
     void clear();

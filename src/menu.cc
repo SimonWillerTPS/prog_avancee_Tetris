@@ -98,14 +98,14 @@ void Menu:: render()
     SDL_FreeSurface( batt_surface ) ;
     SDL_FreeSurface( quit_surface ) ;
 
-    mara_rect = { win_width / 2 - 2 * list_size , win_height / 2 , 
-                  4 * list_size , list_size } ;
-    batt_rect = { win_width / 2 - 2 * list_size , 
+    mara_rect = { win_width / 2 - (int)( 1.5 * list_size ) , win_height / 2 , 
+                  3 * list_size , list_size } ;
+    batt_rect = { win_width / 2 - 1 * list_size , 
                   win_height / 2 + 2 * list_size , 
-                  4 * list_size , list_size } ;
-    quit_rect = { win_width / 2 - 2 * list_size , 
+                  2 * list_size , list_size } ;
+    quit_rect = { win_width / 2 - 1 * list_size , 
                   win_height / 2 + 4 * list_size , 
-                  4 * list_size , list_size } ;
+                  2 * list_size , list_size } ;
 
     SDL_RenderCopy( renderer , mara_texture , NULL , &mara_rect ) ;
     SDL_RenderCopy( renderer , batt_texture , NULL , &batt_rect ) ;
