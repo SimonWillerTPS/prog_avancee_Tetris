@@ -26,6 +26,9 @@ class Menu
         SDL_Surface*        quit_surface ;
         SDL_Texture*        quit_texture ;
         SDL_Rect            quit_rect ;
+        SDL_Surface*        logo_surface ;
+        SDL_Texture*        logo_texture ;
+        SDL_Rect            logo_rect ;
 
         SDL_Rect            selected_rect ;
         SDL_Event*          event ;

@@ -84,19 +84,22 @@ void Menu:: render()
     SDL_RenderClear( renderer ) ;
 
     mara_surface = TTF_RenderText_Solid( font , "MARATHON" ,
-                                                      { 255 , 255 , 255 } ) ;
+                                         { 255 , 255 , 255 } ) ;
     batt_surface = TTF_RenderText_Solid( font , "BATTLE" ,
-                                                      { 255 , 255 , 255 }) ;
+                                         { 255 , 255 , 255 }) ;
     quit_surface = TTF_RenderText_Solid( font , "QUIT" ,
-                                                      { 255 , 255 , 255 }) ;
+                                         { 255 , 255 , 255 }) ;
+    logo_surface = SDL_LoadBMP( "res/logo.bmp" ) ;
 
     mara_texture = SDL_CreateTextureFromSurface( renderer , mara_surface) ;
     batt_texture = SDL_CreateTextureFromSurface( renderer , batt_surface) ;
     quit_texture = SDL_CreateTextureFromSurface( renderer , quit_surface) ;
+    logo_texture = SDL_CreateTextureFromSurface( renderer , logo_surface ) ;
 
     SDL_FreeSurface( mara_surface ) ;
     SDL_FreeSurface( batt_surface ) ;
     SDL_FreeSurface( quit_surface ) ;
+    SDL_FreeSurface( logo_surface ) ;
 
     mara_rect = { win_width / 2 - (int)( 1.5 * list_size ) , win_height / 2 , 
                   3 * list_size , list_size } ;
@@ -106,10 +109,14 @@ void Menu:: render()
     quit_rect = { win_width / 2 - 1 * list_size , 
                   win_height / 2 + 4 * list_size , 
                   2 * list_size , list_size } ;
+    logo_rect = { win_width / 2 - (int)( 7.5 * list_size ) ,
+                  win_height / 2 - 8 * list_size ,
+                  15 * list_size , 5 * list_size } ;
 
     SDL_RenderCopy( renderer , mara_texture , NULL , &mara_rect ) ;
     SDL_RenderCopy( renderer , batt_texture , NULL , &batt_rect ) ;
     SDL_RenderCopy( renderer , quit_texture , NULL , &quit_rect ) ;
+    SDL_RenderCopy( renderer , logo_texture , NULL , &logo_rect ) ;
 
     SDL_SetRenderDrawColor( renderer , 255 , 255 , 255 , 255 ) ;
     selected_rect = { win_width / 2 - 2 * list_size , 
@@ -120,6 +127,7 @@ void Menu:: render()
     SDL_DestroyTexture( mara_texture ) ;
     SDL_DestroyTexture( batt_texture ) ;
     SDL_DestroyTexture( quit_texture ) ;
+    SDL_DestroyTexture( logo_texture ) ;
 
     SDL_RenderPresent( renderer ) ;
 }
