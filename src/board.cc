@@ -16,12 +16,12 @@ int Board:: getHoldedPieceType()
 
 void Board::Visited(int i, int j, int P_X, int P_Y, int t, int o, bool &flag, bool visited[][SIZE])
 {
-    if(P_X < 0 || P_Y >= SIZE || P_Y < 0 || P_Y >= SIZE || visited[P_X][P_Y] || SHAPE[t][o][P_X][P_Y] == EMPTY)
+    if(P_X < 0 || P_Y >= SIZE || P_Y < 0 || P_Y >= SIZE || visited[P_X][P_Y] || SHAPE[t][o][P_X][P_Y] == EMPTY || SHAPE[t][o][P_X][P_Y] == SHADE)
         return;
  
     visited[P_X][P_Y] = true;
  
-    if(i < 0 || i >= BOARD_HEIGHT || j < 0 || j >= BOARD_WIDTH || area[j][i] != EMPTY)
+    if(i < 0 || i >= BOARD_HEIGHT || j < 0 || j >= BOARD_WIDTH || (area[j][i] != EMPTY && area[j][i] != SHADE))
     {
         flag = false;
         return;
@@ -35,7 +35,7 @@ void Board::Visited(int i, int j, int P_X, int P_Y, int t, int o, bool &flag, bo
 
 void Board::Fill(int i, int j, int P_X, int P_Y, int t, int o, int value, bool visited[][SIZE])
 {
-    if(P_X < 0 || P_X >= SIZE || P_Y < 0 || P_Y >= SIZE || visited[P_X][P_Y] || SHAPE[t][o][P_X][P_Y] == EMPTY)
+    if(P_X < 0 || P_X >= SIZE || P_Y < 0 || P_Y >= SIZE || visited[P_X][P_Y] || SHAPE[t][o][P_X][P_Y] == EMPTY || SHAPE[t][o][P_X][P_Y] == SHADE)
         return;
  
     visited[P_X][P_Y] = true;
@@ -177,6 +177,16 @@ void Board::drawPiece(Piece p)
     Fill_draw(i, j, Piv_X, Piv_Y, t, o, p.getColor());
 }
 
+void Board::drawShadePiece(Piece p)
+{
+    int i = p.getX();
+    int j = p.getY();
+ 
+    int t = p.getType();
+    int o = p.getOrient();
+
+    Fill_draw(i, j, Piv_X, Piv_Y, t, o, SHADE);
+}
 
 bool Board::isPieceRotable(int o)
 {
@@ -232,7 +242,7 @@ void Board::movePieceDown()
     }
 }
 
-bool Board::shadeDropTest(int x, int y)
+bool Board::isShadePieceMovable(int x, int y)
 {
     bool drop = true;
  
@@ -255,7 +265,7 @@ void Board::moveShadePieceDown()
     int x = shadePiece.getX();
     int y = shadePiece.getY();
 
-        if (shadeDropTest(x + 1, y))
+        if (isShadePieceMovable(x + 1, y))
         {
             destroyPiece(shadePiece);
             shadePiece.setX(x + 1);
@@ -264,10 +274,12 @@ void Board::moveShadePieceDown()
 
 void Board::dropShadePiece()
 {
+    destroyPiece(currentPiece);
     int x = shadePiece.getX();
     int y = shadePiece.getY();
-    while (shadeDropTest(x++,y))
+    while (isShadePieceMovable(x++,y))
         moveShadePieceDown();
+    drawPiece(currentPiece);
 
 }
  
@@ -304,7 +316,7 @@ void Board::movePieceRight()
 
 void Board::deleteLine(int y)
 {
-    destroyPiece(currentPiece);
+    //destroyPiece(currentPiece);
  
     for(int j = y; j > 0; --j)
     {
@@ -312,7 +324,7 @@ void Board::deleteLine(int y)
             area[i][j] = area[i][j-1];
     }
  
-    drawPiece(currentPiece);
+    //drawPiece(currentPiece);
 }
  
 int Board::deletePossibleLines()
@@ -323,7 +335,7 @@ int Board::deletePossibleLines()
     {
         int i = 0;
  
-        for(; i < BOARD_WIDTH && area[i][j] != EMPTY; ++i);
+        for(; i < BOARD_WIDTH && area[i][j] != EMPTY && area[i][j] != SHADE; ++i);
  
         if(i == BOARD_WIDTH)
         {
@@ -395,18 +407,25 @@ void Board:: insertPiece( Piece p )
     drawPiece(p);
  
     setCurPiece(p);
+    projectedPiece();
+    destroyShadePiece();
 }
 
-void Board::projectedPiece()
+void Board ::destroyShadePiece()
 {
     destroyPiece(shadePiece);
+}
+void Board::projectedPiece()
+{
     shadePiece.setX(currentPiece.getX()) ;
     shadePiece.setY(currentPiece.getY()) ;
     shadePiece.setType(currentPiece.getType());
     shadePiece.setOrient(currentPiece.getOrient());
-    shadePiece.setColor(RED);
+    shadePiece.setColor(SHADE);
+    int x = shadePiece.getY();
+    int y = shadePiece.getX();
     dropShadePiece();
-    drawPiece(shadePiece);
+    drawShadePiece(shadePiece);
 }
 
 bool Board::GameOver()

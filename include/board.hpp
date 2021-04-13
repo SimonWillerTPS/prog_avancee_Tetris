@@ -52,10 +52,12 @@ private:
     void Fill_draw(int i, int j, int P_X, int P_Y, int t, int o, int value);
 
     void drawPiece(Piece p);
+    void drawShadePiece(Piece p);
     void newPiece();
 
     void newPiece(Piece p);
     void destroyPiece(Piece p);
+    void destroyShadePiece();
  
     bool isPieceMovable(int x, int y);
     bool isPieceRotable(int r);
@@ -71,7 +73,7 @@ private:
     void deleteLine(int l);
     int  deletePossibleLines();
 
-    bool shadeDropTest(int x, int y);
+    bool isShadePieceMovable(int x, int y);
     void moveShadePieceDown();
 
     void projectedPiece();
