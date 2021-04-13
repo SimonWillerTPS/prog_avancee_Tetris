@@ -251,51 +251,51 @@ void Game:: render_square( int pos_x , int pos_y , int color )
     switch( color )
     {
         case CYAN :
-            SDL_SetRenderDrawColor( renderer , 0x00 , 0xFF , 0xFF , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , 0x40 , 0xE0 , 0xD0 , 255 ) ;
             SDL_RenderFillRect( renderer , &rectangle ) ;
-            SDL_SetRenderDrawColor( renderer , 0x00 , 0xF0 , 0xF0 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , 0x00 , 0xCE , 0xD1 , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             break ;
 
         case BLUE :
-            SDL_SetRenderDrawColor( renderer , 0x00 , 0x00 , 0xFF , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , 0x00 , 0xBF , 0xFF , 255 ) ;
             SDL_RenderFillRect( renderer , &rectangle ) ;
-            SDL_SetRenderDrawColor( renderer , 0x00 , 0x00 , 0xF0 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , 0x1E , 0x90 , 0xFF , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             break ;
             
         case GREEN :
-            SDL_SetRenderDrawColor( renderer , 0x00 , 0xFF , 0x00 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , 0x6B , 0x8E , 0x23 , 255 ) ;
             SDL_RenderFillRect( renderer , &rectangle ) ;
-            SDL_SetRenderDrawColor( renderer , 0x00 , 0xF0 , 0x00 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , 0x55 , 0x6B , 0x2F , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             break ;
             
         case ORANGE :
-            SDL_SetRenderDrawColor( renderer , 0xFF , 0x7F , 0x00 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , 0xFF , 0xA0 , 0x7A , 255 ) ;
             SDL_RenderFillRect( renderer , &rectangle ) ;
-            SDL_SetRenderDrawColor( renderer , 0xFF , 0x70 , 0x00 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , 0xFF , 0x7F , 0x50 , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             break ;
             
         case PURPLE :
             SDL_SetRenderDrawColor( renderer , 0x80 , 0x00 , 0x80 , 255 ) ;
             SDL_RenderFillRect( renderer , &rectangle ) ;
-            SDL_SetRenderDrawColor( renderer , 0x70 , 0x00 , 0x70 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , 0x4B , 0x00 , 0x82 , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             break ;
             
         case YELLOW :
-            SDL_SetRenderDrawColor( renderer , 0xFF , 0xFF , 0x00 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , 0xFF , 0xD7 , 0x00 , 255 ) ;
             SDL_RenderFillRect( renderer , &rectangle ) ;
-            SDL_SetRenderDrawColor( renderer , 0xF0 , 0xF0 , 0x00 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , 0xFF , 0xA5 , 0x00 , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             break ;
             
         case RED :
-            SDL_SetRenderDrawColor( renderer , 0xFF , 0x00 , 0x00 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , 0xDC , 0x014 , 0x3C , 255 ) ;
             SDL_RenderFillRect( renderer , &rectangle ) ;
-            SDL_SetRenderDrawColor( renderer , 0xF0 , 0x00 , 0x00 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , 0x8B , 0x00 , 0x00 , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             break ;
             
