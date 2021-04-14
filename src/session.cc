@@ -39,7 +39,7 @@ bool Session:: run()
 
         pressed_key = get_key( event ) ;
         if( pressed_key == KEY_QUIT )
-            running = false ;
+            return false ;
         else
             use_key() ;
 
@@ -114,9 +114,6 @@ void Session:: use_key()
             board->dropPiece();
             fallenCounter = 60 ;
             break;
-        case KEY_QUIT :
-            running= false ;
-            break;
         default :
             break;
     }
@@ -125,14 +122,14 @@ void Session:: use_key()
 
 void Session:: render_board()
 {
-    SDL_SetRenderDrawColor( renderer , 0x03 , 0x41 , 0xAE , 0xFF ) ;
+    SDL_SetRenderDrawColor( renderer , COLOR_BACKGROUND , 0xFF ) ;
     SDL_RenderClear( renderer ) ;
     
     for ( int i = 0 ; i < BOARD_HEIGHT ; i ++ )
         for ( int j = 0 ; j < BOARD_WIDTH ; j ++ )
         {
             render_square( j * tile_size , i * tile_size , 
-            board->getAreaContent( j , i )) ;
+                           board->getAreaContent( j , i )) ;
         }
 
     render_text() ;
@@ -155,65 +152,65 @@ void Session:: render_square( int pos_x , int pos_y , int color )
     switch( color )
     {
         case CYAN :
-            SDL_SetRenderDrawColor( renderer , 0x40 , 0xE0 , 0xD0 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_O_IN , 255 ) ;
             SDL_RenderFillRect( renderer , &rectangle ) ;
-            SDL_SetRenderDrawColor( renderer , 0x00 , 0xCE , 0xD1 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_O_OUT , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             break ;
 
         case BLUE :
-            SDL_SetRenderDrawColor( renderer , 0x00 , 0xBF , 0xFF , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_I_IN , 255 ) ;
             SDL_RenderFillRect( renderer , &rectangle ) ;
-            SDL_SetRenderDrawColor( renderer , 0x1E , 0x90 , 0xFF , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_I_OUT , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             break ;
             
         case GREEN :
-            SDL_SetRenderDrawColor( renderer , 0x6B , 0x8E , 0x23 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_L_IN , 255 ) ;
             SDL_RenderFillRect( renderer , &rectangle ) ;
-            SDL_SetRenderDrawColor( renderer , 0x55 , 0x6B , 0x2F , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_L_OUT , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             break ;
             
         case ORANGE :
-            SDL_SetRenderDrawColor( renderer , 0xFF , 0xA0 , 0x7A , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_S_IN , 255 ) ;
             SDL_RenderFillRect( renderer , &rectangle ) ;
-            SDL_SetRenderDrawColor( renderer , 0xFF , 0x7F , 0x50 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_S_OUT , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             break ;
             
         case PURPLE :
-            SDL_SetRenderDrawColor( renderer , 0x80 , 0x00 , 0x80 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_J_IN , 255 ) ;
             SDL_RenderFillRect( renderer , &rectangle ) ;
-            SDL_SetRenderDrawColor( renderer , 0x4B , 0x00 , 0x82 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_J_OUT , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             break ;
             
         case YELLOW :
-            SDL_SetRenderDrawColor( renderer , 0xFF , 0xD7 , 0x00 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_Z_IN , 255 ) ;
             SDL_RenderFillRect( renderer , &rectangle ) ;
-            SDL_SetRenderDrawColor( renderer , 0xFF , 0xA5 , 0x00 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_Z_OUT , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             break ;
             
         case RED :
-            SDL_SetRenderDrawColor( renderer , 0xDC , 0x014 , 0x3C , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_T_IN , 255 ) ;
             SDL_RenderFillRect( renderer , &rectangle ) ;
-            SDL_SetRenderDrawColor( renderer , 0x8B , 0x00 , 0x00 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_T_OUT , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             break ;
 
         case SHADE :
-            SDL_SetRenderDrawColor( renderer , 0x80, 0x80, 0x80, 125 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_SHADE_IN, 125 ) ;
             SDL_RenderFillRect( renderer , &rectangle ) ;
-            SDL_SetRenderDrawColor( renderer , 0x69 , 0x69 , 0x69 , 125 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_SHADE_OUT , 125 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             break ;
             
         case EMPTY :
-            SDL_SetRenderDrawColor( renderer , 0 , 0 , 0 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_GRID_IN , 255 ) ;
             SDL_RenderFillRect( renderer , &rectangle ) ;
-            SDL_SetRenderDrawColor( renderer , 30 , 30 , 30 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_GRID_OUT , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             break ;
         
@@ -229,9 +226,9 @@ void Session:: render_holded()
                   height - 21 * tile_size  , 
                   5 * tile_size , 5 * tile_size } ;
     
-    SDL_SetRenderDrawColor( renderer , 0 , 0 , 0 , 255 ) ;
+    SDL_SetRenderDrawColor( renderer , COLOR_GRID_IN , 255 ) ;
     SDL_RenderFillRect( renderer , &rectangle ) ;
-    SDL_SetRenderDrawColor( renderer , 30 , 30 , 30 , 255 ) ;
+    SDL_SetRenderDrawColor( renderer , COLOR_GRID_OUT , 255 ) ;
     SDL_RenderDrawRect( renderer , &rectangle ) ;
 
     if( board->isHolded())
@@ -246,9 +243,9 @@ void Session:: render_next_piece()
                   height - 21 * tile_size  , 
                   5 * tile_size , 5 * tile_size } ;
     
-    SDL_SetRenderDrawColor( renderer , 0 , 0 , 0 , 255 ) ;
+    SDL_SetRenderDrawColor( renderer , COLOR_GRID_IN , 255 ) ;
     SDL_RenderFillRect( renderer , &rectangle ) ;
-    SDL_SetRenderDrawColor( renderer , 30 , 30 , 30 , 255 ) ;
+    SDL_SetRenderDrawColor( renderer , COLOR_GRID_OUT , 255 ) ;
     SDL_RenderDrawRect( renderer , &rectangle ) ;
 
     renderPiece( board->getNextPieceType() , 
@@ -267,11 +264,9 @@ void Session:: renderPiece( int type , int center_x , int center_y )
                     rectangle = { center_x + i * tile_size , 
                                   center_y + j * tile_size  , 
                                   tile_size , tile_size } ;
-                    SDL_SetRenderDrawColor( renderer , 0x00 , 0xFF , 
-                                            0xFF , 255 ) ;
+                    SDL_SetRenderDrawColor( renderer , COLOR_O_IN , 255 ) ;
                     SDL_RenderFillRect( renderer , &rectangle ) ;
-                    SDL_SetRenderDrawColor( renderer , 0x00 , 0xF0 , 
-                                            0xF0 , 255 ) ;
+                    SDL_SetRenderDrawColor( renderer , COLOR_O_OUT , 255 ) ;
                     SDL_RenderDrawRect( renderer , &rectangle ) ;
                 }
             break ;
@@ -282,28 +277,28 @@ void Session:: renderPiece( int type , int center_x , int center_y )
                 rectangle = { center_x - tile_size / 2 ,
                               center_y + i * tile_size ,
                               tile_size , tile_size } ;
-                SDL_SetRenderDrawColor( renderer , 0x00 , 0x00 , 0xFF , 255 ) ;
+                SDL_SetRenderDrawColor( renderer , COLOR_I_IN , 255 ) ;
                 SDL_RenderFillRect( renderer , &rectangle ) ;
-                SDL_SetRenderDrawColor( renderer , 0x00 , 0x00 , 0xF0 , 255 ) ;
+                SDL_SetRenderDrawColor( renderer , COLOR_I_OUT , 255 ) ;
                 SDL_RenderDrawRect( renderer , &rectangle ) ;
             }
             break ;
 
         case 5 :
-            rectangle = { center_x + tile_size / 2 ,
+            rectangle = { center_x - 3 * tile_size / 2 ,
                           center_y - tile_size ,
                           tile_size , tile_size } ;
-            SDL_SetRenderDrawColor( renderer , 0x80 , 0x00 , 0x80 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_J_IN , 255 ) ;
             SDL_RenderFillRect( renderer , &rectangle ) ;
-            SDL_SetRenderDrawColor( renderer , 0x70 , 0x00 , 0x70 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_J_OUT , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             for(float i = -1.5 ; i < 1 ; i ++ )
             {
                 rectangle = { (int)( center_x + i * tile_size ) ,
                               center_y , tile_size , tile_size } ;
-                SDL_SetRenderDrawColor( renderer , 0x80 , 0x00 , 0x80 , 255 ) ;
+                SDL_SetRenderDrawColor( renderer , COLOR_J_IN , 255 ) ;
                 SDL_RenderFillRect( renderer , &rectangle ) ;
-                SDL_SetRenderDrawColor( renderer , 0x70 , 0x00 , 0x70 , 255 ) ;
+                SDL_SetRenderDrawColor( renderer , COLOR_J_OUT , 255 ) ;
                 SDL_RenderDrawRect( renderer , &rectangle ) ;
             }
             break ;
@@ -315,11 +310,9 @@ void Session:: renderPiece( int type , int center_x , int center_y )
                     rectangle = { (int)( center_x + ( i + j ) * tile_size ) ,
                                   center_y - j * tile_size ,
                                   tile_size , tile_size } ;
-                    SDL_SetRenderDrawColor( renderer , 0xFF , 0x7F , 
-                                            0x00 , 255 ) ;
+                    SDL_SetRenderDrawColor( renderer , COLOR_S_IN , 255 ) ;
                     SDL_RenderFillRect( renderer , &rectangle ) ;
-                    SDL_SetRenderDrawColor( renderer , 0xFF , 0x70 , 
-                                            0x00 , 255 ) ;
+                    SDL_SetRenderDrawColor( renderer , COLOR_S_OUT , 255 ) ;
                     SDL_RenderDrawRect( renderer , &rectangle ) ;
                 }
             break ;
@@ -328,17 +321,17 @@ void Session:: renderPiece( int type , int center_x , int center_y )
             rectangle = { center_x - tile_size / 2 ,
                           center_y - tile_size ,
                           tile_size , tile_size } ;
-            SDL_SetRenderDrawColor( renderer , 0xFF , 0x00 , 0x00 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_T_IN , 255 ) ;
             SDL_RenderFillRect( renderer , &rectangle ) ;
-            SDL_SetRenderDrawColor( renderer , 0xF0 , 0x00 , 0x00 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_T_OUT , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             for( float i = -1.5 ; i < 1 ; i ++ )
             {
                 rectangle = { (int)( center_x + i * tile_size ) ,
                               center_y , tile_size , tile_size } ;
-                SDL_SetRenderDrawColor( renderer , 0xFF , 0x00 , 0x00 , 255 ) ;
+                SDL_SetRenderDrawColor( renderer , COLOR_T_IN , 255 ) ;
                 SDL_RenderFillRect( renderer , &rectangle ) ;
-                SDL_SetRenderDrawColor( renderer , 0xF0 , 0x00 , 0x00 , 255 ) ;
+                SDL_SetRenderDrawColor( renderer , COLOR_T_OUT , 255 ) ;
                 SDL_RenderDrawRect( renderer , &rectangle ) ;
             }
             break ;
@@ -350,11 +343,9 @@ void Session:: renderPiece( int type , int center_x , int center_y )
                     rectangle = { (int)( center_x + (i+j+1) * tile_size ) ,
                                   center_y + j * tile_size ,
                                   tile_size , tile_size } ;
-                    SDL_SetRenderDrawColor( renderer , 0xFF , 0xFF , 
-                                            0x00 , 255 ) ;
+                    SDL_SetRenderDrawColor( renderer , COLOR_Z_IN , 255 ) ;
                     SDL_RenderFillRect( renderer , &rectangle ) ;
-                    SDL_SetRenderDrawColor( renderer , 0xF0 , 0xF0 , 
-                                            0x00 , 255 ) ;
+                    SDL_SetRenderDrawColor( renderer , COLOR_Z_OUT , 255 ) ;
                     SDL_RenderDrawRect( renderer , &rectangle ) ;
                 }
             break ;
@@ -363,17 +354,17 @@ void Session:: renderPiece( int type , int center_x , int center_y )
             rectangle = { center_x + tile_size / 2 ,
                           center_y - tile_size ,
                           tile_size , tile_size } ;
-            SDL_SetRenderDrawColor( renderer , 0x00 , 0xFF , 0x00 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_L_IN , 255 ) ;
             SDL_RenderFillRect( renderer , &rectangle ) ;
-            SDL_SetRenderDrawColor( renderer , 0x00 , 0xF0 , 0x00 , 255 ) ;
+            SDL_SetRenderDrawColor( renderer , COLOR_L_OUT , 255 ) ;
             SDL_RenderDrawRect( renderer , &rectangle ) ;
             for(float i = -1.5 ; i < 1 ; i ++ )
             {
                 rectangle = { (int)( center_x + i * tile_size ) ,
                               center_y , tile_size , tile_size } ;
-                SDL_SetRenderDrawColor( renderer , 0x00 , 0xFF , 0x00 , 255 ) ;
+                SDL_SetRenderDrawColor( renderer , COLOR_L_IN , 255 ) ;
                 SDL_RenderFillRect( renderer , &rectangle ) ;
-                SDL_SetRenderDrawColor( renderer , 0x00 , 0xF0 , 0x00 , 255 ) ;
+                SDL_SetRenderDrawColor( renderer , COLOR_L_OUT , 255 ) ;
                 SDL_RenderDrawRect( renderer , &rectangle ) ;
             }
             break ;

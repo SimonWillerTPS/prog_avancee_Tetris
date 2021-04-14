@@ -7,6 +7,7 @@
 #include <SDL2/SDL_ttf.h>
 
 #include "board.hpp"
+#include "colors.hpp"
 #include "key.hpp"
 #include "pieces.hpp"
 #include "shape.hpp"
@@ -67,7 +68,8 @@ class Session
 
         // Other attributes :
         bool running ;
-        int  difficulty = 3 ;
+        bool closing = false ;
+        int  difficulty = 4 ;
         int  down_counter = 0 ;
         int  fallenCounter = 0 ;
         int  starting_level ;

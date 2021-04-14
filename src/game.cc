@@ -69,7 +69,7 @@ int Game:: launch_menu()
         switch( menu->launch() )
         {
             case MARATHON :
-                launch_marathon() ;
+                running = launch_marathon() ;
                 break ;
             
             case BATTLE :

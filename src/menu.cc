@@ -80,7 +80,7 @@ bool Menu:: process_key()
 
 void Menu:: render()
 {
-    SDL_SetRenderDrawColor( renderer , 0x03 , 0x41 , 0xAE , 0xFF ) ;
+    SDL_SetRenderDrawColor( renderer , COLOR_BACKGROUND , 0xFF ) ;
     SDL_RenderClear( renderer ) ;
 
     mara_surface = TTF_RenderText_Solid( font , "MARATHON" ,

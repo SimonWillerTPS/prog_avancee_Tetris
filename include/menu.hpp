@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "choice.hpp"
+#include "colors.hpp"
 #include "key.hpp"
 
 class Menu
