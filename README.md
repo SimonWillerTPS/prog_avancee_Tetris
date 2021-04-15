@@ -11,7 +11,7 @@ On Ubuntu, you can install them using :
  ```
 To compile the code, open a terminal in the root and type :
 ```bash
-**make all**.
+make all
 ```
 
 ## Execution
