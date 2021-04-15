@@ -1,9 +1,9 @@
 #ifndef MENU_HPP
 #define MENU_HPP
 
-#include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_ttf.h>
 #include <vector>
@@ -11,12 +11,15 @@
 #include "choice.hpp"
 #include "colors.hpp"
 #include "key.hpp"
+#include "menu_item.hpp"
 
 class Menu
 {
     private :
 
-        SDL_Renderer*       renderer ;
+        SDL_Renderer*           renderer ;
+
+        // std::vector<Menu_item*> items ;
 
         SDL_Surface*        mara_surface ;
         SDL_Texture*        mara_texture ;
@@ -24,6 +27,9 @@ class Menu
         SDL_Surface*        batt_surface ;
         SDL_Texture*        batt_texture ;
         SDL_Rect            batt_rect ;
+        SDL_Surface*        sett_surface ;
+        SDL_Texture*        sett_texture ;
+        SDL_Rect            sett_rect ;
         SDL_Surface*        quit_surface ;
         SDL_Texture*        quit_texture ;
         SDL_Rect            quit_rect ;
@@ -34,6 +40,11 @@ class Menu
         SDL_Rect            selected_rect ;
         SDL_Event*          event ;
         TTF_Font*           font ;
+        
+        Mix_Music*          music ;
+        Mix_Chunk*          sound_select ;
+        int                 volume_music ;
+        int                 volume_chunk ;
 
         Key                 pressed_key ;
         std::vector<Choice> choices ;   
@@ -46,7 +57,8 @@ class Menu
 
     public :
 
-        Menu( SDL_Renderer* renderer , TTF_Font* font  , int number , 
+        Menu( SDL_Renderer* renderer , TTF_Font* font  , Mix_Music* music ,
+              Mix_Chunk* select , int& v_music , int& v_chunk , int number , 
               int width , int height ) ;
         ~Menu() ;
 

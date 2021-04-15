@@ -1,9 +1,9 @@
 #ifndef BOARD_HPP
 #define BOARD_HPP
 
-#include "session.hpp"
 #include "pieces.hpp"
 #include "random_bag.hpp"
+#include "shape.hpp"
 
 const int BOARD_HEIGHT = 20;
 const int BOARD_WIDTH = 10;

@@ -38,9 +38,31 @@ bool Game:: init_SDL()
         return false ;
     }
 
+    if( Mix_OpenAudio( 44100 , MIX_DEFAULT_FORMAT , 1 , 2048 ) != 0 )
+    {
+        std::cout << "SDL_Error: " << SDL_GetError() << std::endl ;
+        return false ;
+    }
+
     TTF_Init() ;
 
     font = TTF_OpenFont( "res/monobit.ttf" , 20 ) ;
+    music = Mix_LoadMUS( MUSIC_PATH ) ;
+    sound_dropped = Mix_LoadWAV( DROPPED_PATH ) ;
+    sound_gameover = Mix_LoadWAV( GAMEOVER_PATH ) ;
+    sound_line = Mix_LoadWAV( LINE_PATH ) ;
+    sound_select = Mix_LoadWAV( SELECT_PATH ) ;
+
+    if( font == NULL || music == NULL || sound_dropped == NULL
+        || sound_select == NULL || sound_gameover == NULL 
+        || sound_line == NULL)
+    {
+        std::cout << "Cannot load ressources, " ;
+        std::cout << "SDL_Error: " << SDL_GetError() << std::endl ;
+        return false ;
+    }
+
+    Mix_VolumeMusic( volume_music ) ;
 
     return true ;
 }
@@ -49,7 +71,12 @@ void Game:: close_SDL()
 {
     SDL_DestroyRenderer( renderer );
 	SDL_DestroyWindow( window );
-    
+    Mix_FreeMusic( music ) ;
+    Mix_FreeChunk( sound_dropped ) ;
+    Mix_FreeChunk( sound_gameover ) ;
+    Mix_FreeChunk( sound_line ) ;
+    Mix_FreeChunk( sound_select ) ;
+
     TTF_CloseFont( font ) ;
 
     TTF_Quit();
@@ -59,13 +86,19 @@ void Game:: close_SDL()
 
 int Game:: launch_menu()
 {   
-    menu = new Menu( renderer , font , 3 , win_width , win_height ) ;
+    menu = new Menu( renderer , font , music , sound_select , volume_music , 
+                     volume_chunk , 4 , win_width , win_height ) ;
 
     if( !menu->set_choice( 0 , MARATHON )) return 1 ;
     if( !menu->set_choice( 1 , BATTLE )) return 1 ;
-    if( !menu->set_choice( 2 , EXIT )) return 1 ;
+    if( !menu->set_choice( 2 , SETTINGS )) return 1 ;
+    if( !menu->set_choice( 3 , EXIT )) return 1 ;
 
     while( running )
+    {
+        if( !Mix_PlayingMusic() )
+            Mix_PlayMusic( music , volume_music ) ;
+     
         switch( menu->launch() )
         {
             case MARATHON :
@@ -83,6 +116,7 @@ int Game:: launch_menu()
             default :
                 break ;
         }
+    }
 
     delete( menu ) ;
 
@@ -92,8 +126,9 @@ int Game:: launch_menu()
 bool Game:: launch_marathon()
 {
     session_player = new Session( 0 , 0 , win_width , win_height ,
-                                  tile_size , renderer , 
-                                  font , starting_level ) ;
+                                  tile_size , renderer , font , music ,
+                                  sound_dropped , sound_gameover ,
+                                  sound_line , starting_level ) ;
 
     bool result = session_player->run() ;
 

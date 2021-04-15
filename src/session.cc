@@ -1,11 +1,14 @@
 #include "session.hpp"
 
-Session:: Session( int x , int y , int width , int height , int size ,
-                   SDL_Renderer* renderer , TTF_Font* font , int level ) :
+Session:: Session( int x , int y , int width , int height , int size , 
+                   SDL_Renderer* renderer , TTF_Font* font , Mix_Music* music ,
+                   Mix_Chunk* dropped , Mix_Chunk* gameover , Mix_Chunk* line ,
+                   int level ) :
                    orig_x( x ) , orig_y( y ) , width( width ) ,
                    height( height ) , tile_size( size ) , 
                    renderer( renderer ) , font( font ) , 
-                   starting_level( level )
+                   sound_dropped( dropped ) , sound_gameover( gameover ) ,
+                   sound_line( line ) , starting_level( level )
 {
     board = new Board( starting_level ) ;
 
@@ -66,9 +69,14 @@ void Session:: update_board()
 {
     if( board->isPieceFallen())
     {
-        if( ++ fallenCounter > (60 - (board->getLevel() * difficulty )))
+        int waiter = 60 - (board->getLevel() * difficulty ) ;
+        if( waiter < 10 ) waiter = 10 ;
+
+        if( ++ fallenCounter > waiter)
         {
+            Mix_PlayChannel( 1 , sound_dropped , 0 ) ;
             int a = board->deletePossibleLines() ;
+            if( a > 0 ) Mix_PlayChannel( 1 , sound_line , 0 ) ;
             board->calculScore(a);
             fallenCounter = 0 ;
             board->newPiece() ;
@@ -78,6 +86,8 @@ void Session:: update_board()
     
     if( board->GameOver())
     {
+        Mix_HaltMusic() ;
+        Mix_PlayChannel( 1 , sound_gameover , 0 ) ;
         running = false ;
     }
 

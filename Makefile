@@ -1,5 +1,5 @@
 CFLAGS			=	-std=c++11 -g -Wall 
-LIBS			= 	-lSDL2 -lSDL2_image -lSDL2_ttf
+LIBS			= 	-lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 TARGET			=	Tetris
 SRCDIR			= 	src
 OBJDIR			= 	obj

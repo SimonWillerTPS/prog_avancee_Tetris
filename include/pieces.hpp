@@ -2,7 +2,7 @@
 #ifndef PIECES_H
 #define PIECES_H
  
-#include "shape.hpp"
+#include "colors.hpp"
 
 const int Piv_X = 1;
 const int Piv_Y = 2;

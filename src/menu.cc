@@ -1,10 +1,12 @@
 #include "menu.hpp"
 
-Menu:: Menu( SDL_Renderer* renderer , TTF_Font* font , int number ,
+Menu:: Menu( SDL_Renderer* renderer , TTF_Font* font  , Mix_Music* music ,
+             Mix_Chunk* select , int& v_music , int& v_chunk , int number , 
              int width , int height ) : 
-             renderer( renderer ) , font( font ) , 
-             number_of_choices( number ) , win_width( width ) ,
-             win_height( height )
+             renderer( renderer ) , font( font ) , music( music ) ,
+             sound_select( select ) , volume_music( v_music ) ,
+             volume_chunk( v_chunk ) , number_of_choices( number ) , 
+             win_width( width ) , win_height( height )
 {
     event = new SDL_Event() ;
     for( int i = 0 ; i < number_of_choices ; i ++ )
@@ -73,6 +75,9 @@ bool Menu:: process_key()
         default :
             break;
     }
+    if( pressed_key != KEY_NULL )
+        Mix_PlayChannel( 1 , sound_select , 0 ) ;
+
     pressed_key = KEY_NULL ;    
     
     return true ;
@@ -87,27 +92,35 @@ void Menu:: render()
                                          { 255 , 255 , 255 } ) ;
     batt_surface = TTF_RenderText_Solid( font , "BATTLE" ,
                                          { 255 , 255 , 255 }) ;
+    sett_surface = TTF_RenderText_Solid( font , "SETTINGS" ,
+                                         { 255 , 255 , 255 }) ;
     quit_surface = TTF_RenderText_Solid( font , "QUIT" ,
                                          { 255 , 255 , 255 }) ;
     logo_surface = SDL_LoadBMP( "res/logo.bmp" ) ;
 
     mara_texture = SDL_CreateTextureFromSurface( renderer , mara_surface) ;
     batt_texture = SDL_CreateTextureFromSurface( renderer , batt_surface) ;
+    sett_texture = SDL_CreateTextureFromSurface( renderer , sett_surface) ;
     quit_texture = SDL_CreateTextureFromSurface( renderer , quit_surface) ;
     logo_texture = SDL_CreateTextureFromSurface( renderer , logo_surface ) ;
 
     SDL_FreeSurface( mara_surface ) ;
     SDL_FreeSurface( batt_surface ) ;
+    SDL_FreeSurface( sett_surface ) ;
     SDL_FreeSurface( quit_surface ) ;
     SDL_FreeSurface( logo_surface ) ;
 
-    mara_rect = { win_width / 2 - (int)( 1.5 * list_size ) , win_height / 2 , 
+    mara_rect = { win_width / 2 - (int)( 1.5 * list_size ) , 
+                  win_height / 2 + 0 * list_size ,
                   3 * list_size , list_size } ;
     batt_rect = { win_width / 2 - 1 * list_size , 
                   win_height / 2 + 2 * list_size , 
                   2 * list_size , list_size } ;
-    quit_rect = { win_width / 2 - 1 * list_size , 
+    sett_rect = { win_width / 2 - (int)( 1.5 * list_size ) , 
                   win_height / 2 + 4 * list_size , 
+                  3 * list_size , list_size } ;
+    quit_rect = { win_width / 2 - 1 * list_size , 
+                  win_height / 2 + 6 * list_size , 
                   2 * list_size , list_size } ;
     logo_rect = { win_width / 2 - (int)( 7.5 * list_size ) ,
                   win_height / 2 - 8 * list_size ,
@@ -115,6 +128,7 @@ void Menu:: render()
 
     SDL_RenderCopy( renderer , mara_texture , NULL , &mara_rect ) ;
     SDL_RenderCopy( renderer , batt_texture , NULL , &batt_rect ) ;
+    SDL_RenderCopy( renderer , sett_texture , NULL , &sett_rect ) ;
     SDL_RenderCopy( renderer , quit_texture , NULL , &quit_rect ) ;
     SDL_RenderCopy( renderer , logo_texture , NULL , &logo_rect ) ;
 
@@ -126,6 +140,7 @@ void Menu:: render()
 
     SDL_DestroyTexture( mara_texture ) ;
     SDL_DestroyTexture( batt_texture ) ;
+    SDL_DestroyTexture( sett_texture ) ;
     SDL_DestroyTexture( quit_texture ) ;
     SDL_DestroyTexture( logo_texture ) ;
 

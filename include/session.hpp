@@ -1,16 +1,15 @@
 #ifndef SESSION_HPP
 #define SESSION_HPP
 
-#include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_ttf.h>
 
 #include "board.hpp"
 #include "colors.hpp"
 #include "key.hpp"
-#include "pieces.hpp"
-#include "shape.hpp"
 #include "timer.hpp"
 
 #define FPS 60
@@ -38,6 +37,10 @@ class Session
         SDL_Renderer* renderer ;
         SDL_Event*    event ;
         TTF_Font*     font ;
+        Mix_Music*    music ;
+        Mix_Chunk*    sound_dropped ;
+        Mix_Chunk*    sound_gameover ;
+        Mix_Chunk*    sound_line ;
             // Local :
         SDL_Surface* score_surface ;
         SDL_Surface* level_surface ;
@@ -78,7 +81,9 @@ class Session
 
         // Constructor, destructor :
         Session( int x , int y , int width , int height , int size , 
-                 SDL_Renderer* renderer , TTF_Font* font , int level ) ;
+                 SDL_Renderer* renderer , TTF_Font* font , Mix_Music* music ,
+                 Mix_Chunk* dropped , Mix_Chunk* gameover , Mix_Chunk* line ,
+                 int level ) ;
         ~Session() ;
 
         // Methods :
