@@ -52,6 +52,10 @@ private:
     void Fill_draw(int i, int j, int P_X, int P_Y, int t, int o, int value);
 
     void  setCurPiece(Piece p);
+    void  setCurShadePiece(Piece p);
+
+    Piece getCurPiece();
+    Piece getCurShadePiece();
 
     void drawPiece(Piece p);
     void drawShadePiece(Piece p);

@@ -58,6 +58,21 @@ bool Board:: isHolded()
     return hold ;
 }
 
+void Board::setCurShadePiece(Piece p)
+{
+    shadePiece = p;
+}
+
+Piece Board::getCurPiece()
+{
+    return currentPiece;
+}
+
+Piece Board::getCurShadePiece()
+{
+    return shadePiece;
+}
+
 int Board:: getAreaContent( int i , int j )
 {
     if( i >= 0 && i < BOARD_WIDTH && j >= 0 && j < BOARD_HEIGHT )
@@ -465,6 +480,7 @@ void Board:: projectedPiece()
     // int x = shadePiece.getY();
     // int y = shadePiece.getX();
     dropShadePiece();
+    setCurShadePiece(shadePiece);
     drawShadePiece(shadePiece);
 }
 
