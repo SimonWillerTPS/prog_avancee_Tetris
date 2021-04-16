@@ -21,7 +21,7 @@
 #define SELECT_PATH     "res/select.mp3"
 #define ROTATE_PATH     "res/rotate.mp3"
 
-#define DEFAULT_SOUND   15
+#define DEFAULT_SOUND   10
 
 class Game
 {
