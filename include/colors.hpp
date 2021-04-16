@@ -1,6 +1,7 @@
 #ifndef COLORS_HPP
 #define COLORS_HPP
 
+#define COLOR_WHITE         0xFF , 0xFF , 0xFF // WHITE
 #define COLOR_BACKGROUND    0x03 , 0x41 , 0xae // SKY_BLUE
 #define COLOR_GRID_IN       0x00 , 0x00 , 0x00 // BLACK
 #define COLOR_GRID_OUT      0x19 , 0x19 , 0x19 // BLACK

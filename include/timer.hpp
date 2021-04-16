@@ -1,8 +1,10 @@
 #ifndef TIMER_HPP
 #define TIMER_HPP
 
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_timer.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_timer.h>
+#include <SDL2/SDL_ttf.h>
 
 /* Huge thank to Lazy Foo' Production
  * http://lazyfoo.net/tutorials/SDL/

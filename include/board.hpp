@@ -1,9 +1,9 @@
 #ifndef BOARD_HPP
 #define BOARD_HPP
 
-#include "session.hpp"
 #include "pieces.hpp"
-#include <time.h>
+#include "random_bag.hpp"
+#include "shape.hpp"
 
 const int BOARD_HEIGHT = 20;
 const int BOARD_WIDTH = 10;
@@ -22,6 +22,7 @@ private:
     Piece holdedPiece;
     Piece nextPiece;
     Piece shadePiece;
+    Random_bag bag ;
     bool hold = false ;
     bool canHold = true ;
     bool firstPiece = true ;
@@ -68,7 +69,7 @@ private:
     bool isPieceMovable(int x, int y);
     bool isPieceRotable(int r);
 
-    void rotatePiece();
+    bool rotatePiece();
     void movePieceDown();
     void movePieceLeft();
     void movePieceRight();

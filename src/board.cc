@@ -6,24 +6,16 @@ Board::Board( int level ) : level( level )
 {
     if( level < 0 || level > 50 ) level = 0 ;
 
-    srand( time( NULL )) ;
-
     for(int i = 0; i < BOARD_WIDTH; ++i)
         for(int j = 0; j < BOARD_HEIGHT; ++j)
             area[i][j] = EMPTY;
-
-    // currentPiece = new Piece( rand() % 7 , 0 ) ;
-    // nextPiece = new Piece( rand() % 7 , 0 ) ;
 
     newPiece();
 }
 
 Board:: ~Board()
 {
-    // delete( currentPiece ) ;
-    // delete( holdedPiece) ;
-    // delete( nextPiece) ;
-    // delete( shadePiece) ;
+    ;
 }
 
 // Accessors :
@@ -177,14 +169,14 @@ void Board:: newPiece()
 {
     if( firstPiece )
     {    
-        insertPiece( Piece(rand() % 7 , 0 )) ;
-        nextPiece = Piece(rand() % 7 , 0 ) ;
+        insertPiece( Piece(bag.draw() , 0 )) ;
+        nextPiece = Piece(bag.draw() , 0 ) ;
         firstPiece = false ;
     }
     else
     {
         insertPiece( nextPiece ) ;
-        nextPiece = Piece(rand() % 7 , 0 ) ;
+        nextPiece = Piece(bag.draw() , 0 ) ;
     }
 }
 
@@ -279,7 +271,7 @@ bool Board:: isPieceRotable(int o)
     return rotable;
 }
 
-void Board:: rotatePiece()
+bool Board:: rotatePiece()
 {
     int o = currentPiece.getOrient();
  
@@ -295,7 +287,9 @@ void Board:: rotatePiece()
         currentPiece.setOrient(o);
  
         drawPiece(currentPiece);
+        return true ;
     }
+    return false ;
 }
 
 void Board:: movePieceDown()

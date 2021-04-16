@@ -6,6 +6,7 @@ typedef enum Choice
     MARATHON ,
     BATTLE ,
     EXIT ,
+    SETTINGS ,
     VOID_CHOICE
 } Choice ;
 
