@@ -41,6 +41,7 @@ class Session
         Mix_Chunk*    sound_dropped ;
         Mix_Chunk*    sound_gameover ;
         Mix_Chunk*    sound_line ;
+        Mix_Chunk*    sound_rotate ;
             // Local :
         SDL_Surface* score_surface ;
         SDL_Surface* level_surface ;
@@ -83,7 +84,7 @@ class Session
         Session( int x , int y , int width , int height , int size , 
                  SDL_Renderer* renderer , TTF_Font* font , Mix_Music* music ,
                  Mix_Chunk* dropped , Mix_Chunk* gameover , Mix_Chunk* line ,
-                 int level ) ;
+                 Mix_Chunk* rotate , int level ) ;
         ~Session() ;
 
         // Methods :

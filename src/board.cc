@@ -256,7 +256,7 @@ bool Board:: isPieceRotable(int o)
     return rotable;
 }
 
-void Board:: rotatePiece()
+bool Board:: rotatePiece()
 {
     int o = currentPiece.getOrient();
  
@@ -272,7 +272,9 @@ void Board:: rotatePiece()
         currentPiece.setOrient(o);
  
         drawPiece(currentPiece);
+        return true ;
     }
+    return false ;
 }
 
 void Board:: movePieceDown()

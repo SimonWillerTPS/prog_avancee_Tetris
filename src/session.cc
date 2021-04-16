@@ -3,12 +3,13 @@
 Session:: Session( int x , int y , int width , int height , int size , 
                    SDL_Renderer* renderer , TTF_Font* font , Mix_Music* music ,
                    Mix_Chunk* dropped , Mix_Chunk* gameover , Mix_Chunk* line ,
-                   int level ) :
+                   Mix_Chunk* rotate , int level ) :
                    orig_x( x ) , orig_y( y ) , width( width ) ,
                    height( height ) , tile_size( size ) , 
                    renderer( renderer ) , font( font ) , 
                    sound_dropped( dropped ) , sound_gameover( gameover ) ,
-                   sound_line( line ) , starting_level( level )
+                   sound_line( line ) ,  sound_rotate( rotate ) ,
+                   starting_level( level )
 {
     board = new Board( starting_level ) ;
 
@@ -88,6 +89,7 @@ void Session:: update_board()
     {
         Mix_HaltMusic() ;
         Mix_PlayChannel( 1 , sound_gameover , 0 ) ;
+        SDL_Delay( 5000 ) ;
         running = false ;
     }
 
@@ -100,7 +102,8 @@ void Session:: use_key()
     {
         case KEY_UP :
             board->destroyShadePiece();
-            board->rotatePiece();
+            if( board->rotatePiece() ) 
+                Mix_PlayChannel( 1 , sound_rotate , 0 ) ;
             board->projectedPiece();
             break;
         case KEY_DOWN :
@@ -234,7 +237,7 @@ void Session:: render_holded()
 {
     rectangle = { width / 2 - 11 * tile_size , 
                   height - 21 * tile_size  , 
-                  5 * tile_size , 5 * tile_size } ;
+                  5 * tile_size , 6 * tile_size } ;
     
     SDL_SetRenderDrawColor( renderer , COLOR_GRID_IN , 255 ) ;
     SDL_RenderFillRect( renderer , &rectangle ) ;
@@ -244,14 +247,24 @@ void Session:: render_holded()
     if( board->isHolded())
         renderPiece( board->getHoldedPieceType() , 
                      width / 2 - 6 * tile_size - 5 * tile_size / 2 ,
-                     height - 21 * tile_size + 5 * tile_size / 2) ;
+                     height - 20 * tile_size + 5 * tile_size / 2) ;
+
+    level_surface = TTF_RenderText_Solid( font , "STOCK" ,
+                                          { 255 , 255 , 255 } ) ; 
+    level_texture = SDL_CreateTextureFromSurface( renderer , level_surface ) ; 
+    SDL_FreeSurface( level_surface ) ;
+    rectangle = { width / 2 - 10 * tile_size , 
+                  height - 21 * tile_size  , 
+                  3 * tile_size , 1 * tile_size } ;
+    SDL_RenderCopy( renderer , level_texture , NULL , &rectangle ) ;
+    SDL_DestroyTexture( level_texture ) ;
 }
 
 void Session:: render_next_piece()
 {
     rectangle = { width / 2 + 6 * tile_size , 
                   height - 21 * tile_size  , 
-                  5 * tile_size , 5 * tile_size } ;
+                  5 * tile_size , 6 * tile_size } ;
     
     SDL_SetRenderDrawColor( renderer , COLOR_GRID_IN , 255 ) ;
     SDL_RenderFillRect( renderer , &rectangle ) ;
@@ -260,7 +273,17 @@ void Session:: render_next_piece()
 
     renderPiece( board->getNextPieceType() , 
                  width / 2 + 6 * tile_size + 5 * tile_size / 2 ,
-                 height - 21 * tile_size + 5 * tile_size / 2) ;
+                 height - 20 * tile_size + 5 * tile_size / 2) ;
+
+    level_surface = TTF_RenderText_Solid( font , "NEXT" ,
+                                          { 255 , 255 , 255 } ) ; 
+    level_texture = SDL_CreateTextureFromSurface( renderer , level_surface ) ; 
+    SDL_FreeSurface( level_surface ) ;
+    rectangle = { width / 2 + 7 * tile_size , 
+                  height - 21 * tile_size  , 
+                  3 * tile_size , 1 * tile_size } ;
+    SDL_RenderCopy( renderer , level_texture , NULL , &rectangle ) ;
+    SDL_DestroyTexture( level_texture ) ;
 }
 
 void Session:: renderPiece( int type , int center_x , int center_y )
@@ -383,9 +406,9 @@ void Session:: renderPiece( int type , int center_x , int center_y )
 
 void Session:: render_text()
 {
-    string_level = "LEVEL : " + std::to_string( board->getLevel()) ;
-    string_lines = "LINES : " + std::to_string( board->getLines()) ;
-    string_score = "SCORE : " + std::to_string( board->getScore()) ;
+    string_level = "LEVEL " + std::to_string( board->getLevel()) ;
+    string_lines = "LINES " + std::to_string( board->getLines()) ;
+    string_score = "SCORE " + std::to_string( board->getScore()) ;
     
     level_surface = TTF_RenderText_Solid( font , 
                                           string_level.c_str() ,

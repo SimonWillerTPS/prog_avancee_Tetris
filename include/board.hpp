@@ -65,7 +65,7 @@ private:
     bool isPieceMovable(int x, int y);
     bool isPieceRotable(int r);
 
-    void rotatePiece();
+    bool rotatePiece();
     void movePieceDown();
     void movePieceLeft();
     void movePieceRight();

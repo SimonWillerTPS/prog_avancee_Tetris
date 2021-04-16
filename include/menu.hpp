@@ -18,54 +18,38 @@ class Menu
     private :
 
         SDL_Renderer*           renderer ;
+        TTF_Font*               font ;
+        Mix_Chunk*              sound ;
 
-        // std::vector<Menu_item*> items ;
+        std::vector<Menu_item*> items ;
+        SDL_Rect                selected_rect ;
 
-        SDL_Surface*        mara_surface ;
-        SDL_Texture*        mara_texture ;
-        SDL_Rect            mara_rect ;
-        SDL_Surface*        batt_surface ;
-        SDL_Texture*        batt_texture ;
-        SDL_Rect            batt_rect ;
-        SDL_Surface*        sett_surface ;
-        SDL_Texture*        sett_texture ;
-        SDL_Rect            sett_rect ;
-        SDL_Surface*        quit_surface ;
-        SDL_Texture*        quit_texture ;
-        SDL_Rect            quit_rect ;
-        SDL_Surface*        logo_surface ;
-        SDL_Texture*        logo_texture ;
-        SDL_Rect            logo_rect ;
+        SDL_Event*              event ;
+        Key                     pressed_key ;
 
-        SDL_Rect            selected_rect ;
-        SDL_Event*          event ;
-        TTF_Font*           font ;
-        
-        Mix_Music*          music ;
-        Mix_Chunk*          sound_select ;
-        int                 volume_music ;
-        int                 volume_chunk ;
+        SDL_Surface*            logo_surface ;
+        SDL_Texture*            logo_texture ;
+        SDL_Rect                logo_rect ;
 
-        Key                 pressed_key ;
-        std::vector<Choice> choices ;   
-        int                 number_of_choices ;
-        int                 win_width ;
-        int                 win_height ;
-        int                 list_size = 30 ;
-        int                 selected = 0 ;
-        bool                selecting ;
+        int                     win_width ;
+        int                     win_height ;
+        int                     list_size = 30 ;
+        int                     selected = 0 ;
+        bool                    selecting ;
 
     public :
 
-        Menu( SDL_Renderer* renderer , TTF_Font* font  , Mix_Music* music ,
-              Mix_Chunk* select , int& v_music , int& v_chunk , int number , 
+        Menu( SDL_Renderer* renderer , TTF_Font* font  , Mix_Chunk* sound ,
               int width , int height ) ;
         ~Menu() ;
 
-        bool   set_choice( int number , Choice choice ) ;
+        void   add_item( std::string text , Choice choice ) ;
+        void   add_setting( std::string text , int* value , int range ) ;
         Choice launch() ;
         bool   process_key() ;
         void   render() ;
+        void   render_logo() ;
+        void   render_selected() ;
 } ;
 
 #endif

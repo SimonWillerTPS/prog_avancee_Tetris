@@ -13,11 +13,15 @@
 #include "menu.hpp"
 #include "session.hpp"
 
+#define FONT_PATH       "res/font.ttf"
 #define DROPPED_PATH    "res/dropped.mp3"
 #define GAMEOVER_PATH   "res/gameover.mp3"
 #define LINE_PATH       "res/line.mp3"
 #define MUSIC_PATH      "res/tetris_music.mp3"
 #define SELECT_PATH     "res/select.mp3"
+#define ROTATE_PATH     "res/rotate.mp3"
+
+#define DEFAULT_SOUND   15
 
 class Game
 {
@@ -32,9 +36,11 @@ class Game
         Mix_Chunk*    sound_gameover ;
         Mix_Chunk*    sound_line ;
         Mix_Chunk*    sound_select ;
+        Mix_Chunk*    sound_rotate ;
 
         // Menu :
         Menu* menu ;
+        Menu* settings ;
 
         // Sessions :
         Session* session_player ;
@@ -44,11 +50,11 @@ class Game
         std::string win_title ;
         int         win_width ;
         int         win_height ;
-        int         starting_level = 0 ;
         int         tile_size = 30 ;
         bool        running ;
-        int         volume_music = 96 ;
-        int         volume_chunk = 96 ;
+        int*        starting_level ;
+        int*        volume_music ;
+        int*        volume_chunk ;
 
     public :
 
@@ -64,6 +70,9 @@ class Game
         int  launch_menu() ;
         bool launch_marathon() ;
         bool launch_battle() ;
+        bool launch_settings() ;
+        void set_chunks_volume() ;
+
 } ;
 
 #endif
