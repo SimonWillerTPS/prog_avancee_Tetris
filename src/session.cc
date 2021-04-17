@@ -108,17 +108,23 @@ void Session:: IA_play()
         board->movePieceDown();
         if (type == 1)//I
         {
-
+            if (board->isPieceMovable(posx + 1,posy))
+            {
+                board->movePieceDown();
+            }
         }
-        while (board->isPieceMovable(posx,posy-1))
+        for (int a = 0; a < 6;a++)
         {
-            board->movePieceLeft();
-            posx = cur_p.getX();
-            posy = cur_p.getY();
-            orientation = cur_p.getOrient();
+
+            if (board->isPieceMovable(posx,posy-1))
+            {
+                board->movePieceLeft();
+                posx = cur_p.getX();
+                posy = cur_p.getY();
+                orientation = cur_p.getOrient();
+            }
         }
-        
-        for(int i = 0; i<4 ; i++)
+            for (int i = 0; i<4 ; i++)
             {
                 if (board->isPieceRotable(orientation))
                 {
@@ -132,22 +138,24 @@ void Session:: IA_play()
                 }
             }
 
-        while (board->isPieceMovable(posx,posy+1))
+        for (int b = 0; b < 10; b++)
         {
-            for(int i = 0; i<4 ; i++)
+            if(board->isPieceMovable(posx,posy+1))
             {
-                if (board->isPieceRotable(orientation))
+                for(int i = 0; i<4 ; i++)
                 {
-                    board->rotatePiece();
-                    posx = cur_p.getX();
-                    posy = cur_p.getY();
-                    orientation = cur_p.getOrient();
-                    score[posy][orientation] += posx *2;
-                    score[posy][orientation] += board->deletePossibleLinesIA()*5000;
-                    score[posy][orientation] += board->pointsIA();  
+                    if (board->isPieceRotable(orientation))
+                    {
+                        board->rotatePiece();
+                        posx = cur_p.getX();
+                        posy = cur_p.getY();
+                        orientation = cur_p.getOrient();
+                        score[posy][orientation] += posx *2;
+                        score[posy][orientation] += board->deletePossibleLinesIA()*5000;
+                        score[posy][orientation] += board->pointsIA();  
+                    }
                 }
             }
-
         }
     }
     int best_orientation =0; 
