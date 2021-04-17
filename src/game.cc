@@ -160,14 +160,34 @@ bool Game:: launch_marathon()
 
 bool Game:: launch_battle()
 {
-    // session_player = new Session( 0 , 0 , win_width / 2 , win_height ,
-    //                               tile_size , renderer , 
-    //                               font , starting_level ) ;
+    session_player = new Session( 0 , 0 , win_width , win_height ,
+                                  tile_size , renderer , font , music ,
+                                  sound_dropped , sound_gameover ,
+                                  sound_line , sound_rotate , sound_pause ,
+                                  *starting_level ) ;
 
-    // session_IA = new Session( win_width / 2 , 0 , win_width / 2 , 0 , 
-    //                           tile_size , renderer , font , starting_level ) ; 
+    session_IA = new Session( 0 , 0 , win_width , win_height ,
+                              tile_size , renderer , font , music ,
+                              sound_dropped , sound_gameover ,
+                              sound_line , sound_rotate , sound_pause ,
+                              *starting_level ) ; 
     
-    
+    // int result_p  = pthread_create( &thread_player , NULL , 
+    //                                 session_player->run() , NULL ) ;
+    // int result_IA = pthread_create( &thread_IA , NULL , 
+    //                                 session_IA->run() , NULL ) ;
+
+    // if( result_p || result_IA )
+    // {
+    //     std::cout << "Error in threading" << std::endl ;
+    //     exit( 1 ) ;
+    // }
+
+    session_IA->IA_run() ;
+
+    delete( session_player ) ;
+    delete( session_IA ) ;
+
     return false ;
 }
 
