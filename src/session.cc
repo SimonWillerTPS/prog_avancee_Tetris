@@ -4,7 +4,7 @@ Session:: Session( int x , int y , int width , int height , int size ,
                    SDL_Renderer* renderer , TTF_Font* font , Mix_Music* music ,
                    Mix_Chunk* dropped , Mix_Chunk* gameover , Mix_Chunk* line ,
                    Mix_Chunk* rotate , Mix_Chunk* pause , int level ) :
-                   orig_x( x ) , orig_y( y ) , width( width ) ,
+                   win_orig_x( x ) , win_orig_y( y ) , width( width ) ,
                    height( height ) , tile_size( size ) , 
                    renderer( renderer ) , font( font ) , 
                    sound_dropped( dropped ) , sound_gameover( gameover ) ,
@@ -160,8 +160,8 @@ void Session:: render_board()
 
 void Session:: render_square( int pos_x , int pos_y , int color )
 {
-    int orig_x = width / 2 - 5 * tile_size ;
-    int orig_y = height - 21 * tile_size ;
+    int orig_x = win_orig_x + width / 2 - 5 * tile_size ;
+    int orig_y = win_orig_y + height - 21 * tile_size ;
 
     rectangle = { orig_x + pos_x , orig_y + pos_y , 
                   tile_size , tile_size } ;
@@ -239,8 +239,8 @@ void Session:: render_square( int pos_x , int pos_y , int color )
 
 void Session:: render_holded()
 {
-    rectangle = { width / 2 - 11 * tile_size , 
-                  height - 21 * tile_size  , 
+    rectangle = { win_orig_x + width / 2 - 11 * tile_size , 
+                  win_orig_y + height - 21 * tile_size  , 
                   5 * tile_size , 6 * tile_size } ;
     
     SDL_SetRenderDrawColor( renderer , COLOR_GRID_IN , 255 ) ;
@@ -266,8 +266,8 @@ void Session:: render_holded()
 
 void Session:: render_next_piece()
 {
-    rectangle = { width / 2 + 6 * tile_size , 
-                  height - 21 * tile_size  , 
+    rectangle = { win_orig_x + width / 2 + 6 * tile_size , 
+                  win_orig_y + height - 21 * tile_size  , 
                   5 * tile_size , 6 * tile_size } ;
     
     SDL_SetRenderDrawColor( renderer , COLOR_GRID_IN , 255 ) ;
@@ -432,16 +432,16 @@ void Session:: render_text()
     SDL_FreeSurface( lines_surface ) ;
     SDL_FreeSurface( score_surface ) ;
 
-    score_rect = { width / 2 - 11 * tile_size , 
-                   height - 4 * tile_size ,
+    score_rect = { win_orig_x + width / 2 - 11 * tile_size , 
+                   win_orig_y + height - 4 * tile_size ,
                    5 * tile_size , tile_size } ;
     
-    level_rect = { width / 2 - 11 * tile_size , 
-                   height - 3 * tile_size ,
+    level_rect = { win_orig_x + width / 2 - 11 * tile_size , 
+                   win_orig_y + height - 3 * tile_size ,
                    5 * tile_size , tile_size } ;
 
-    lines_rect = { width / 2 - 11 * tile_size , 
-                   height - 2 * tile_size ,
+    lines_rect = { win_orig_x + width / 2 - 11 * tile_size , 
+                   win_orig_y + height - 2 * tile_size ,
                    5 * tile_size , tile_size } ;
 
     SDL_RenderCopy( renderer , level_texture , NULL , &level_rect ) ;
@@ -475,12 +475,12 @@ bool Session:: pause()
     SDL_FreeSurface( level_surface ) ;
     SDL_FreeSurface( lines_surface ) ;
 
-    level_rect = { width / 2 - 3 * tile_size , 
-                   height / 2 - (int) 3.5 * tile_size ,
+    level_rect = { win_orig_x + width / 2 - 3 * tile_size , 
+                   win_orig_y + height / 2 - (int) 3.5 * tile_size ,
                    6 * tile_size , 4 * tile_size } ;
 
-    lines_rect = { width / 2 - 6 * tile_size , 
-                   height / 2 + (int) 1.5 * tile_size ,
+    lines_rect = { win_orig_x + width / 2 - 6 * tile_size , 
+                   win_orig_y + height / 2 + (int) 1.5 * tile_size ,
                    12 * tile_size , 2 * tile_size } ;
 
     SDL_RenderCopy( renderer , level_texture , NULL , &level_rect ) ;

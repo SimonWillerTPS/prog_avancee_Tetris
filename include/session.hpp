@@ -26,8 +26,8 @@ class Session
         LTimer* cap_timer ;
 
         // Attributes for renderer coord. and sizes :
-        int orig_x ;
-        int orig_y ;
+        int win_orig_x ;
+        int win_orig_y ;
         int width ;
         int height ;
         int tile_size ;
