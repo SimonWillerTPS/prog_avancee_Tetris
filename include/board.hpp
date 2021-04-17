@@ -30,33 +30,85 @@ private:
     Piece holdedPiece;  /**< The piece we have stored*/
     Piece nextPiece;    /**< The next piece that will appear*/
     Piece shadePiece;   /**<The Projected piece or Ghost piece*/
-    Random_bag bag ;    /**< */
+    Random_bag bag ;    /**< bag for  random generation of tetromino*/
     bool hold = false ; /**<If a piece is holded */
-    bool canHold = true ; /**< */
-    bool firstPiece = true ; /**< */
-    int linesCompleted = 0 ; /**< */
-    int linesCompletedLevel = 0 ; /**< */
-    int score = 0 ; /**< */
-    int level ; /**< */
-    int area[BOARD_WIDTH][BOARD_HEIGHT]; /**< */
+    bool canHold = true ; /**< If you can hold a piece */
+    bool firstPiece = true ; /**< To know if it's the first piece */
+    int linesCompleted = 0 ; /**< Number of lines completed dince the start*/
+    int linesCompletedLevel = 0 ; /**<Lines completed each level */
+    int score = 0 ; /**< Score of the game*/
+    int level ; /**< Level of the game*/
+    int area[BOARD_WIDTH][BOARD_HEIGHT]; /**<board array */
 
- public:
+public:
  
-    // Constructor :
+    /**
+	 * @brief	Constructor of the class Board.
+     */
     Board( int level ) ;
+
+    /**
+	 * @brief	Destructor of the class Board.
+	 */
     ~Board() ;
  
-    // Accessors :
+	/**
+	 * @brief	Getter of the type of the holded piece.
+     */ 
     int   getHoldedPieceType() ;
-    int   getNextPieceType() ;
-    int   getLines() ;
-    int   getLevel() ;
-    int   getScore() ;
-    bool  isHolded() ;
-    int   getAreaContent( int i , int j ) ;
 
-    // Methods :    
+	/**
+	 * @brief	Getter of the type of the next piece.
+     */ 
+    int   getNextPieceType() ;
+    
+    /**
+	 * @brief	Getter of the number of lines completed.
+     */ 
+    int   getLines() ;
+
+    /**
+	 * @brief	Getter of the level of the game.
+     */ 
+    int   getLevel() ;
+
+    /**
+	 * @brief	Getter of the score of the game.
+     */ 
+    int   getScore() ;
+    /**
+	 * @brief	Get if a piece is holded.
+     */ 
+    bool  isHolded() ;
+    /**
+	 * @brief	Get the content of a specific area in the game board.
+     */ 
+    int   getAreaContent( int i , int j ) ;
+  
+	/**
+	 * @brief	Checks the case that the piece will visit.
+	 * @param	i ordinate of the board for the move
+	 * @param	j abscissa of the board for the move
+     * @param	P_x Pivot of the piece
+     * @param	P_y Pivot of the piece
+     * @param	t type of the piece
+	 * @param	o orientation of the piece
+     * @param	flag bool to know if we can do the move we wanted
+	 * @param	visited list of bool of position visited
+	*/  
     void Visited(int i, int j, int P_X, int P_Y, int t, int o, bool &flag, bool visited[][SIZE]);
+
+    /**
+	 * @brief	Checks the case that the piece will visit.
+	 * @param	i ordinate of the board for the move
+	 * @param	j abscissa of the board for the move
+     * @param	P_x Pivot of the piece
+     * @param	P_y Pivot of the piece
+     * @param	t type of the piece
+	 * @param	o orientation of the piece
+     * @param	flag bool to know if we can do the move we wanted
+	 * @param	visited list of bool of position visited
+	*/
     void Fill(int i, int j, int P_X, int P_Y, int t, int o, int value, bool visited[][SIZE]);
     void Fill_draw(int i, int j, int P_X, int P_Y, int t, int o, int value);
 
