@@ -91,7 +91,7 @@ class Session
             // Session itself :
         bool run() ;
         void update_board() ;
-        void use_key() ;
+        bool use_key() ;
             // SDL :
         void render_board() ;
         void render_square( int pos_x , int pos_y , int color ) ;
@@ -99,6 +99,7 @@ class Session
         void render_next_piece() ;
         void render_text() ;
         void renderPiece( int type , int center_x , int center_y ) ;
+        bool pause() ;
 } ;
 
 #endif

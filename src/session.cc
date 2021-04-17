@@ -42,10 +42,7 @@ bool Session:: run()
             avgFPS = 0 ;
 
         pressed_key = get_key( event ) ;
-        if( pressed_key == KEY_QUIT )
-            return false ;
-        else
-            use_key() ;
+        if( !use_key() ) return false ;
 
         if( ++ down_counter > 60 - difficulty * board->getLevel())
         {
@@ -96,10 +93,13 @@ void Session:: update_board()
     board->updateLevel() ;
 }
 
-void Session:: use_key()
+bool Session:: use_key()
 {
     switch( pressed_key )
     {
+        case KEY_QUIT :
+            return false ;
+            break ;
         case KEY_UP :
             board->destroyShadePiece();
             if( board->rotatePiece() ) 
@@ -127,10 +127,14 @@ void Session:: use_key()
             board->dropPiece();
             fallenCounter = 60 ;
             break;
+        case KEY_PAUSE :
+            if( !pause() ) return false ;
+            break ;
         default :
             break;
     }
     pressed_key = KEY_NULL ;
+    return true ;
 }
 
 void Session:: render_board()
@@ -447,4 +451,50 @@ void Session:: render_text()
     SDL_DestroyTexture( level_texture ) ;
     SDL_DestroyTexture( lines_texture ) ;
     SDL_DestroyTexture( score_texture ) ;
+}
+
+bool Session:: pause()
+{
+    SDL_SetRenderDrawColor( renderer , COLOR_BACKGROUND , 0x99 ) ;
+    SDL_RenderClear( renderer ) ;
+    render_board() ;
+
+    string_level = "PAUSE" ;
+    string_lines = "Press [enter] to resume" ;
+
+    level_surface = TTF_RenderText_Solid( font , 
+                                          string_level.c_str() ,
+                                          { 255 , 255 , 255 } ) ; 
+    lines_surface = TTF_RenderText_Solid( font , 
+                                          string_lines.c_str() ,
+                                          { 255 , 255 , 255 } ) ; 
+
+    level_texture = SDL_CreateTextureFromSurface( renderer , level_surface ) ; 
+    lines_texture = SDL_CreateTextureFromSurface( renderer , lines_surface ) ; 
+
+    SDL_FreeSurface( level_surface ) ;
+    SDL_FreeSurface( lines_surface ) ;
+
+    level_rect = { width / 2 - 3 * tile_size , 
+                   height / 2 - (int) 3.5 * tile_size ,
+                   6 * tile_size , 4 * tile_size } ;
+
+    lines_rect = { width / 2 - 6 * tile_size , 
+                   height / 2 + (int) 1.5 * tile_size ,
+                   12 * tile_size , 2 * tile_size } ;
+
+    SDL_RenderCopy( renderer , level_texture , NULL , &level_rect ) ;
+    SDL_RenderCopy( renderer , lines_texture , NULL , &lines_rect ) ;
+
+    SDL_DestroyTexture( level_texture ) ;
+    SDL_DestroyTexture( lines_texture ) ;
+
+    SDL_RenderPresent( renderer ) ;
+
+    while(( pressed_key = get_key( event ) ) != KEY_ENTER )
+    {
+        if( pressed_key == KEY_QUIT ) return false ;
+    }
+
+    return true ;
 }
