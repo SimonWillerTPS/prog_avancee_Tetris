@@ -7,7 +7,7 @@ This project is a Tetris game wrote in C++ using SDL2 as a graphic and utilitary
 This projects is only made to be used on linux distributions. You will need the **g++**, **make**, **libSDL2-dev**, **libSDL2-image-dev** and **libSDL2-ttf-dev** packages.
 On Ubuntu, you can install them using :
 ```bash
- sudo apt install g++ make libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev 
+ sudo apt install g++ make libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer
  ```
 To compile the code, open a terminal in the root and type :
 ```bash
