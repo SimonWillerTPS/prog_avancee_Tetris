@@ -17,6 +17,7 @@
 #define DROPPED_PATH    "res/dropped.mp3"
 #define GAMEOVER_PATH   "res/gameover.mp3"
 #define LINE_PATH       "res/line.mp3"
+#define PAUSE_PATH      "res/pause.wav"
 #define MUSIC_PATH      "res/tetris_music.mp3"
 #define SELECT_PATH     "res/select.mp3"
 #define ROTATE_PATH     "res/rotate.mp3"
@@ -37,6 +38,7 @@ class Game
         Mix_Chunk*    sound_line ;
         Mix_Chunk*    sound_select ;
         Mix_Chunk*    sound_rotate ;
+        Mix_Chunk*    sound_pause ;
 
         // Menu :
         Menu* menu ;

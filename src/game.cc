@@ -62,10 +62,12 @@ bool Game:: init_SDL()
     sound_line = Mix_LoadWAV( LINE_PATH ) ;
     sound_select = Mix_LoadWAV( SELECT_PATH ) ;
     sound_rotate = Mix_LoadWAV( ROTATE_PATH ) ;
+    sound_pause = Mix_LoadWAV( PAUSE_PATH ) ;
 
     if( font == NULL || music == NULL || sound_dropped == NULL
         || sound_select == NULL || sound_gameover == NULL 
-        || sound_line == NULL || sound_rotate == NULL )
+        || sound_line == NULL || sound_rotate == NULL 
+        || sound_pause == NULL )
     {
         std::cout << "Cannot load ressources, " ;
         std::cout << "SDL_Error: " << SDL_GetError() << std::endl ;
@@ -88,6 +90,7 @@ void Game:: close_SDL()
     Mix_FreeChunk( sound_line ) ;
     Mix_FreeChunk( sound_select ) ;
     Mix_FreeChunk( sound_rotate ) ;
+    Mix_FreeChunk( sound_pause ) ;
 
     TTF_CloseFont( font ) ;
 
@@ -145,7 +148,7 @@ bool Game:: launch_marathon()
     session_player = new Session( 0 , 0 , win_width , win_height ,
                                   tile_size , renderer , font , music ,
                                   sound_dropped , sound_gameover ,
-                                  sound_line , sound_rotate , 
+                                  sound_line , sound_rotate , sound_pause ,
                                   *starting_level ) ;
 
     bool result = session_player->run() ;
@@ -196,4 +199,5 @@ void Game:: set_chunks_volume()
     Mix_VolumeChunk( sound_gameover , (int)( *volume_chunk * 128 / 20 ) ) ;
     Mix_VolumeChunk( sound_line , (int)( *volume_chunk * 128 / 20 ) ) ;
     Mix_VolumeChunk( sound_rotate , (int)( *volume_chunk * 128 / 20 ) ) ;
+    Mix_VolumeChunk( sound_pause , (int)( *volume_chunk * 128 / 20 ) ) ;
 }
