@@ -1,5 +1,10 @@
 #ifndef BOARD_HPP
 #define BOARD_HPP
+/**
+ * @file	Board.hpp
+ * @brief	Board used in the Tetris game.
+ * @author	Simon Willer & Luca Scimone
+ */
 
 #include "pieces.hpp"
 #include "random_bag.hpp"
@@ -16,6 +21,7 @@ const int SPAWN_Y = 5;
 enum{EMPTY, FULL};
 
 /**
+ * @class   Board
  * @brief 	Board class for the Tetris game.
  * 
  * This class defines the game board used in Tetris, with some usefull
@@ -44,6 +50,7 @@ public:
  
     /**
 	 * @brief	Constructor of the class Board
+     * @param   level starting level
      */
     Board( int level ) ;
 
@@ -76,10 +83,12 @@ public:
 	 * @brief	Getter of the score of the game
      */ 
     int   getScore() ;
+
     /**
 	 * @brief	Get if a piece is holded.
      */ 
     bool  isHolded() ;
+
     /**
 	 * @brief	Get the content of a specific area in the game board
      */ 
@@ -112,7 +121,7 @@ public:
     void Fill(int i, int j, int P_X, int P_Y, int t, int o, int value, bool visited[][SIZE]);
 
     /**
-	 * @brief	Checks the case that the piece will visit
+	 * @brief	Fill the board with the color of the piece
 	 * @param	i ordinate of the board for the move
 	 * @param	j abscissa of the board for the move
      * @param	P_x Pivot of the piece
@@ -123,51 +132,184 @@ public:
 	*/
     void Fill_draw(int i, int j, int P_X, int P_Y, int t, int o, int value);
 
+    /**
+	 * @brief	Set the current piece
+     * @param   p Piece
+     */ 
     void  setCurPiece(Piece p);
+
+    /**
+	 * @brief	Set the current shade piece
+     * @param   p Piece
+     */ 
     void  setCurShadePiece(Piece p);
 
+    /**
+	 * @brief	Getter of the current piece
+     */ 
     Piece getCurPiece();
+
+    /**
+	 * @brief	Getter of the current shade piece
+     */ 
     Piece getCurShadePiece();
 
+    /**
+	 * @brief	Draw the piece on the board
+     * @param   p Piece
+     */ 
     void drawPiece(Piece p);
+
+    /**
+	 * @brief	draw the shade piece on the board
+     * @param   p Piece
+     */ 
     void drawShadePiece(Piece p);
+
+    /**
+	 * @brief	Make a new Piece
+     */ 
     void newPiece();
 
+    /**
+	 * @brief	Make a new Piece
+     * @param   p Piece
+     */ 
     void newPiece(Piece p);
+
+    /**
+	 * @brief	Delete a Piece on the board
+     * @param   p Piece
+     */ 
     void destroyPiece(Piece p);
+
+    /**
+	 * @brief	Make a new Piece
+     */ 
     void destroyShadePiece();
- 
+
+    /**
+	 * @brief	check if we can move the piece the way we want
+     * @param   x ordinate where the piece want to move
+     * @param   y absciss wher the piece want to move
+     */ 
     bool isPieceMovable(int x, int y);
+
+    /**
+	 * @brief	check if we can rotate the piece
+     * @param   r currernt orientation of the piece
+     */
     bool isPieceRotable(int r);
 
+    /**
+	 * @brief	rotate the curent piece
+     */ 
     bool rotatePiece();
+
+    /**
+	 * @brief	move current piece down
+     */ 
     void movePieceDown();
+
+    /**
+	 * @brief	move current piece left
+     */ 
     void movePieceLeft();
+
+    /**
+	 * @brief	move current piece right
+     */ 
     void movePieceRight();
     
+    /**
+	 * @brief	Know if the current piece has fallen
+     */
     bool isPieceFallen();
     
+    /**
+	 * @brief	Add a line used against IA
+     * @param   y number of lines to add
+     */
     void addLines(int y);
+    
+    /**
+	 * @brief	Delete a particular line
+     * @param   l line to delete
+     */
     void deleteLine(int l);
+
+    /**
+	 * @brief	Delete lines that are completed
+     */
     int  deletePossibleLines();
+
+    /**
+	 * @brief	Know if we can delete lines with the IA move
+     */
     int  deletePossibleLinesIA();
+
+    /**
+	 * @brief	points for the IA to know where to put the piece
+     */
     int  pointsIA();
 
+    /**
+	 * @brief	check if we can move the shade piece the way we want
+     * @param   x ordinate where the piece want to move
+     * @param   y absciss wher the piece want to move
+     */ 
     bool isShadePieceMovable(int x, int y);
+    
+    /**
+	 * @brief	Know if we can delete lines with the IA move
+     */
     void moveShadePieceDown();
 
+    /**
+	 * @brief	Fonction to create de shade piece
+     */
     void projectedPiece();
- 
+    
+    /**
+	 * @brief	Store the current piece
+     */
     bool holdPiece() ;
+    
+    /**
+	 * @brief	insert a piece on the board that is holded the next piece
+     * @param   p Piece
+     */ 
     void insertPiece( Piece p ) ;
 
+    /**
+	 * @brief	Drop current piece
+     */
     void dropPiece();
+        
+    /**
+	 * @brief	Drop shade piece
+     */
     void dropShadePiece();
+    
+    /**
+	 * @brief	check if game is over or not
+     */
     bool GameOver() ;
     
+    /**
+	 * @brief	Update the level of the game
+     */
     void updateLevel();
+
+    /**
+	 * @brief	Update the level of the game
+     * @param l number of line deleted
+     */
     int  calculScore(int l);
 
+    /**
+	 * @brief	clear all pieces of the board
+     */
     void clear();
 };
  

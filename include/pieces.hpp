@@ -2,9 +2,10 @@
 #ifndef PIECES_H
 #define PIECES_H
 /**
+ * @class   Piece
  * @file	Pieces.hpp
  * @brief	Pieces used in the Tetris game.
- * @author	Simon Willer Luca Scimone
+ * @author	Simon Willer & Luca Scimone
  */
 #include "colors.hpp"
 
