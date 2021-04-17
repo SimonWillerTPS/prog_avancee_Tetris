@@ -85,7 +85,7 @@ void Board:: insertPiece( Piece p )
  
     setCurPiece(p);
     projectedPiece();
-    destroyShadePiece();
+    //destroyShadePiece();
 }
 
 void Board:: Visited(int i, int j, int P_X, int P_Y, int t, int o, bool &flag, bool visited[][SIZE])
