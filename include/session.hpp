@@ -180,6 +180,11 @@ class Session
          * @brief   Pauses the game and displays hox to resume it.
          */
         bool pause() ;
+
+        /**
+         * @brief   Display the gameover pannel.
+         */
+        void render_gameover() ;
 } ;
 
 #endif

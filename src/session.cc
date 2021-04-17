@@ -206,10 +206,8 @@ void Session:: update_board()
     
     if( board->GameOver())
     {
-        Mix_HaltMusic() ;
-        Mix_PlayChannel( 1 , sound_gameover , 0 ) ;
-        SDL_Delay( 5000 ) ;
         running = false ;
+        render_gameover() ;
     }
 
     board->updateLevel() ;
@@ -624,4 +622,67 @@ bool Session:: pause()
     Mix_ResumeMusic() ;
 
     return true ;
+}
+
+void Session:: render_gameover()
+{
+    SDL_SetRenderDrawColor( renderer , COLOR_BACKGROUND , 0xFF ) ;
+    SDL_RenderClear( renderer ) ;
+    // render_board() ;
+
+    rectangle = { win_orig_x + width / 2 - (int)( 7.5 * tile_size ) , 
+                  win_orig_y + height / 2 - (int)( 3.5 * tile_size ),
+                  15 * tile_size , 12 * tile_size } ;
+
+    SDL_SetRenderDrawColor( renderer , 0 , 0 , 0 , 127 ) ;
+    SDL_RenderFillRect( renderer , &rectangle ) ;
+
+    string_level = "GAMEOVER" ;
+    string_score = "SCORE " + std::to_string( board->getScore()) ;
+    string_lines = "Press [enter] to quit" ;
+
+    level_surface = TTF_RenderText_Solid( font , 
+                                          string_level.c_str() ,
+                                          { 255 , 255 , 255 } ) ; 
+    score_surface = TTF_RenderText_Solid( font , 
+                                          string_score.c_str() ,
+                                          { 255 , 255 , 255 } ) ; 
+    lines_surface = TTF_RenderText_Solid( font , 
+                                          string_lines.c_str() ,
+                                          { 255 , 255 , 255 } ) ; 
+
+    level_texture = SDL_CreateTextureFromSurface( renderer , level_surface ) ; 
+    lines_texture = SDL_CreateTextureFromSurface( renderer , lines_surface ) ; 
+    score_texture = SDL_CreateTextureFromSurface( renderer , score_surface ) ; 
+
+    SDL_FreeSurface( level_surface ) ;
+    SDL_FreeSurface( lines_surface ) ;
+    SDL_FreeSurface( score_surface ) ;
+
+    level_rect = { win_orig_x + width / 2 - 3 * tile_size , 
+                   win_orig_y + height / 2 - (int) 3.5 * tile_size ,
+                   6 * tile_size , 4 * tile_size } ;
+
+    score_rect = { win_orig_x + width / 2 - 5 * tile_size , 
+                   win_orig_y + height / 2 + (int) 2 * tile_size ,
+                   10 * tile_size , 2 * tile_size } ;
+
+    lines_rect = { win_orig_x + width / 2 - 6 * tile_size , 
+                   win_orig_y + height / 2 + (int) 5 * tile_size ,
+                   12 * tile_size , 2 * tile_size } ;
+
+    SDL_RenderCopy( renderer , level_texture , NULL , &level_rect ) ;
+    SDL_RenderCopy( renderer , lines_texture , NULL , &lines_rect ) ;
+    SDL_RenderCopy( renderer , score_texture , NULL , &score_rect ) ;
+
+    SDL_DestroyTexture( level_texture ) ;
+    SDL_DestroyTexture( lines_texture ) ;
+    SDL_DestroyTexture( score_texture ) ;
+
+    SDL_RenderPresent( renderer ) ;
+
+    Mix_HaltMusic() ;
+    Mix_PlayChannel( 1 , sound_gameover , 0 ) ;
+
+    while(( pressed_key = get_key( event ) ) != KEY_ENTER ) ;
 }
