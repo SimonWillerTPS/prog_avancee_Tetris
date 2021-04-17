@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['game_1',['Game',['../class_game.html',1,'']]]
+  ['color_1',['Color',['../pieces_8hpp.html#ab87bacfdad76e61b9412d7124be44c1c',1,'pieces.hpp']]]
 ];

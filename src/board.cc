@@ -440,6 +440,7 @@ int Board:: pointsIA()
 
         points += j*j*i;
     }
+    return points;
 }
  
 void Board:: dropPiece()

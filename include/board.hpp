@@ -15,24 +15,30 @@ const int SPAWN_Y = 5;
 
 enum{EMPTY, FULL};
 
+/**
+ * @brief 	Board class for the Tetris game.
+ * 
+ * This class defines the game board used in Tetris, with some usefull
+ * attributes & methods used in this game.
+ */
 class Board
 {
 
 private:
     
-    Piece currentPiece; //The piece we play with
-    Piece holdedPiece;  // The piece we have stored
-    Piece nextPiece;    // The next piece that will appear
-    Piece shadePiece;   // La Pièce projetté ou pièce fantome
-    Random_bag bag ;
-    bool hold = false ;
-    bool canHold = true ;
-    bool firstPiece = true ;
-    int linesCompleted = 0 ;
-    int linesCompletedLevel = 0 ;
-    int score = 0 ;
-    int level ;
-    int area[BOARD_WIDTH][BOARD_HEIGHT];
+    Piece currentPiece; /**< The piece we play with*/
+    Piece holdedPiece;  /**< The piece we have stored*/
+    Piece nextPiece;    /**< The next piece that will appear*/
+    Piece shadePiece;   /**<The Projected piece or Ghost piece*/
+    Random_bag bag ;    /**< */
+    bool hold = false ; /**<If a piece is holded */
+    bool canHold = true ; /**< */
+    bool firstPiece = true ; /**< */
+    int linesCompleted = 0 ; /**< */
+    int linesCompletedLevel = 0 ; /**< */
+    int score = 0 ; /**< */
+    int level ; /**< */
+    int area[BOARD_WIDTH][BOARD_HEIGHT]; /**< */
 
  public:
  
