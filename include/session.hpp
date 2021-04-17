@@ -91,6 +91,8 @@ class Session
         // Methods :
             // Session itself :
         bool run() ;
+        bool IA_run() ;
+        void IA_play() ;
         void update_board() ;
         bool use_key() ;
             // SDL :

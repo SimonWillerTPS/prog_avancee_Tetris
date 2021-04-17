@@ -2,11 +2,13 @@
 #define GAME_HPP
 
 #include <iostream>
+#include <pthread.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_ttf.h>
+
 
 #include "choice.hpp"
 #include "key.hpp"
@@ -27,6 +29,10 @@
 class Game
 {
     private :
+
+        // Threads :
+        pthread_t thread_player ;
+        pthread_t thread_IA ;
 
         // SDL :
         SDL_Renderer* renderer ;
