@@ -77,7 +77,8 @@ bool Menu:: process_key()
         default :
             break;
     }
-    if( pressed_key != KEY_NULL )
+    if( pressed_key != KEY_NULL && pressed_key != KEY_SPACE
+        && pressed_key != KEY_STORE && pressed_key != KEY_PAUSE )
         Mix_PlayChannel( 1 , sound , 0 ) ;
 
     pressed_key = KEY_NULL ;    
@@ -133,11 +134,11 @@ void Menu:: render_selected()
     SDL_SetRenderDrawColor( renderer , COLOR_WHITE , 255 ) ;
     if( items[ selected ]->get_range() != 0 )
         selected_rect = { win_width / 2 - 5 * list_size , 
-                        (int)( win_height / 2 + 2*selected*list_size - 0.5 ) , 
+                        (int)( win_height / 2 + 2*selected*list_size - 5 ) , 
                         10 * list_size , (int)( 1.5 * list_size ) } ;
     else
         selected_rect = { win_width / 2 - 3 * list_size , 
-                        (int)( win_height / 2 + 2*selected*list_size - 0.5 ) , 
+                        (int)( win_height / 2 + 2*selected*list_size - 5 ) , 
                         6 * list_size , (int)( 1.5 * list_size ) } ;
     SDL_RenderDrawRect( renderer , &selected_rect ) ;
 }
