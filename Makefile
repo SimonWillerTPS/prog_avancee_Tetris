@@ -4,6 +4,8 @@ TARGET			=	Tetris
 SRCDIR			= 	src
 OBJDIR			= 	obj
 INCLUDE_PATH	=	./include
+DOC				=	doc_file
+DOCDIR			=	doc
 
 SOURCES			:=	$(wildcard $(SRCDIR)/*.cc)
 INCLUDES		:=	$(wildcard $(INCLUDE_PATH)/*.hpp)
@@ -17,7 +19,10 @@ $(OBJECTS):				$(OBJDIR)/%.o:	$(SRCDIR)/%.cc
 	mkdir	-p $(OBJDIR)
 	g++		-o $@ -c $< $(CFLAGS) $(LIBS) -I $(INCLUDE_PATH)
 
-all : $(TARGET)
+$(DOC) :
+	@doxygen $(DOCDIR)/$(DOC)
+
+all : $(TARGET) $(DOC)
 
 clean :
 	rm -rf doc/html/
@@ -27,5 +32,5 @@ clean :
 	rm -f $(TARGET)
 	@echo " ----- \e[32mCleaning complete\e[39m ----- "
 
-# open_doc :
-# 	@sensible-browser $(DOCDIR)/html/index.html
+open_doc :
+	@sensible-browser $(DOCDIR)/html/index.html

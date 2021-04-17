@@ -67,7 +67,6 @@ bool Menu:: process_key()
             selecting = false ;
             break;
 
-        case KEY_SPACE :
         case KEY_ENTER :
             selecting = false ;
             break;
