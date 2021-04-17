@@ -410,6 +410,37 @@ int Board:: deletePossibleLines()
     linesCompletedLevel += nbLinesDeleted ;
     return nbLinesDeleted;
 }
+
+int Board:: deletePossibleLinesIA()
+{
+    int nbLinesDeleted = 0;
+ 
+    for(int j = 0; j < BOARD_HEIGHT; ++j)
+    {
+        int i = 0;
+ 
+        for(; i < BOARD_WIDTH && area[i][j] != EMPTY; ++i);
+ 
+        if(i == BOARD_WIDTH)
+        {
+            nbLinesDeleted++;
+        }
+    }
+    return nbLinesDeleted;
+}
+
+int Board:: pointsIA()
+{
+    int points = 0 ;
+    for(int j = 0; j < BOARD_HEIGHT; ++j)
+    {
+        int i = 0;
+ 
+        for(; i < BOARD_WIDTH && area[i][j] == SHADE; ++i);
+
+        points += j*j*i;
+    }
+}
  
 void Board:: dropPiece()
 {

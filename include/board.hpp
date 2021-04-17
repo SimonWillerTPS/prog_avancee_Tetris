@@ -79,6 +79,8 @@ private:
     void addLines(int y);
     void deleteLine(int l);
     int  deletePossibleLines();
+    int  deletePossibleLinesIA();
+    int  pointsIA();
 
     bool isShadePieceMovable(int x, int y);
     void moveShadePieceDown();
