@@ -3,13 +3,13 @@
 Session:: Session( int x , int y , int width , int height , int size , 
                    SDL_Renderer* renderer , TTF_Font* font , Mix_Music* music ,
                    Mix_Chunk* dropped , Mix_Chunk* gameover , Mix_Chunk* line ,
-                   Mix_Chunk* rotate , int level ) :
+                   Mix_Chunk* rotate , Mix_Chunk* pause , int level ) :
                    orig_x( x ) , orig_y( y ) , width( width ) ,
                    height( height ) , tile_size( size ) , 
                    renderer( renderer ) , font( font ) , 
                    sound_dropped( dropped ) , sound_gameover( gameover ) ,
-                   sound_line( line ) ,  sound_rotate( rotate ) ,
-                   starting_level( level )
+                   sound_line( line ) , sound_rotate( rotate ) ,
+                   sound_pause( pause ) , starting_level( level )
 {
     board = new Board( starting_level ) ;
 
@@ -491,10 +491,15 @@ bool Session:: pause()
 
     SDL_RenderPresent( renderer ) ;
 
+    Mix_PauseMusic() ;
+    Mix_PlayChannel( 1 , sound_pause , 0 ) ;
+
     while(( pressed_key = get_key( event ) ) != KEY_ENTER )
     {
         if( pressed_key == KEY_QUIT ) return false ;
     }
+
+    Mix_ResumeMusic() ;
 
     return true ;
 }
