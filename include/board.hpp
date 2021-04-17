@@ -1,7 +1,7 @@
 #ifndef BOARD_HPP
 #define BOARD_HPP
 /**
- * @file	Board.hpp
+ * @file	board.hpp
  * @brief	Board used in the Tetris game.
  * @author	Simon Willer & Luca Scimone
  */
@@ -11,18 +11,18 @@
 #include "shape.hpp"
 
 // Size of the play area
-const int BOARD_HEIGHT = 20;
-const int BOARD_WIDTH = 10;
+#define BOARD_HEIGHT    20 
+#define BOARD_WIDTH     10 
 
 // Places where the pieces appear
-const int SPAWN_X = 0;
-const int SPAWN_Y = 5;
+#define SPAWN_X 0
+#define SPAWN_Y 5
 
 enum{EMPTY, FULL};
 
 /**
  * @class   Board
- * @brief 	Board class for the Tetris game.
+ * @brief 	Class for the Tetris game.
  * 
  * This class defines the game board used in Tetris, with some usefull
  * attributes & methods used in this game.
