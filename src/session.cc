@@ -97,11 +97,12 @@ bool Session:: IA_run()
 void Session:: IA_play()
 {
     Piece cur_p = board->getCurPiece();
+    board->movePieceLeft();
     int posx = cur_p.getX();
     int posy = cur_p.getY();
     int orientation = cur_p.getOrient();
     int type = cur_p.getType();
-    int score[8][4] = {};   
+    int score[8][4];   
     int best_posx = 30;
     if (board->isPieceMovable(posx + 1,posy))
     {
@@ -131,8 +132,9 @@ void Session:: IA_play()
                     board->rotatePiece();
                     posx = cur_p.getX();
                     posy = cur_p.getY();
+                    printf("A,%d, X",posy);
                     orientation = cur_p.getOrient();
-                    score[posy][orientation] += posx *2;
+                    score[posy][orientation] = posx *2;
                     score[posy][orientation] += board->deletePossibleLinesIA()*5000;
                     score[posy][orientation] += board->pointsIA(); 
                 }
@@ -142,6 +144,7 @@ void Session:: IA_play()
         {
             if(board->isPieceMovable(posx,posy+1))
             {
+                board->movePieceRight();
                 for(int i = 0; i<4 ; i++)
                 {
                     if (board->isPieceRotable(orientation))
@@ -150,6 +153,7 @@ void Session:: IA_play()
                         posx = cur_p.getX();
                         posy = cur_p.getY();
                         orientation = cur_p.getOrient();
+                        printf("A,%d, X",posy);
                         score[posy][orientation] += posx *2;
                         score[posy][orientation] += board->deletePossibleLinesIA()*5000;
                         score[posy][orientation] += board->pointsIA();  
@@ -174,6 +178,8 @@ void Session:: IA_play()
             
         }     
     }
+    // printf("x,%d",best_posx);
+    // printf("o,%d",best_orientation);
     board->getCurPiece().setOrient(best_orientation);
     board->getCurPiece().setX(best_posx);
     board->dropPiece();

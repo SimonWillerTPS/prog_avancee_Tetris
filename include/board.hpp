@@ -43,17 +43,17 @@ private:
 public:
  
     /**
-	 * @brief	Constructor of the class Board.
+	 * @brief	Constructor of the class Board
      */
     Board( int level ) ;
 
     /**
-	 * @brief	Destructor of the class Board.
+	 * @brief	Destructor of the class Board
 	 */
     ~Board() ;
  
 	/**
-	 * @brief	Getter of the type of the holded piece.
+	 * @brief	Getter of the type of the holded piece
      */ 
     int   getHoldedPieceType() ;
 
@@ -63,17 +63,17 @@ public:
     int   getNextPieceType() ;
     
     /**
-	 * @brief	Getter of the number of lines completed.
+	 * @brief	Getter of the number of lines completed
      */ 
     int   getLines() ;
 
     /**
-	 * @brief	Getter of the level of the game.
+	 * @brief	Getter of the level of the game
      */ 
     int   getLevel() ;
 
     /**
-	 * @brief	Getter of the score of the game.
+	 * @brief	Getter of the score of the game
      */ 
     int   getScore() ;
     /**
@@ -81,12 +81,12 @@ public:
      */ 
     bool  isHolded() ;
     /**
-	 * @brief	Get the content of a specific area in the game board.
+	 * @brief	Get the content of a specific area in the game board
      */ 
     int   getAreaContent( int i , int j ) ;
   
 	/**
-	 * @brief	Checks the case that the piece will visit.
+	 * @brief	Checks the case that the piece will visit
 	 * @param	i ordinate of the board for the move
 	 * @param	j abscissa of the board for the move
      * @param	P_x Pivot of the piece
@@ -99,17 +99,28 @@ public:
     void Visited(int i, int j, int P_X, int P_Y, int t, int o, bool &flag, bool visited[][SIZE]);
 
     /**
-	 * @brief	Checks the case that the piece will visit.
+	 * @brief	Fill the case of the board with the color of the piece
 	 * @param	i ordinate of the board for the move
 	 * @param	j abscissa of the board for the move
      * @param	P_x Pivot of the piece
      * @param	P_y Pivot of the piece
      * @param	t type of the piece
 	 * @param	o orientation of the piece
-     * @param	flag bool to know if we can do the move we wanted
+     * @param	value color to fill the board with
 	 * @param	visited list of bool of position visited
 	*/
     void Fill(int i, int j, int P_X, int P_Y, int t, int o, int value, bool visited[][SIZE]);
+
+    /**
+	 * @brief	Checks the case that the piece will visit
+	 * @param	i ordinate of the board for the move
+	 * @param	j abscissa of the board for the move
+     * @param	P_x Pivot of the piece
+     * @param	P_y Pivot of the piece
+     * @param	t type of the piece
+	 * @param	o orientation of the piece
+     * @param	value color of the piece
+	*/
     void Fill_draw(int i, int j, int P_X, int P_Y, int t, int o, int value);
 
     void  setCurPiece(Piece p);
