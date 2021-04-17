@@ -75,27 +75,28 @@ class Menu
         void   add_setting( std::string text , int* value , int range ) ;
 
         /**
-         * @brief   
+         * @brief   Launches the menu to render, and take inputs.
          */
         Choice launch() ;
 
         /**
-         * @brief   
+         * @brief   Processes the player's inputs.
          */
         bool   process_key() ;
 
         /**
-         * @brief   
+         * @brief   Renders the menu.
          */
         void   render() ;
 
         /**
-         * @brief   
+         * @brief   Renders the Tetris Logo.
          */
         void   render_logo() ;
 
         /**
-         * @brief   
+         * @brief   Renders the rectangle that shows which entry is
+         *          currently selected.
          */
         void   render_selected() ;
 } ;

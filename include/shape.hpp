@@ -1,7 +1,12 @@
-/* shapes.hpp */
 #ifndef SHAPE_H
 #define SHAPE_H
  
+/**
+ * @file    shape.hpp
+ * @brief   This file defines the shape and orientation of the Tetris pieces.
+ * @authors Luca Scimone & Simon Willer
+ */
+
 const int NB_TYPES = 7; // Le nombre de types de pièces qu'on a
 const int NB_ROTATIONS = 4; // Le nombre de rotations de chaque pièce
 const int SIZE = 4; // La taille de la matrice de chaque rotation

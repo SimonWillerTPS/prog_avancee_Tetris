@@ -1,6 +1,12 @@
 #ifndef COLORS_HPP
 #define COLORS_HPP
 
+/**
+ * @file    colors.hpp
+ * @brief   Defines the hexadecimal values of the colors used in the game.
+ * @authors Luca Scimone & Simon Willer
+ */
+
 #define COLOR_WHITE         0xFF , 0xFF , 0xFF // WHITE
 #define COLOR_BACKGROUND    0x03 , 0x41 , 0xae // SKY_BLUE
 #define COLOR_GRID_IN       0x00 , 0x00 , 0x00 // BLACK

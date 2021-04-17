@@ -1,9 +1,10 @@
 #ifndef BOARD_HPP
 #define BOARD_HPP
+
 /**
  * @file	board.hpp
  * @brief	Board used in the Tetris game.
- * @author	Simon Willer & Luca Scimone
+ * @authors	Simon Willer & Luca Scimone
  */
 
 #include "pieces.hpp"

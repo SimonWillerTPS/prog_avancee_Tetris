@@ -1,13 +1,20 @@
 #ifndef TIMER_HPP
 #define TIMER_HPP
 
+/**
+ * @file 	timer.hpp
+ * @brief 	Defines the Timer class.
+ * @author 	Lazy Foo's Productions - http://lazyfoo.net/tutorials/SDL/
+ */
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_ttf.h>
 
-/* Huge thank to Lazy Foo' Production
- * http://lazyfoo.net/tutorials/SDL/
+/**
+ * @class   Timer
+ * @brief   This class is used to calculate FPS and measure time in the game.
  */
 class LTimer
 {
