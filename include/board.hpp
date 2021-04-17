@@ -5,9 +5,11 @@
 #include "random_bag.hpp"
 #include "shape.hpp"
 
+// Size of the play area
 const int BOARD_HEIGHT = 20;
 const int BOARD_WIDTH = 10;
 
+// Places where the pieces appear
 const int SPAWN_X = 0;
 const int SPAWN_Y = 5;
 
@@ -18,10 +20,10 @@ class Board
 
 private:
     
-    Piece currentPiece;
-    Piece holdedPiece;
-    Piece nextPiece;
-    Piece shadePiece;
+    Piece currentPiece; //The piece we play with
+    Piece holdedPiece;  // The piece we have stored
+    Piece nextPiece;    // The next piece that will appear
+    Piece shadePiece;   // La Pièce projetté ou pièce fantome
     Random_bag bag ;
     bool hold = false ;
     bool canHold = true ;

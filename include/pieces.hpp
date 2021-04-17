@@ -1,13 +1,27 @@
 /* piece.h */
 #ifndef PIECES_H
 #define PIECES_H
- 
+/**
+ * @file	Pieces.hpp
+ * @brief	Pieces used in the Tetris game.
+ * @author	Simon Willer Luca Scimone
+ */
 #include "colors.hpp"
 
+/**
+ * @brief	Localisation of pieces pivot
+ */
 const int Piv_X = 1;
 const int Piv_Y = 2;
 
 enum Color {CYAN = 1, BLUE, ORANGE, YELLOW, GREEN, PURPLE, RED, SHADE};
+
+/**
+ * @brief 	Different types of pieces used in Tetris.
+ * 
+ * This class defines the differents pieces used in Tetris, with some usefull
+ * attributes & methods used in this game.
+ */
 class Piece
 {
  
