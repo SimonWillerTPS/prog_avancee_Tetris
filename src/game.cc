@@ -166,11 +166,11 @@ bool Game:: launch_battle()
     //                               sound_line , sound_rotate , sound_pause ,
     //                               *starting_level ) ;
 
-    // session_IA = new Session( 0 , 0 , win_width , win_height ,
-    //                           tile_size , renderer , font , music ,
-    //                           sound_dropped , sound_gameover ,
-    //                           sound_line , sound_rotate , sound_pause ,
-    //                           *starting_level ) ; 
+    session_IA = new Session( 0 , 0 , win_width , win_height ,
+                              tile_size , renderer , font , music ,
+                              sound_dropped , sound_gameover ,
+                              sound_line , sound_rotate , sound_pause ,
+                              *starting_level ) ; 
     
     // int result_p  = pthread_create( &thread_player , NULL , 
     //                                 session_player->run() , NULL ) ;
@@ -183,10 +183,10 @@ bool Game:: launch_battle()
     //     exit( 1 ) ;
     // }
 
-    // session_IA->IA_run() ;
+    session_IA->IA_run() ;
 
     // delete( session_player ) ;
-    // delete( session_IA ) ;
+    delete( session_IA ) ;
 
     return false ;
 }
