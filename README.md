@@ -34,7 +34,7 @@ The controls are the same as the [online Tetris game](https://tetris.com/play-te
 - To modify a parameter value in the settings, use the **ARROW_RIGHT** and **ARROW_LEFT** keys.
 
 ## Documentation
-The "make all" command will also create a documentation in the `html` format, that you can launch on your default browser by typing the following command or by opening [./doc/html/index.html](./doc/html/index.html) with a web browser.
+The "make all" command will also create a documentation in the `html` format, that you can launch on your default browser by typing the following command or by opening ./doc/html/index.html with a web browser.
 ```
 make open_doc
 ```
